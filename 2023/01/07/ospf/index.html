@@ -5,7 +5,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="OSPF, 缝纫机的博客">
-    <meta name="description" content="##【OSPF的两个选举】1.RID：表示OSPF的路由器    1.1规则：手工指定和自动选举→选举具有非抢占性        非抢占性：RID不会因为后面先加入接口所影响，要变更RID要刷新OSPF的进程        a.在路由进程下">
+    <meta name="description" content="OSPF 开放最短路径优先
+OSPF 开放最短路径优先
+一、OSPF的特点
+二、OSPF的两个选举
+1.RID：表示OSPF的路由器
+2.DR与BDR：指定路由器和备份指定路由器
+
+
+三、OSPF的三张表
+1. 邻居表 ：存放邻居信息
+2.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -408,14 +418,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.8k
+                    3.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    11 分
+                    13 分
                 </div>
                 
 
@@ -435,18 +445,252 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>##【OSPF的两个选举】<br>1.RID：表示OSPF的路由器<br>    1.1规则：手工指定和自动选举→选举具有非抢占性<br>        非抢占性：RID不会因为后面先加入接口所影响，要变更RID要刷新OSPF的进程<br>        a.在路由进程下直接指定OSPF路由器的RID<br>            R1(config-router)#router-id 2.2.2.2<br>        b.如果有环回口，取IP地址最大，无，则取物理接口IP地址最大<br>2.DR与BDR：指定路由器和备份指定路由器<br>    2.1作用：DRother与DR和BDR建立邻接关系，DRothers数据发送DR和BDR，由DR负责转发，当DR失效，启用BDR<br>    2.2选举规则：优先级和RID→具有非抢占性（刷新选举区域的OSPF进程）<br>        a.默认以太网环境接口优先级为1，串行链路接口默认优先级为0，优先级0代表没有资格参与选举，串行链路不要选举DR和BDR<br>        b.优先级相同的情况下，比较RID，大的为DR<br>    2.3 DR和BDR的概念是路由器的接口不是路由器</p>
-<p>##【OSPF的三张表】<br>1.邻居表：存放邻居信息<br>2.拓扑表：存放DBD的link-id，是区域内同步<br>3.路由表：存放最优路由<br>    3.1 区域间的路由信息<br>        O IA  192.168.234.0/24 [110/20] via 192.168.12.2, 00:31:29, Ethernet0/1<br>        O IA：代表的是其他OSPF区域的路由信息<br>    3.2 区域外路由信息<br>        O E2     6.6.6.0 [110/20] via 192.168.234.2, 00:19:48, Ethernet0/0<br>        O E1     6.6.6.0 [110/40] via 192.168.234.2, 00:00:03, Ethernet0/0<br>        OE1/2：代表的是非OSPF的路由信息<br>    3.3 OE1/2区别<br>        在开销上，OE2默认非OSPF的路由开销都是20，OE1的开销是20+到达ASBR的开销；<br>    3.4 不同OSPF路由类型的选路优先级<br>        ①Ｏ<br>        ②Ｏ IA<br>        ③O E1<br>        ④O E2<br>        从上到下优先级越低</p>
-<p>#【OSPF的五个报文】<br>    1.hello:发现、建立、维持邻居关系，周期为10S（40S）<br>        a.参数的匹配：区域号，hello-time以及dead-time、身份验证、网络类型等等<br>    2.DBD:数据库摘要<br>        a.i位：初始位代表一个DBD报文，置为1<br>        b.M位：还不是最后一个DBD报文，置为1<br>        c.MS位：“主”路由器置为1，刚开始该为都为1，RID大的为“主”<br>        d.DBD序列号<br>    3.LSR：请求相应的链路信息<br>    4.LSU：对请求进行详细的回应<br>    5.LSACK：对回应的确认，显示确认（以LSACK确认）和隐式确认（发送一份拷贝的LSU）<br>    LSA的老化时间，最大时间是1h，30分钟发送一次完整的更新<br>    注意：LSA不是OSPF的具体的报文，只是一个统称</p>
-<p>#【OSPF的七个状态机】<br>    1.down：没有发现OSPF的hello包<br>    2.init：收到OSPF的hello包<br>    3. 2-way：在邻居发送的hello包中，发现自己RID则进入此状态（邻接状态），进行DR和BDR选举<br>        DRother→BDR→DR<br>    4.exstart：“主从”关系选举<br>    5.exchange：交互DBD<br>    6.loading：进行LSR和LSU报文交互以及SPF算法<br>    7.full：完全邻接状态</p>
-<p>#【OSPF的LSA类型】<br>    1.1类LSA：路由器LSA，通告本台设备接口的相关信息，每台设备都会通告1类LSA，泛洪只能在本区域内，不能跨区域<br>        查看：R1#show ip ospf database router<br>    2.2类LSA：网络LSA，始发者是DR，通告所连接的网段以及设备，泛洪只能在本区域内，不能跨区域<br>        查看：R1#show ip ospf database network<br>        注意：2类LSA不一定存在，点对点环境就不存在2类LSA<br>    3.3类LSA：网络汇总LSA，始发者是ABR（区域边界路由器），通告的是其他OSPF区域的路由信息，ABR是将其他区域的路由通过网段以及开销的形式告诉给其他区域（距离矢量路由协议的特征）<br>        查看：R1#show ip ospf database summary<br>    4.4类LSA：ASBR汇总LSA，始发者是ABR，通告的是ASBR的位置，泛洪区域为OSPF区域<br>        查看：R4#show ip ospf database asbr-summary<br>    5.5类LSA：外部LSA，始发者是ASBR，通告的是非OSPF区域的路由信息，泛洪区域为OSPF区域<br>        查看：R4#show ip ospf database external </p>
-<p>##【OSPF的网络类型】<br>    1.广播多路访问（BROADCAST）：需要选举DR和BDR<br>    2.点对点：串行链路不需要选举DR和BDR<br>        注意：网络类型不一致，可能导致邻居正常但是路由表不正常<br>    3.非广播多路访问：此网络类型不具备广播功能，需要手工指定邻居，邻居需要单播进行，还是需要选举DR和BDR，时间上，hello变为30S，deadtime变为120S<br>        ATTEMPT：尝试状态，尝试建立邻居<br>        R1(config)#router ospf 110<br>        R1(config-router)#neighbor 192.168.12.2→手工指定邻居<br>    4.点对多点：就是点对点链路的集合，不需要选举DR和BDR<br>    （1）更改OSPF的网络类型→接口下<br>        R2(config)#int e0/0<br>        R2(config-if)#ip ospf network ?<br>        broadcast<br>        non-broadcast<br>        point-to-multipoint<br>        point-to-point<br>    注意：OSPF的环回口在通告的时候掩码是/32<br>    需求：要使OSPF的邻居实现快速收敛，要做什么？<br>    就是将网络类型改为点对点→不需要选举DR和BDR</p>
-<p>##【OSPF的区域以及区域不连续】<br>    1.区域：OSPF网络环境存在多个区域，分为骨干区域（AREA 0）以及非骨干区域（非AREA 0）区域的表示可以采用点分十进制也可以直接标号<br>    2.特点： LSDB是区域内同步，通过每个区域维护自己的LSDB，精简LSDB的大小，节约设备的资源，降低了LSA的泛洪范围<br>    3.区域的要求<br>        a.骨干区域要求连续<br>        b.非骨干区域与骨干区域相连→域间路由是通过３类LSA产生<br>    4.角色<br>        ABR：连接骨干区域和非骨干区域的OSPF路由器（至少要有一个接口通告进AREA0）<br>        ASBR：连接OSPF区域以及非OSPF区域的OSPF路由器<br>    5.解决区域不连续的问题<br>        5.1虚链路→网络类型与P2P相似，不需要选举DR和BDR<br>            R3(config)#router ospf 110<br>            R3(config-router)#area 1 virtual-link 2.2.2.2→区域代表的是你要透传的区域，IP地址是邻居的RID<br>            R3(config-router)#area 1 virtual-link 4.4.4.4<br>        5.2隧道（GRE）→隧道的头尾IP进行连接，不关心设备的数量，只关心连通性，网络类型为P2P<br>            R5(config)#interface tunnel 1   //创建隧道1<br>            R5(config-if)#ip add 192.168.25.5 255.255.255.0//分配IP地址<br>            R5(config-if)#no sh<br>            R5(config-if)#tunnel source 192.168.45.5//隧道的源IP<br>            R5(config-if)#tunnel destination 192.168.23.2//隧道的目的IP<br>            R5(config-if)#ip ospf 110 a 0 //虽然不是在骨干区域做隧道，但是隧道窑通告进骨干区域</p>
-<p>##【OSPF的路由汇总】<br>    1.作用：精简路由表的条目，OSPF的路由汇总针对3类LSA以及5类LSA，降低LSA的条目<br>    2.配置<br>        2.1区域间汇总<br>            汇总是在产生3类LSA的ABR上做并且也会产生null0路由，并不是在源头设备上配置，area 0表示的是对区域0的路由汇总<br>            R2(config-router)#area 0 range 172.16.0.0 255.255.0.0<br>        2.2区域外的汇总<br>            汇总的是5类LSA，配置在ASBR上，同样也会产生null0路由<br>            R1(config-router)#summary-address 192.168.0.0 255.255.0.0</p>
-<pre><code>##【OSPF的默认路由下发】
-1.作用：在边界网关上主动下发一条默认路由进OSPF的区域
-2.1进程下发
-    a.R1(config-router)#default-information originate 
+                <h1 id="OSPF-开放最短路径优先"><a href="#OSPF-开放最短路径优先" class="headerlink" title="OSPF 开放最短路径优先"></a>OSPF 开放最短路径优先</h1><ul>
+<li><a href="#ospf-%E5%BC%80%E6%94%BE%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88">OSPF 开放最短路径优先</a><ul>
+<li><a href="#%E4%B8%80ospf%E7%9A%84%E7%89%B9%E7%82%B9">一、OSPF的特点</a></li>
+<li><a href="#%E4%BA%8Cospf%E7%9A%84%E4%B8%A4%E4%B8%AA%E9%80%89%E4%B8%BE">二、OSPF的两个选举</a><ul>
+<li><a href="#1rid%E8%A1%A8%E7%A4%BAospf%E7%9A%84%E8%B7%AF%E7%94%B1%E5%99%A8">1.RID：表示OSPF的路由器</a></li>
+<li><a href="#2dr%E4%B8%8Ebdr%E6%8C%87%E5%AE%9A%E8%B7%AF%E7%94%B1%E5%99%A8%E5%92%8C%E5%A4%87%E4%BB%BD%E6%8C%87%E5%AE%9A%E8%B7%AF%E7%94%B1%E5%99%A8">2.DR与BDR：指定路由器和备份指定路由器</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89ospf%E7%9A%84%E4%B8%89%E5%BC%A0%E8%A1%A8">三、OSPF的三张表</a><ul>
+<li><a href="#1-%E9%82%BB%E5%B1%85%E8%A1%A8-%E5%AD%98%E6%94%BE%E9%82%BB%E5%B1%85%E4%BF%A1%E6%81%AF">1. 邻居表 ：存放邻居信息</a></li>
+<li><a href="#2-%E6%8B%93%E6%89%91%E8%A1%A8-%E5%AD%98%E6%94%BEdbd%E7%9A%84link-id%E6%98%AF%E5%8C%BA%E5%9F%9F%E5%86%85%E5%90%8C%E6%AD%A5">2. 拓扑表 ：存放DBD的link-id，是区域内同步</a></li>
+<li><a href="#3-%E8%B7%AF%E7%94%B1%E8%A1%A8-%E5%AD%98%E6%94%BE%E6%9C%80%E4%BC%98%E8%B7%AF%E7%94%B1">3. 路由表 ：存放最优路由</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9Bospf%E7%9A%84%E4%BA%94%E4%B8%AA%E6%8A%A5%E6%96%87">四、OSPF的五个报文</a><ul>
+<li><a href="#1hello">1.hello:</a></li>
+<li><a href="#2dbd">2.DBD:</a></li>
+<li><a href="#3lsr">3.LSR：</a></li>
+<li><a href="#4lsu">4.LSU：</a></li>
+<li><a href="#5lsack">5.LSACK：</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%94ospf%E7%9A%84%E4%B8%83%E4%B8%AA%E7%8A%B6%E6%80%81%E6%9C%BA">五、OSPF的七个状态机</a><ul>
+<li><a href="#1down">1.down：</a></li>
+<li><a href="#2init">2.init：</a></li>
+<li><a href="#3-2-way">3. 2-way：</a></li>
+<li><a href="#4exstart">4.exstart：</a></li>
+<li><a href="#5exchange">5.exchange：</a></li>
+<li><a href="#6loading">6.loading：</a></li>
+<li><a href="#7full">7.full：</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%ADospf%E7%9A%84lsa%E7%B1%BB%E5%9E%8B">六、OSPF的LSA类型</a><ul>
+<li><a href="#11%E7%B1%BBlsa">1.1类LSA：</a></li>
+<li><a href="#22%E7%B1%BBlsa">2.2类LSA：</a></li>
+<li><a href="#33%E7%B1%BBlsa">3.3类LSA：</a></li>
+<li><a href="#44%E7%B1%BBlsa">4.4类LSA：</a></li>
+<li><a href="#55%E7%B1%BBlsa">5.5类LSA：</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%83ospf%E7%9A%84%E7%BD%91%E7%BB%9C%E7%B1%BB%E5%9E%8B">七、OSPF的网络类型：</a><ul>
+<li><a href="#1%E5%B9%BF%E6%92%AD%E5%A4%9A%E8%B7%AF%E8%AE%BF%E9%97%AEbroadcast">1.广播多路访问（BROADCAST）</a></li>
+<li><a href="#2%E7%82%B9%E5%AF%B9%E7%82%B9">2.点对点</a></li>
+<li><a href="#3%E9%9D%9E%E5%B9%BF%E6%92%AD%E5%A4%9A%E8%B7%AF%E8%AE%BF%E9%97%AE">3.非广播多路访问：</a></li>
+<li><a href="#4%E7%82%B9%E5%AF%B9%E5%A4%9A%E7%82%B9">4.点对多点：</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%ABospf%E7%9A%84%E5%8C%BA%E5%9F%9F%E4%BB%A5%E5%8F%8A%E5%8C%BA%E5%9F%9F%E4%B8%8D%E8%BF%9E%E7%BB%AD">八、OSPF的区域以及区域不连续</a><ul>
+<li><a href="#1%E5%8C%BA%E5%9F%9F">1.区域</a></li>
+<li><a href="#2%E7%89%B9%E7%82%B9">2.特点</a></li>
+<li><a href="#3%E5%8C%BA%E5%9F%9F%E7%9A%84%E8%A6%81%E6%B1%82">3.区域的要求</a></li>
+<li><a href="#4%E8%A7%92%E8%89%B2">4.角色</a></li>
+<li><a href="#5%E8%A7%A3%E5%86%B3%E5%8C%BA%E5%9F%9F%E4%B8%8D%E8%BF%9E%E7%BB%AD%E7%9A%84%E9%97%AE%E9%A2%98">5.解决区域不连续的问题</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B9%9Dospf%E7%9A%84%E8%B7%AF%E7%94%B1%E6%B1%87%E6%80%BB">九、OSPF的路由汇总</a><ul>
+<li><a href="#1%E4%BD%9C%E7%94%A8">1.作用：</a></li>
+<li><a href="#2%E9%85%8D%E7%BD%AE">2.配置</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8D%81ospf%E7%9A%84%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1%E4%B8%8B%E5%8F%91">十、OSPF的默认路由下发</a><ul>
+<li><a href="#1%E4%BD%9C%E7%94%A8%E5%9C%A8%E8%BE%B9%E7%95%8C%E7%BD%91%E5%85%B3%E4%B8%8A%E4%B8%BB%E5%8A%A8%E4%B8%8B%E5%8F%91%E4%B8%80%E6%9D%A1%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1%E8%BF%9Bospf%E7%9A%84%E5%8C%BA%E5%9F%9F">1.作用：在边界网关上主动下发一条默认路由进OSPF的区域</a></li>
+<li><a href="#21%E8%BF%9B%E7%A8%8B%E4%B8%8B%E5%8F%91">2.1进程下发</a></li>
+<li><a href="#22%E9%87%8D%E5%88%86%E5%B8%83%E5%B0%86%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1%E9%87%8D%E5%88%86%E5%B8%83%E8%BF%9Bospf">2.2重分布→将静态路由重分布进OSPF</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8D%81%E4%B8%80ospf%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F">十一、OSPF的特殊区域</a><ul>
+<li><a href="#1%E5%8C%BA%E5%9F%9F%E7%9A%84%E7%B1%BB%E5%9E%8B">1.区域的类型</a></li>
+<li><a href="#2%E4%BD%9C%E7%94%A8%E7%AE%80%E5%8C%96lsdb%E7%9A%84%E6%9D%A1%E7%9B%AE%E9%99%8D%E4%BD%8E%E8%AE%BE%E5%A4%87%E7%9A%84%E5%86%85%E5%AD%98%E6%B6%88%E8%80%97">2、作用：简化LSDB的条目，降低设备的内存消耗</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8D%81%E4%BA%8Cospf%E7%9A%84%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81">十二、OSPF的身份验证</a><ul>
+<li><a href="#1%E9%98%B2%E6%AD%A2%E6%81%B6%E6%84%8F%E6%9B%B4%E6%96%B0%E6%BA%90%E7%9A%84%E6%81%B6%E6%84%8F%E9%80%9A%E5%91%8A">1.防止恶意更新源的恶意通告</a></li>
+<li><a href="#2%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F">2.加密方式</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8D%81%E4%B8%89ospf%E7%9A%84%E8%A2%AB%E5%8A%A8%E6%8E%A5%E5%8F%A3">十三、OSPF的被动接口</a><ul>
+<li><a href="#1%E4%BD%9C%E7%94%A8%E8%A2%AB%E5%8A%A8%E6%8E%A5%E5%8F%A3%E4%B8%80%E8%88%AC%E4%BD%BF%E7%94%A8%E5%9C%A8%E8%BF%9E%E6%8E%A5%E4%B8%BB%E6%9C%BA%E6%88%96%E8%80%85loopback%E5%8F%A3%E4%B8%8A%E6%B2%A1%E6%9C%89ospf%E7%9A%84%E9%82%BB%E5%B1%85%E4%B8%8D%E5%8F%91%E9%80%81hello%E6%8A%A5%E6%96%87">1.作用：被动接口一般使用在连接主机或者loopback口上（没有OSPF的邻居），不发送HELLO报文</a></li>
+<li><a href="#2%E9%85%8D%E7%BD%AE-1">2.配置：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="一、OSPF的特点"><a href="#一、OSPF的特点" class="headerlink" title="一、OSPF的特点"></a>一、OSPF的特点</h2><pre><code>1.任何厂商都会支持（运用广泛）→开放的协议
+2.链路状态协议→知道全局网络拓扑
+    a.链路：路由器的接口
+    b.状态：接口上的IP地址、掩码、开销、带宽、邻居的信息
+3.工作在IP层协议号89的传输层协议，组播方式发送更新→224.0.0.5/224.0.0.6
+4.基于SPF算法→在拓扑表通过SPF算法选出最优路径然后加表
+5.区域性：合理规划网络结构
+6.配置：进程下的配置以及接口配置
+7.度量值计算：10^8/接口带宽（b）
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">        R1(config-router)#do show ip ospf int e0/1→查看开销
+        R1(config-if)#ip ospf cost 20→直接修改OSPF的接口开销
+</code></pre>
+<h2 id="二、OSPF的两个选举"><a href="#二、OSPF的两个选举" class="headerlink" title="二、OSPF的两个选举"></a>二、OSPF的两个选举</h2><h4 id="1-RID：表示OSPF的路由器"><a href="#1-RID：表示OSPF的路由器" class="headerlink" title="1.RID：表示OSPF的路由器"></a>1.RID：表示OSPF的路由器</h4><pre><code>    1.1规则：手工指定和自动选举→选举具有非抢占性
+        非抢占性：RID不会因为后面先加入接口所影响，要变更RID要刷新OSPF的进程
+        a.在路由进程下直接指定OSPF路由器的RID
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">                R1(config-router)#router-id 2.2.2.2
+</code></pre>
+<pre><code>        b.如果有环回口，取IP地址最大，无，则取物理接口IP地址最大
+</code></pre>
+<h4 id="2-DR与BDR：指定路由器和备份指定路由器"><a href="#2-DR与BDR：指定路由器和备份指定路由器" class="headerlink" title="2.DR与BDR：指定路由器和备份指定路由器"></a>2.DR与BDR：指定路由器和备份指定路由器</h4><pre><code>    2.1作用：DRother与DR和BDR建立邻接关系，DRothers数据发送DR和BDR，由DR负责转发，当DR失效，启用BDR
+    2.2选举规则：优先级和RID→具有非抢占性（刷新选举区域的OSPF进程）
+        a.默认以太网环境接口优先级为1，串行链路接口默认优先级为0，优先级0代表没有资格参与选举，串行链路不要选举DR和BDR
+        b.优先级相同的情况下，比较RID，大的为DR
+    2.3 DR和BDR的概念是路由器的接口不是路由器
+</code></pre>
+<h2 id="三、OSPF的三张表"><a href="#三、OSPF的三张表" class="headerlink" title="三、OSPF的三张表"></a>三、OSPF的三张表</h2><h4 id="1-邻居表-：存放邻居信息"><a href="#1-邻居表-：存放邻居信息" class="headerlink" title="1. 邻居表 ：存放邻居信息"></a>1. 邻居表 ：存放邻居信息</h4><h4 id="2-拓扑表-：存放DBD的link-id，是区域内同步"><a href="#2-拓扑表-：存放DBD的link-id，是区域内同步" class="headerlink" title="2. 拓扑表 ：存放DBD的link-id，是区域内同步"></a>2. 拓扑表 ：存放DBD的link-id，是区域内同步</h4><h4 id="3-路由表-：存放最优路由"><a href="#3-路由表-：存放最优路由" class="headerlink" title="3. 路由表 ：存放最优路由"></a>3. 路由表 ：存放最优路由</h4><pre><code>    3.1 区域间的路由信息
+        O IA  192.168.234.0/24 [110/20] via 192.168.12.2, 00:31:29, Ethernet0/1
+        O IA：代表的是其他OSPF区域的路由信息
+    3.2 区域外路由信息
+        O E2     6.6.6.0 [110/20] via 192.168.234.2, 00:19:48, Ethernet0/0
+        O E1     6.6.6.0 [110/40] via 192.168.234.2, 00:00:03, Ethernet0/0
+        OE1/2：代表的是非OSPF的路由信息
+    3.3 OE1/2区别
+        在开销上，OE2默认非OSPF的路由开销都是20，OE1的开销是20+到达ASBR的开销；
+    3.4 不同OSPF路由类型的选路优先级
+        ①Ｏ
+        ②Ｏ IA
+        ③O E1
+        ④O E2
+        从上到下优先级越低
+</code></pre>
+<h2 id="四、OSPF的五个报文"><a href="#四、OSPF的五个报文" class="headerlink" title="四、OSPF的五个报文"></a>四、OSPF的五个报文</h2><h4 id="1-hello"><a href="#1-hello" class="headerlink" title="1.hello:"></a>1.hello:</h4><pre><code>发现、建立、维持邻居关系，周期为10S（40S）
+    a.参数的匹配：区域号，hello-time以及dead-time、身份验证、网络类型等等
+</code></pre>
+<h4 id="2-DBD"><a href="#2-DBD" class="headerlink" title="2.DBD:"></a>2.DBD:</h4><pre><code>数据库摘要
+    a.i位：初始位代表一个DBD报文，置为1
+    b.M位：还不是最后一个DBD报文，置为1
+    c.MS位：“主”路由器置为1，刚开始该为都为1，RID大的为“主”
+    d.DBD序列号
+</code></pre>
+<h4 id="3-LSR："><a href="#3-LSR：" class="headerlink" title="3.LSR："></a>3.LSR：</h4><pre><code>请求相应的链路信息
+</code></pre>
+<h4 id="4-LSU："><a href="#4-LSU：" class="headerlink" title="4.LSU："></a>4.LSU：</h4><pre><code>对请求进行详细的回应
+</code></pre>
+<h4 id="5-LSACK："><a href="#5-LSACK：" class="headerlink" title="5.LSACK："></a>5.LSACK：</h4><pre><code>对回应的确认，显示确认（以LSACK确认）和隐式确认（发送一份拷贝的LSU）
+LSA的老化时间，最大时间是1h，30分钟发送一次完整的更新
+注意：LSA不是OSPF的具体的报文，只是一个统称
+</code></pre>
+<h2 id="五、OSPF的七个状态机"><a href="#五、OSPF的七个状态机" class="headerlink" title="五、OSPF的七个状态机"></a>五、OSPF的七个状态机</h2><h4 id="1-down："><a href="#1-down：" class="headerlink" title="1.down："></a>1.down：</h4><pre><code>没有发现OSPF的hello包
+</code></pre>
+<h4 id="2-init："><a href="#2-init：" class="headerlink" title="2.init："></a>2.init：</h4><pre><code>收到OSPF的hello包
+</code></pre>
+<h4 id="3-2-way："><a href="#3-2-way：" class="headerlink" title="3. 2-way："></a>3. 2-way：</h4><pre><code>在邻居发送的hello包中，发现自己RID则进入此状态（邻接状态），进行DR和BDR选举
+    DRother→BDR→DR
+</code></pre>
+<h4 id="4-exstart："><a href="#4-exstart：" class="headerlink" title="4.exstart："></a>4.exstart：</h4><pre><code>“主从”关系选举
+</code></pre>
+<h4 id="5-exchange："><a href="#5-exchange：" class="headerlink" title="5.exchange："></a>5.exchange：</h4><pre><code>交互DBD
+</code></pre>
+<h4 id="6-loading："><a href="#6-loading：" class="headerlink" title="6.loading："></a>6.loading：</h4><pre><code>进行LSR和LSU报文交互以及SPF算法
+</code></pre>
+<h4 id="7-full："><a href="#7-full：" class="headerlink" title="7.full："></a>7.full：</h4><pre><code>完全邻接状态
+</code></pre>
+<h2 id="六、OSPF的LSA类型"><a href="#六、OSPF的LSA类型" class="headerlink" title="六、OSPF的LSA类型"></a>六、OSPF的LSA类型</h2><h4 id="1-1类LSA："><a href="#1-1类LSA：" class="headerlink" title="1.1类LSA："></a>1.1类LSA：</h4><pre><code>路由器LSA，通告本台设备接口的相关信息，每台设备都会通告1类LSA，泛洪只能在本区域内，不能跨区域
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">        查看：R1#show ip ospf database router 
+</code></pre>
+<h4 id="2-2类LSA："><a href="#2-2类LSA：" class="headerlink" title="2.2类LSA："></a>2.2类LSA：</h4><pre><code>网络LSA，始发者是DR，通告所连接的网段以及设备，泛洪只能在本区域内，不能跨区域
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">        查看：R1#show ip ospf database network 
+        注意：2类LSA不一定存在，点对点环境就不存在2类LSA
+</code></pre>
+<h4 id="3-3类LSA："><a href="#3-3类LSA：" class="headerlink" title="3.3类LSA："></a>3.3类LSA：</h4><pre><code>网络汇总LSA，始发者是ABR（区域边界路由器），通告的是其他OSPF区域的路由信息，  
+         ABR是将其他区域的路由通过网段以及开销的形式告诉给其他区域（距离矢量路由协议的特征）
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">        查看：R1#show ip ospf database summary 
+</code></pre>
+<h4 id="4-4类LSA："><a href="#4-4类LSA：" class="headerlink" title="4.4类LSA："></a>4.4类LSA：</h4><pre><code>ASBR汇总LSA，始发者是ABR，通告的是ASBR的位置，泛洪区域为OSPF区域
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">        查看：R4#show ip ospf database asbr-summary
+</code></pre>
+<h4 id="5-5类LSA："><a href="#5-5类LSA：" class="headerlink" title="5.5类LSA："></a>5.5类LSA：</h4><pre><code>外部LSA，始发者是ASBR，通告的是非OSPF区域的路由信息，泛洪区域为OSPF区域
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">        查看：R4#show ip ospf database external 
+</code></pre>
+<h2 id="七、OSPF的网络类型："><a href="#七、OSPF的网络类型：" class="headerlink" title="七、OSPF的网络类型："></a>七、OSPF的网络类型：</h2><h4 id="1-广播多路访问（BROADCAST）"><a href="#1-广播多路访问（BROADCAST）" class="headerlink" title="1.广播多路访问（BROADCAST）"></a>1.广播多路访问（BROADCAST）</h4><pre><code>需要选举DR和BDR
+</code></pre>
+<h4 id="2-点对点"><a href="#2-点对点" class="headerlink" title="2.点对点"></a>2.点对点</h4><pre><code>串行链路不需要选举DR和BDR
+    注意：网络类型不一致，可能导致邻居正常但是路由表不正常
+</code></pre>
+<h4 id="3-非广播多路访问："><a href="#3-非广播多路访问：" class="headerlink" title="3.非广播多路访问："></a>3.非广播多路访问：</h4><pre><code>此网络类型不具备广播功能，需要手工指定邻居，邻居需要单播进行，还是需要选举DR和BDR，   
+时间上，hello变为30S，deadtime变为120S
+    ATTEMPT：尝试状态，尝试建立邻居
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">        R1(config)#router ospf 110
+        R1(config-router)#neighbor 192.168.12.2→手工指定邻居
+</code></pre>
+<h4 id="4-点对多点："><a href="#4-点对多点：" class="headerlink" title="4.点对多点："></a>4.点对多点：</h4><pre><code>就是点对点链路的集合，不需要选举DR和BDR
+（1）更改OSPF的网络类型→接口下
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">        R2(config)#int e0/0
+        R2(config-if)#ip ospf network ?
+            broadcast            
+            non-broadcast        
+            point-to-multipoint  
+            point-to-point  
+</code></pre>
+<pre><code>注意：OSPF的环回口在通告的时候掩码是/32
+需求：要使OSPF的邻居实现快速收敛，要做什么？
+就是将网络类型改为点对点→不需要选举DR和BDR
+</code></pre>
+<h2 id="八、OSPF的区域以及区域不连续"><a href="#八、OSPF的区域以及区域不连续" class="headerlink" title="八、OSPF的区域以及区域不连续"></a>八、OSPF的区域以及区域不连续</h2><h4 id="1-区域"><a href="#1-区域" class="headerlink" title="1.区域"></a>1.区域</h4><pre><code>OSPF网络环境存在多个区域，分为骨干区域（AREA 0）以及非骨干区域（非AREA 0）区域的表示  
+可以采用点分十进制也可以直接标号
+</code></pre>
+<h4 id="2-特点"><a href="#2-特点" class="headerlink" title="2.特点"></a>2.特点</h4><pre><code>LSDB是区域内同步，通过每个区域维护自己的LSDB，精简LSDB的大小，节约设备的资源，降低了LSA的泛洪范围
+</code></pre>
+<h4 id="3-区域的要求"><a href="#3-区域的要求" class="headerlink" title="3.区域的要求"></a>3.区域的要求</h4><pre><code>    a.骨干区域要求连续
+    b.非骨干区域与骨干区域相连→域间路由是通过３类LSA产生
+</code></pre>
+<h4 id="4-角色"><a href="#4-角色" class="headerlink" title="4.角色"></a>4.角色</h4><pre><code>    ABR：连接骨干区域和非骨干区域的OSPF路由器（至少要有一个接口通告进AREA0）
+    ASBR：连接OSPF区域以及非OSPF区域的OSPF路由器 
+</code></pre>
+<h4 id="5-解决区域不连续的问题"><a href="#5-解决区域不连续的问题" class="headerlink" title="5.解决区域不连续的问题"></a>5.解决区域不连续的问题</h4><pre><code>    5.1虚链路→网络类型与P2P相似，不需要选举DR和BDR
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">            R3(config)#router ospf 110
+            R3(config-router)#area 1 virtual-link 2.2.2.2→区域代表的是你要透传的区域，IP地址是邻居的RID
+            R3(config-router)#area 1 virtual-link 4.4.4.4
+</code></pre>
+<pre><code>    5.2隧道（GRE）→隧道的头尾IP进行连接，不关心设备的数量，只关心连通性，网络类型为P2P
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">            R5(config)#interface tunnel 1   //创建隧道1
+            R5(config-if)#ip add 192.168.25.5 255.255.255.0//分配IP地址
+            R5(config-if)#no sh     
+            R5(config-if)#tunnel source 192.168.45.5//隧道的源IP
+            R5(config-if)#tunnel destination 192.168.23.2//隧道的目的IP
+            R5(config-if)#ip ospf 110 a 0 //虽然不是在骨干区域做隧道，但是隧道窑通告进骨干区域
+</code></pre>
+<h2 id="九、OSPF的路由汇总"><a href="#九、OSPF的路由汇总" class="headerlink" title="九、OSPF的路由汇总"></a>九、OSPF的路由汇总</h2><h4 id="1-作用："><a href="#1-作用：" class="headerlink" title="1.作用："></a>1.作用：</h4><pre><code>精简路由表的条目，OSPF的路由汇总针对3类LSA以及5类LSA，降低LSA的条目
+</code></pre>
+<h4 id="2-配置"><a href="#2-配置" class="headerlink" title="2.配置"></a>2.配置</h4><pre><code>    2.1区域间汇总
+        汇总是在产生3类LSA的ABR上做并且也会产生null0路由，并不是在源头设备上配置，area 0表示的是对区域0的路由汇总
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">            R2(config-router)#area 0 range 172.16.0.0 255.255.0.0
+</code></pre>
+<pre><code>    2.2区域外的汇总
+        汇总的是5类LSA，配置在ASBR上，同样也会产生null0路由
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">            R1(config-router)#summary-address 192.168.0.0 255.255.0.0
+</code></pre>
+<h2 id="十、OSPF的默认路由下发"><a href="#十、OSPF的默认路由下发" class="headerlink" title="十、OSPF的默认路由下发"></a>十、OSPF的默认路由下发</h2><h4 id="1-作用：在边界网关上主动下发一条默认路由进OSPF的区域"><a href="#1-作用：在边界网关上主动下发一条默认路由进OSPF的区域" class="headerlink" title="1.作用：在边界网关上主动下发一条默认路由进OSPF的区域"></a>1.作用：在边界网关上主动下发一条默认路由进OSPF的区域</h4><h4 id="2-1进程下发"><a href="#2-1进程下发" class="headerlink" title="2.1进程下发"></a>2.1进程下发</h4><pre><code>    a.R1(config-router)#default-information originate 
         可选参数
         metric-type 1→将默认路由类型更改为O*E1
         metric→更改默认路由的开销
@@ -455,13 +699,58 @@
         注意：要求本地要有默认路由，如果没有默认路由下发不生效
     b.R1(config-router)#default-information originate always 
         不管本地是否有默认路由，都强制下发
-        
-2.2重分布→将静态路由重分布进OSPF
-    R1(config-router)#redistribute static subnets
 </code></pre>
-<p>##【OSPF的特殊区域】<br>    1.区域的类型<br>        （1）末梢区域（stub）：删除4类、5类LSA，由ABR下发一条默认路由，stub的属性是两台OSPF邻居建立的参数之一<br>            配置：整个AREA 2区域都需要配置stub<br>                R5(config)#router ospf 110<br>                R5(config-router)#area 2 stub<br>            现象：<br>                路由表上：O*IA  0.0.0.0/0 [110/11] via 192.168.35.3, 00:00:05, Ethernet0/0→由ABR产生一条3类的默认路由取代4、5类LSA<br>                整个区域的拓扑表上没有4、5类的LSA，在3类LSA多了一条全0路由<br>            注意：<br>                ①该区域没有ASBR<br>                ②该区域不能使骨干区域<br>                ③该区域不能存在虚链路<br>        （2）完全末梢区域（totally-stub），删除3类、4类、5类LSA，由ABR下发一条默认路由<br>                配置：只需要在ABR上配置即可<br>                R3(config-router)#area 2 stub no-summary<br>        （3）非完全末梢区域（NSSA）：该区域可以存在ASBR，删除4类、5类LSA，但是NSSA区域的ASBR会将5类LSA转换成7类LSA（实质上还是OSPF外部区域信息），7类会在ABR上重新转换回5类LSA，通告进OSPF的其他区域<br>                配置：整个AREA 1区域都需要配置NSSA（跟邻居建立有关）<br>                    R1(config-router)#area 1 nssa<br>                现象：<br>                ①路由表上：O N2     172.16.2.0 [110/20] via 192.168.12.1, 00:00:11, Ethernet0/0→如果是7类LSA，则外部路由在路由表中以O N2（实质上就是O E2）表示，同样也可以改为O N1（O E1）类型，O N1和O N2的差别与O E2和O E1一样，修改类型在重分布上做<br>                ②拓扑上出现→Type-7 AS External Link States<br>        （4）完全非完全末梢区域（totally-NSSA）该区域可以存在ASBR，删除3类，4类、5类LSA<br>            配置：<br>                R2(config-router)#area 1 nssa no-summary<br>                R2(config-router)#area 1 default-cost 10→将默认路由的开销修改为10（默认的开销是1）<br>            现象：在拓扑上，3类LSA以一条全0的路由表示<br>    2、作用：简化LSDB的条目，降低设备的内存消耗</p>
-<p>##【OSPF的身份验证】<br>    1.防止恶意更新源的恶意通告<br>    2.加密方式<br>        ①明文<br>            a.接口下配置<br>                R5(config-if)#ip ospf authentication       //启用认证<br>                R5(config-if)#ip ospf authentication-key cisco //设置密码<br>            b.进程下配置<br>                R5(config-router)#area 2 authentication  //区域2启用认证<br>                R5(config-if)#ip ospf authentication-key cisco //设置密码<br>        ②密文（MD5）<br>            a.接口下配置<br>                R1(config-if)#ip ospf authentication message-digest<br>                R1(config-if)#ip ospf message-digest-key 1 md5 cisco<br>            b.进程下配置<br>                R1(config-router)#area 1 authentication message-digest<br>                R1(config-if)#ip ospf message-digest-key 1 md5 cisco<br>    虚链路的身份验证<br>    R5(config-router)#area 1 authentication<br>    R1(config-router)#area 1 virtual-link 3.3.3.3 authentication-key cisco</p>
-<p>##【OSPF的被动接口】<br>    1.作用：被动接口一般使用在连接主机或者loopback口上（没有OSPF的邻居），不发送HELLO报文<br>    2.配置：<br>        R1(config-router)#passive-interface e0/1<br>        R1(config-router)#passive-interface default→将所有接口变为被动接口<br>        R1(config-router)#no passive-interface e0/1→将e0/1变成主动接口</p>
+<h4 id="2-2重分布→将静态路由重分布进OSPF"><a href="#2-2重分布→将静态路由重分布进OSPF" class="headerlink" title="2.2重分布→将静态路由重分布进OSPF"></a>2.2重分布→将静态路由重分布进OSPF</h4><pre><code>    R1(config-router)#redistribute static subnets
+</code></pre>
+<h2 id="十一、OSPF的特殊区域"><a href="#十一、OSPF的特殊区域" class="headerlink" title="十一、OSPF的特殊区域"></a>十一、OSPF的特殊区域</h2><h4 id="1-区域的类型"><a href="#1-区域的类型" class="headerlink" title="1.区域的类型"></a>1.区域的类型</h4><pre><code>    （1）末梢区域（stub）：删除4类、5类LSA，由ABR下发一条默认路由，stub的属性是两台OSPF邻居建立的参数之一
+        配置：整个AREA 2区域都需要配置stub
+            R5(config)#router ospf 110
+            R5(config-router)#area 2 stub
+        现象：
+            路由表上：O*IA  0.0.0.0/0 [110/11] via 192.168.35.3, 00:00:05, Ethernet0/0→由ABR产生一条3类的默认路由取代4、5类LSA
+            整个区域的拓扑表上没有4、5类的LSA，在3类LSA多了一条全0路由
+        注意：
+            ①该区域没有ASBR
+            ②该区域不能使骨干区域
+            ③该区域不能存在虚链路
+    （2）完全末梢区域（totally-stub），删除3类、4类、5类LSA，由ABR下发一条默认路由
+            配置：只需要在ABR上配置即可
+            R3(config-router)#area 2 stub no-summary 
+    （3）非完全末梢区域（NSSA）：该区域可以存在ASBR，删除4类、5类LSA，但是NSSA区域的ASBR会将5类LSA转换成7类LSA（实质上还是OSPF外部区域信息），7类会在ABR上重新转换回5类LSA，通告进OSPF的其他区域
+            配置：
+                整个AREA 1区域都需要配置NSSA（跟邻居建立有关）
+                R1(config-router)#area 1 nssa
+            现象：
+                ①路由表上：O N2     172.16.2.0 [110/20] via 192.168.12.1, 00:00:11, Ethernet0/0→如果是7类LSA，则外部路由在路由表中以O N2（实质上就是O E2）表示，同样也可以改为O N1（O E1）类型，O N1和O N2的差别与O E2和O E1一样，修改类型在重分布上做
+                ②拓扑上出现→Type-7 AS External Link States
+    （4）完全非完全末梢区域（totally-NSSA）该区域可以存在ASBR，删除3类，4类、5类LSA
+        配置：
+            R2(config-router)#area 1 nssa no-summary
+            R2(config-router)#area 1 default-cost 10→将默认路由的开销修改为10（默认的开销是1）
+        现象：在拓扑上，3类LSA以一条全0的路由表示
+</code></pre>
+<h4 id="2、作用：简化LSDB的条目，降低设备的内存消耗"><a href="#2、作用：简化LSDB的条目，降低设备的内存消耗" class="headerlink" title="2、作用：简化LSDB的条目，降低设备的内存消耗"></a>2、作用：简化LSDB的条目，降低设备的内存消耗</h4><h2 id="十二、OSPF的身份验证"><a href="#十二、OSPF的身份验证" class="headerlink" title="十二、OSPF的身份验证"></a>十二、OSPF的身份验证</h2><h4 id="1-防止恶意更新源的恶意通告"><a href="#1-防止恶意更新源的恶意通告" class="headerlink" title="1.防止恶意更新源的恶意通告"></a>1.防止恶意更新源的恶意通告</h4><h4 id="2-加密方式"><a href="#2-加密方式" class="headerlink" title="2.加密方式"></a>2.加密方式</h4><pre class=" language-YAML"><code class="language-YAML">        ①明文
+            a.接口下配置
+                R5(config-if)#ip ospf authentication       //启用认证
+                R5(config-if)#ip ospf authentication-key cisco //设置密码
+            b.进程下配置
+                R5(config-router)#area 2 authentication  //区域2启用认证
+                R5(config-if)#ip ospf authentication-key cisco //设置密码
+        ②密文（MD5）
+            a.接口下配置
+                R1(config-if)#ip ospf authentication message-digest 
+                R1(config-if)#ip ospf message-digest-key 1 md5 cisco
+            b.进程下配置
+                R1(config-router)#area 1 authentication message-digest
+                R1(config-if)#ip ospf message-digest-key 1 md5 cisco
+    虚链路的身份验证
+    R5(config-router)#area 1 authentication
+    R1(config-router)#area 1 virtual-link 3.3.3.3 authentication-key cisco
+</code></pre>
+<h2 id="十三、OSPF的被动接口"><a href="#十三、OSPF的被动接口" class="headerlink" title="十三、OSPF的被动接口"></a>十三、OSPF的被动接口</h2><h4 id="1-作用：被动接口一般使用在连接主机或者loopback口上（没有OSPF的邻居），不发送HELLO报文"><a href="#1-作用：被动接口一般使用在连接主机或者loopback口上（没有OSPF的邻居），不发送HELLO报文" class="headerlink" title="1.作用：被动接口一般使用在连接主机或者loopback口上（没有OSPF的邻居），不发送HELLO报文"></a>1.作用：被动接口一般使用在连接主机或者loopback口上（没有OSPF的邻居），不发送HELLO报文</h4><h4 id="2-配置："><a href="#2-配置：" class="headerlink" title="2.配置："></a>2.配置：</h4><pre><code>    R1(config-router)#passive-interface e0/1
+    R1(config-router)#passive-interface default→将所有接口变为被动接口
+    R1(config-router)#no passive-interface e0/1→将e0/1变成主动接口
+</code></pre>
 
                 
             </div>
@@ -825,7 +1114,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">2.9k</span>
+                        class="white-color">3.5k</span>
             
             
             
