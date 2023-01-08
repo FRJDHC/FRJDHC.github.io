@@ -20,6 +20,7 @@
 
 
     <title>IGP | FRJBlog</title>
+    <link rel="stylesheet" type="text/css" href="/libs/artitalk/artitalk.min.css">
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -142,6 +143,17 @@
   
   <li class="hide-on-med-and-down nav-item">
     
+    <a href="/artitalk" class="waves-effect waves-light">
+      
+      <i class="fa-envelope" style="zoom: 0.6;"></i>
+      
+      <span>Artitalk</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
     <a href="/contact" class="waves-effect waves-light">
       
       <i class="fas fa-comments" style="zoom: 0.6;"></i>
@@ -242,6 +254,17 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/artitalk" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fa-envelope"></i>
+			
+			Artitalk
 		</a>
           
         </li>
@@ -820,7 +843,7 @@ R3(config-router)#distribute-list 1 out rip
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
             + '来源: FRJBlog<br />'
-            + '文章作者: 缝纫机 抖火车<br />'
+            + '文章作者: 缝纫机抖火车<br />'
             + '文章链接: <a href="' + url + '">' + url + '</a><br />'
             + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
 
@@ -949,7 +972,7 @@ R3(config-router)#distribute-list 1 out rip
             
                 <span id="year">2023</span>
             
-            <a href="/about" target="_blank">缝纫机 抖火车</a>
+            <a href="/about" target="_blank">缝纫机抖火车</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             
@@ -1007,10 +1030,6 @@ R3(config-router)#distribute-list 1 out rip
     </a>
 
 
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
 
 </div>
     </div>
