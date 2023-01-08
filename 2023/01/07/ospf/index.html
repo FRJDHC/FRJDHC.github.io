@@ -5,7 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="OSPF, FRJBlog">
-    <meta name="description" content="OSPF 开放最短路径优先一、OSPF的特点1.任何厂商都会支持（运用广泛）→开放的协议    2.链路状态协议→知道全局网络拓扑        a.链路：路由器的接口        b.状态：接口上的IP地址、掩码、开销、带宽、邻居的信息">
+    <meta name="description" content="OSPF 开放最短路径优先一、OSPF的特点1.任何厂商都会支持（运用广泛）→开放的协议2.链路状态协议→知道全局网络拓扑
+        a.链路：路由器的接口
+        b.状态：接口上的IP地址、掩码、开销、带宽、邻居的信息
+
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -439,17 +443,27 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="OSPF-开放最短路径优先"><a href="#OSPF-开放最短路径优先" class="headerlink" title="OSPF 开放最短路径优先"></a>OSPF 开放最短路径优先</h1><h2 id="一、OSPF的特点"><a href="#一、OSPF的特点" class="headerlink" title="一、OSPF的特点"></a>一、OSPF的特点</h2><p>1.任何厂商都会支持（运用广泛）→开放的协议<br>    2.链路状态协议→知道全局网络拓扑<br>        a.链路：路由器的接口<br>        b.状态：接口上的IP地址、掩码、开销、带宽、邻居的信息<br>    3.工作在IP层协议号89的传输层协议，组播方式发送更新→224.0.0.5/224.0.0.6<br>    4.基于SPF算法→在拓扑表通过SPF算法选出最优路径然后加表<br>    5.区域性：合理规划网络结构<br>    6.配置：进程下的配置以及接口配置<br>    7.度量值计算：10^8/接口带宽（b）</p>
+                <h1 id="OSPF-开放最短路径优先"><a href="#OSPF-开放最短路径优先" class="headerlink" title="OSPF 开放最短路径优先"></a>OSPF 开放最短路径优先</h1><h2 id="一、OSPF的特点"><a href="#一、OSPF的特点" class="headerlink" title="一、OSPF的特点"></a>一、OSPF的特点</h2><p>1.任何厂商都会支持（运用广泛）→开放的协议<br>2.链路状态协议→知道全局网络拓扑</p>
+<pre class=" language-YAML"><code class="language-YAML">        a.链路：路由器的接口
+        b.状态：接口上的IP地址、掩码、开销、带宽、邻居的信息
+</code></pre>
+<p>3.工作在IP层协议号<strong>89</strong>的<strong>传输层协议</strong>，组播方式发送更新→224.0.0.5/224.0.0.6<br>4.基于SPF算法→在拓扑表通过SPF算法选出最优路径然后加表<br>5.区域性：合理规划网络结构<br>6.配置：进程下的配置以及接口配置<br>7.度量值计算：10^8/接口带宽（b）</p>
 <pre class=" language-YAML"><code class="language-YAML">R1(config-router)#do show ip ospf int e0/1→查看开销
 R1(config-if)#ip ospf cost 20→直接修改OSPF的接口开销
 </code></pre>
-<h2 id="二、OSPF的两个选举"><a href="#二、OSPF的两个选举" class="headerlink" title="二、OSPF的两个选举"></a>二、OSPF的两个选举</h2><h4 id="1-RID：表示OSPF的路由器"><a href="#1-RID：表示OSPF的路由器" class="headerlink" title="1.RID：表示OSPF的路由器"></a>1.RID：表示OSPF的路由器</h4><h6 id="1-1规则："><a href="#1-1规则：" class="headerlink" title="1.1规则："></a>1.1规则：</h6><p>手工指定和自动选举→选举具有非抢占性<br>非抢占性：RID不会因为后面先加入接口所影响，要变更RID要刷新OSPF的进程<br>a.在路由进程下直接指定OSPF路由器的RID</p>
-<p>R1(config-router)#router-id 2.2.2.2</p>
-<p>b.如果有环回口，取IP地址最大，无，则取物理接口IP地址最大</p>
+<h2 id="二、OSPF的两个选举"><a href="#二、OSPF的两个选举" class="headerlink" title="二、OSPF的两个选举"></a>二、OSPF的两个选举</h2><h4 id="1-RID：表示OSPF的路由器"><a href="#1-RID：表示OSPF的路由器" class="headerlink" title="1.RID：表示OSPF的路由器"></a>1.RID：表示OSPF的路由器</h4><h6 id="1-1规则："><a href="#1-1规则：" class="headerlink" title="1.1规则："></a>1.1规则：</h6><p>手工指定和自动选举→选举具有非抢占性<br>非抢占性：RID不会因为后面先加入接口所影响，要变更RID要刷新OSPF的进程</p>
+<pre class=" language-YAML"><code class="language-YAML">a.在路由进程下直接指定OSPF路由器的RID
+R1(config-router)#router-id 2.2.2.2
+
+b.如果有环回口，取IP地址最大，无，则取物理接口IP地址最大
+</code></pre>
 <h4 id="2-DR与BDR：指定路由器和备份指定路由器"><a href="#2-DR与BDR：指定路由器和备份指定路由器" class="headerlink" title="2.DR与BDR：指定路由器和备份指定路由器"></a>2.DR与BDR：指定路由器和备份指定路由器</h4><h6 id="2-1作用："><a href="#2-1作用：" class="headerlink" title="2.1作用："></a>2.1作用：</h6><p>DRother与DR和BDR建立邻接关系，DRothers数据发送DR和BDR，由DR负责转发，当DR失效，启用BDR</p>
 <h6 id="2-2选举规则："><a href="#2-2选举规则：" class="headerlink" title="2.2选举规则："></a>2.2选举规则：</h6><p>优先级和RID→具有非抢占性（刷新选举区域的OSPF进程）</p>
-<p>a.默认以太网环境接口优先级为1，串行链路接口默认优先级为0，优先级0代表没有资格参与选举，串行链路不要选举DR和BDR</p>
-<p>b.优先级相同的情况下，比较RID，大的为DR</p>
+<pre class=" language-YAML"><code class="language-YAML">a.默认以太网环境接口优先级为1，串行链路接口默认优先级为0，优先级0代表没有资格参与选举，  
+串行链路不要选举DR和BDR
+
+b.优先级相同的情况下，比较RID，大的为DR
+</code></pre>
 <p>######2.3 DR和BDR的概念是路由器的接口不是路由器</p>
 <h2 id="三、OSPF的三张表"><a href="#三、OSPF的三张表" class="headerlink" title="三、OSPF的三张表"></a>三、OSPF的三张表</h2><h4 id="1-邻居表-：存放邻居信息"><a href="#1-邻居表-：存放邻居信息" class="headerlink" title="1. 邻居表 ：存放邻居信息"></a>1. 邻居表 ：存放邻居信息</h4><h4 id="2-拓扑表-：存放DBD的link-id，是区域内同步"><a href="#2-拓扑表-：存放DBD的link-id，是区域内同步" class="headerlink" title="2. 拓扑表 ：存放DBD的link-id，是区域内同步"></a>2. 拓扑表 ：存放DBD的link-id，是区域内同步</h4><h4 id="3-路由表-：存放最优路由"><a href="#3-路由表-：存放最优路由" class="headerlink" title="3. 路由表 ：存放最优路由"></a>3. 路由表 ：存放最优路由</h4><pre class=" language-YAML"><code class="language-YAML">3.1 区域间的路由信息
     O IA  192.168.234.0/24 [110/20] via 192.168.12.2, 00:31:29, Ethernet0/1
@@ -461,14 +475,14 @@ R1(config-if)#ip ospf cost 20→直接修改OSPF的接口开销
 3.3 OE1/2区别
     在开销上，OE2默认非OSPF的路由开销都是20，OE1的开销是20+到达ASBR的开销；
 3.4 不同OSPF路由类型的选路优先级
-    ①Ｏ
-    ②Ｏ IA
-    ③O E1
-    ④O E2
+    a、Ｏ
+    b、Ｏ IA
+    c、O E1
+    d、O E2
     从上到下优先级越低
 </code></pre>
 <h2 id="四、OSPF的五个报文"><a href="#四、OSPF的五个报文" class="headerlink" title="四、OSPF的五个报文"></a>四、OSPF的五个报文</h2><h4 id="1-hello"><a href="#1-hello" class="headerlink" title="1.hello:"></a>1.hello:</h4><p>发现、建立、维持邻居关系，周期为10S（40S）<br>a.参数的匹配：区域号，hello-time以及dead-time、身份验证、网络类型等等</p>
-<h4 id="2-DBD"><a href="#2-DBD" class="headerlink" title="2.DBD:"></a>2.DBD:</h4><p>数据库摘要<br>        a.i位：初始位代表一个DBD报文，置为1<br>        b.M位：还不是最后一个DBD报文，置为1<br>        c.MS位：“主”路由器置为1，刚开始该为都为1，RID大的为“主”<br>        d.DBD序列号</p>
+<h4 id="2-DBD"><a href="#2-DBD" class="headerlink" title="2.DBD:"></a>2.DBD:</h4><p>数据库摘要<br>a.i位：初始位代表一个DBD报文，置为1<br>b.M位：还不是最后一个DBD报文，置为1<br>c.MS位：“主”路由器置为1，刚开始该为都为1，RID大的为“主”<br>d.DBD序列号</p>
 <h4 id="3-LSR："><a href="#3-LSR：" class="headerlink" title="3.LSR："></a>3.LSR：</h4><p>请求相应的链路信息</p>
 <h4 id="4-LSU："><a href="#4-LSU：" class="headerlink" title="4.LSU："></a>4.LSU：</h4><p>对请求进行详细的回应</p>
 <h4 id="5-LSACK："><a href="#5-LSACK：" class="headerlink" title="5.LSACK："></a>5.LSACK：</h4><p>对回应的确认，显示确认（以LSACK确认）和隐式确认（发送一份拷贝的LSU）<br>LSA的老化时间，最大时间是1h，30分钟发送一次完整的更新<br>注意：LSA不是OSPF的具体的报文，只是一个统称</p>
@@ -735,18 +749,17 @@ b.R1(config-router)#default-information originate always
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/01/07/ospf/">
+                <a href="/2023/01/08/eigrp/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="OSPF">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="EIGRP">
                         
-                        <span class="card-title">OSPF</span>
+                        <span class="card-title">EIGRP</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -756,9 +769,9 @@ b.R1(config-router)#default-information originate always
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-07
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-01-08
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -771,7 +784,6 @@ b.R1(config-router)#default-information originate always
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -995,7 +1007,7 @@ b.R1(config-router)#default-information originate always
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">3.1k</span>
+                        class="white-color">19.4k</span>
             
             
             

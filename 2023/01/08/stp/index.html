@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, FRJBlog">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="STP, FRJBlog">
+    <meta name="description" content="STP  生成树一、解决冗余环境的三大问题1、广播风暴2、数据帧多个副本3、MAC地址的不稳定性二、标准1、原始STP：802.1D2、CST3、PVST和PVST+4、RSTP5、MSTP三、选举过程①根桥：比较网桥ID（优先级和背板MA">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | FRJBlog</title>
+    <title>STP | FRJBlog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -345,12 +345,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">STP</h1>
                 </div>
             </div>
         </div>
@@ -372,12 +372,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                                <span class="chip bg-color">网络工程</span>
+                            </a>
+                        
+                            <a href="/tags/%E4%BA%A4%E6%8D%A2%E5%8D%8F%E8%AE%AE/">
+                                <span class="chip bg-color">交换协议</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/blog/" class="post-category">
+                                blog
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -386,7 +403,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-01-07
+                    2023-01-08
                 </div>
                 
 
@@ -395,14 +412,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    73
+                    1.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    7 分
                 </div>
                 
 
@@ -422,19 +439,95 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span>
+                <h1 id="STP-生成树"><a href="#STP-生成树" class="headerlink" title="STP  生成树"></a>STP  生成树</h1><h2 id="一、解决冗余环境的三大问题"><a href="#一、解决冗余环境的三大问题" class="headerlink" title="一、解决冗余环境的三大问题"></a>一、解决冗余环境的三大问题</h2><h4 id="1、广播风暴"><a href="#1、广播风暴" class="headerlink" title="1、广播风暴"></a>1、广播风暴</h4><h4 id="2、数据帧多个副本"><a href="#2、数据帧多个副本" class="headerlink" title="2、数据帧多个副本"></a>2、数据帧多个副本</h4><h4 id="3、MAC地址的不稳定性"><a href="#3、MAC地址的不稳定性" class="headerlink" title="3、MAC地址的不稳定性"></a>3、MAC地址的不稳定性</h4><h2 id="二、标准"><a href="#二、标准" class="headerlink" title="二、标准"></a>二、标准</h2><h4 id="1、原始STP：802-1D"><a href="#1、原始STP：802-1D" class="headerlink" title="1、原始STP：802.1D"></a>1、原始STP：802.1D</h4><h4 id="2、CST"><a href="#2、CST" class="headerlink" title="2、CST"></a>2、CST</h4><h4 id="3、PVST和PVST"><a href="#3、PVST和PVST" class="headerlink" title="3、PVST和PVST+"></a>3、PVST和PVST+</h4><h4 id="4、RSTP"><a href="#4、RSTP" class="headerlink" title="4、RSTP"></a>4、RSTP</h4><h4 id="5、MSTP"><a href="#5、MSTP" class="headerlink" title="5、MSTP"></a>5、MSTP</h4><h2 id="三、选举过程"><a href="#三、选举过程" class="headerlink" title="三、选举过程"></a>三、选举过程</h2><h4 id="①根桥："><a href="#①根桥：" class="headerlink" title="①根桥："></a>①根桥：</h4><p>比较网桥ID（优先级和背板MAC地址），小的优</p>
+<h4 id="②根端口："><a href="#②根端口：" class="headerlink" title="②根端口："></a>②根端口：</h4><p>在非根桥交换机上选举，有且只有一个；接受BPDU，开销、网桥ID、端口ID（端口优先级+序列号）</p>
+<h4 id="③指定端口："><a href="#③指定端口：" class="headerlink" title="③指定端口："></a>③指定端口：</h4><p>在每一条链路上，发送或转发BPDU，根桥上每一个端口都是指定端口；开销、网桥ID、端口ID</p>
+<h4 id="④阻塞端口："><a href="#④阻塞端口：" class="headerlink" title="④阻塞端口："></a>④阻塞端口：</h4><p>逻辑和是哪个阻塞，只接受BPDU</p>
+<h2 id="四、端口角色"><a href="#四、端口角色" class="headerlink" title="四、端口角色"></a>四、端口角色</h2><h4 id="①disable：shutdown"><a href="#①disable：shutdown" class="headerlink" title="①disable：shutdown"></a>①disable：shutdown</h4><h4 id="②阻塞端口：只接受BPDU"><a href="#②阻塞端口：只接受BPDU" class="headerlink" title="②阻塞端口：只接受BPDU"></a>②阻塞端口：只接受BPDU</h4><h4 id="③根端口：接受BPDU"><a href="#③根端口：接受BPDU" class="headerlink" title="③根端口：接受BPDU"></a>③根端口：接受BPDU</h4><h4 id="④指定端口：发送或转发BPDU"><a href="#④指定端口：发送或转发BPDU" class="headerlink" title="④指定端口：发送或转发BPDU"></a>④指定端口：发送或转发BPDU</h4><h2 id="五、端口状态"><a href="#五、端口状态" class="headerlink" title="五、端口状态"></a>五、端口状态</h2><h4 id="①down-shutdown"><a href="#①down-shutdown" class="headerlink" title="①down:shutdown"></a>①down:shutdown</h4><h4 id="②blocking-阻塞状态"><a href="#②blocking-阻塞状态" class="headerlink" title="②blocking:阻塞状态"></a>②blocking:阻塞状态</h4><p>如果在20S内没有接收到对端的BPDU</p>
+<h4 id="③listening：（侦听状态）进行端口的状态转变"><a href="#③listening：（侦听状态）进行端口的状态转变" class="headerlink" title="③listening：（侦听状态）进行端口的状态转变"></a>③listening：（侦听状态）进行端口的状态转变</h4><p>经历15S</p>
+<h4 id="④learning：学习状态，学习MAC地址"><a href="#④learning：学习状态，学习MAC地址" class="headerlink" title="④learning：学习状态，学习MAC地址"></a>④learning：学习状态，学习MAC地址</h4><p>经历15S</p>
+<h4 id="⑤forwarding：可以正常转发数据帧"><a href="#⑤forwarding：可以正常转发数据帧" class="headerlink" title="⑤forwarding：可以正常转发数据帧"></a>⑤forwarding：可以正常转发数据帧</h4><p>如果是本地链路出现故障，阻塞→转发30S<br>如果是非本地链路出现故障，阻塞→转发50S</p>
+<h2 id="六、BPDU的类型"><a href="#六、BPDU的类型" class="headerlink" title="六、BPDU的类型"></a>六、BPDU的类型</h2><p>BPDU：桥协议数据单元，用来协商STP的过程，发送周期2S，存活周期20S</p>
+<h4 id="①配置BPDU：存放网桥的相关信息（网桥ID，发送周期，老化时间等）"><a href="#①配置BPDU：存放网桥的相关信息（网桥ID，发送周期，老化时间等）" class="headerlink" title="①配置BPDU：存放网桥的相关信息（网桥ID，发送周期，老化时间等）"></a>①配置BPDU：存放网桥的相关信息（网桥ID，发送周期，老化时间等）</h4><h4 id="②TCN-BPDU：拓扑变化BPDU，用来表示拓扑发生了变化"><a href="#②TCN-BPDU：拓扑变化BPDU，用来表示拓扑发生了变化" class="headerlink" title="②TCN BPDU：拓扑变化BPDU，用来表示拓扑发生了变化"></a>②TCN BPDU：拓扑变化BPDU，用来表示拓扑发生了变化</h4><h2 id="七、拓扑变化的过程"><a href="#七、拓扑变化的过程" class="headerlink" title="七、拓扑变化的过程"></a>七、拓扑变化的过程</h2><p>当拓扑发生变化，该交换机会往根桥方向发送一个TCN BPDU，根桥收到TCN BPDU，会回应TC BPDU，此时拓扑中的交换机收到TC的信息会将MAC地址的老化时间由300S降为15S，重新地址学习</p>
+<pre class=" language-YAML"><code class="language-YAML">Switch#show spanning-tree bridge
+Switch#debug spanning-tree synchronization
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server
+<h2 id="八、STP的操作"><a href="#八、STP的操作" class="headerlink" title="八、STP的操作"></a>八、STP的操作</h2><h4 id="（1）更改优先级"><a href="#（1）更改优先级" class="headerlink" title="（1）更改优先级"></a>（1）更改优先级</h4><p>优先级默认是32768,（查看的优先级数字是由优先级+VLAN ID）</p>
+<h6 id="①更改优先级"><a href="#①更改优先级" class="headerlink" title="①更改优先级"></a>①更改优先级</h6><pre class=" language-YAML"><code class="language-YAML">SW2(config)#spanning-tree vlan 1 priority 2000
+% Bridge Priority must be in increments of 4096.
+% Allowed values are: 
+  0     4096  8192  12288 16384 20480 24576 28672
+  32768 36864 40960 45056 49152 53248 57344 61440
+注意：必须是4096的倍数
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate
+<h6 id="②直接指定根桥"><a href="#②直接指定根桥" class="headerlink" title="②直接指定根桥"></a>②直接指定根桥</h6><pre class=" language-YAML"><code class="language-YAML">SW2(config)#spanning-tree vlan 1 root ?
+  primary    Configure this switch as primary root for this spanning tree//指定为主根
+  secondary  Configure switch as secondary root//指定为备根
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy
+<h4 id="（2）相关小特性"><a href="#（2）相关小特性" class="headerlink" title="（2）相关小特性"></a>（2）相关小特性</h4><h6 id="①portfast：对于接入交换机的接入端口，跳过30S的等待时间"><a href="#①portfast：对于接入交换机的接入端口，跳过30S的等待时间" class="headerlink" title="①portfast：对于接入交换机的接入端口，跳过30S的等待时间"></a>①portfast：对于接入交换机的接入端口，跳过30S的等待时间</h6><pre class=" language-YAML"><code class="language-YAML">SW3(config)#spanning-tree portfast edge default //全局配置
+SW3(config)#int e0/2                            
+SW3(config-if)#spanning-tree portfast 
+*Jul  4 07:47:33.766: STP: VLAN0001 Et0/2 ->jump to forwarding from blocking
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>②uplinkfast：实现本地设备的链路出现故障，可以将原先的阻塞端口快速变为转发状态</p>
+<pre class=" language-YAML"><code class="language-YAML">SW3(config)#spanning-tree uplinkfast→会将接口的开销增加3000，以及优先级变为49152
+*Jul  4 07:54:27.538: STP: VLAN0001 heard root  4097-aabb.cc00.1000 on Et0/1
+*Jul  4 07:54:27.538:     supersedes 49153-aabb.cc00.3000
+*Jul  4 07:54:27.538: STP: VLAN0001 new root is 4097, aabb.cc00.1000 on port Et0/1, cost 3100
+</code></pre>
+<p>③backbonefast：在所有交换机上使用，可以缩短20S的时间</p>
+<pre class=" language-YAML"><code class="language-YAML">SW1(config)#spanning-tree backbonefast 
+</code></pre>
+<h2 id="九、RSTP–802-1W"><a href="#九、RSTP–802-1W" class="headerlink" title="九、RSTP–802.1W"></a>九、RSTP–802.1W</h2><p>特点：能够快速收敛，向下兼容</p>
+<h2 id="十、端口角色"><a href="#十、端口角色" class="headerlink" title="十、端口角色"></a>十、端口角色</h2><h4 id="①RP"><a href="#①RP" class="headerlink" title="①RP"></a>①RP</h4><h4 id="②DP"><a href="#②DP" class="headerlink" title="②DP"></a>②DP</h4><h4 id="③AP：替代端口（备用端口），为RP备用"><a href="#③AP：替代端口（备用端口），为RP备用" class="headerlink" title="③AP：替代端口（备用端口），为RP备用"></a>③AP：替代端口（备用端口），为RP备用</h4><h4 id="④BP：备份端口，为DP备份，但是只有在hub的情况下"><a href="#④BP：备份端口，为DP备份，但是只有在hub的情况下" class="headerlink" title="④BP：备份端口，为DP备份，但是只有在hub的情况下"></a>④BP：备份端口，为DP备份，但是只有在hub的情况下</h4><h2 id="十一、端口状态"><a href="#十一、端口状态" class="headerlink" title="十一、端口状态"></a>十一、端口状态</h2><h4 id="①discarding：丢弃状态"><a href="#①discarding：丢弃状态" class="headerlink" title="①discarding：丢弃状态"></a>①discarding：丢弃状态</h4><h4 id="②learning：学习状态"><a href="#②learning：学习状态" class="headerlink" title="②learning：学习状态"></a>②learning：学习状态</h4><h4 id="③forwarding：转发状态"><a href="#③forwarding：转发状态" class="headerlink" title="③forwarding：转发状态"></a>③forwarding：转发状态</h4><h2 id="十二、BPDU更改"><a href="#十二、BPDU更改" class="headerlink" title="十二、BPDU更改"></a>十二、BPDU更改</h2><p>保留原先的第一和第八比特，对中间的比特做了更改</p>
+<h2 id="十三、时间上"><a href="#十三、时间上" class="headerlink" title="十三、时间上"></a>十三、时间上</h2><p>BPDU的发送周期还是2S，但是老化时间变为3倍的更新周期（6S）</p>
+<h2 id="十四、端口上"><a href="#十四、端口上" class="headerlink" title="十四、端口上"></a>十四、端口上</h2><p>分为边缘和非边缘端口，边缘端口不会影响RSTP的稳定性，手工启动快速端口</p>
+<h2 id="十五、链路类型"><a href="#十五、链路类型" class="headerlink" title="十五、链路类型"></a>十五、链路类型</h2><h4 id="①交换机与终端连接的端口（边缘端口）"><a href="#①交换机与终端连接的端口（边缘端口）" class="headerlink" title="①交换机与终端连接的端口（边缘端口）"></a>①交换机与终端连接的端口（边缘端口）</h4><p>→需要通过快速端口来快速过渡到转发状态</p>
+<h4 id="②交换机与交换机相连的端口（P2P）"><a href="#②交换机与交换机相连的端口（P2P）" class="headerlink" title="②交换机与交换机相连的端口（P2P）"></a>②交换机与交换机相连的端口（P2P）</h4><p>→通过P/A机制来实现快速过渡到转发状态</p>
+<h4 id="③交换机与hub连接的链路（共享）"><a href="#③交换机与hub连接的链路（共享）" class="headerlink" title="③交换机与hub连接的链路（共享）"></a>③交换机与hub连接的链路（共享）</h4><p>→无法通过P/A机制来实现快速过渡到转发状态</p>
+<h2 id="十六、P-x2F-A机制-提议-x2F-同意"><a href="#十六、P-x2F-A机制-提议-x2F-同意" class="headerlink" title="十六、P/A机制(提议/同意)"></a>十六、P/A机制(提议/同意)</h2><h4 id="（1）提议-x2F-同意"><a href="#（1）提议-x2F-同意" class="headerlink" title="（1）提议/同意:"></a>（1）提议/同意:</h4><p>只能在P2P链路上使用，交换机A发送P比特置1的BPDU给交换机B，希望自己能快速过渡到转发状态，交换机B收到P比特置1的BPDU，会进入同步状态，交换机B会回应A比特置1的BPDU，交换机A收到A比特置1的BPDU，会过渡到转发状态，该过程与STP计时器无关</p>
+<h4 id="（2）同步状态："><a href="#（2）同步状态：" class="headerlink" title="（2）同步状态："></a>（2）同步状态：</h4><p>将非边缘阻塞，避免环路</p>
+<h2 id="十七、拓扑变化"><a href="#十七、拓扑变化" class="headerlink" title="十七、拓扑变化"></a>十七、拓扑变化</h2><p>拓扑发生变化，交换机会直接发送TC位置1的BPDU，然后立即清空本地MAC地址表中的故障链路，其他交换机收到TC位置1的BPDU，也执行MAC地址重学习的过程（不需要发送TCN的BPDU）</p>
+<h2 id="十八、配置"><a href="#十八、配置" class="headerlink" title="十八、配置"></a>十八、配置</h2><pre class=" language-YAML"><code class="language-YAML">Switch(config)#spanning-tree mode rapid-pvst 
+</code></pre>
+<h2 id="十九、MSTP"><a href="#十九、MSTP" class="headerlink" title="十九、MSTP"></a>十九、MSTP</h2><p>802.1S<br>特点：通过创建和维护实例来降低交换机的资源，实例中可以包含多个vlan，MSTP可以兼容多个版本STP</p>
+<h2 id="二十、基本概念"><a href="#二十、基本概念" class="headerlink" title="二十、基本概念"></a>二十、基本概念</h2><h4 id="①CST：公共生成树-MST域与非MST域之间所运行的STP"><a href="#①CST：公共生成树-MST域与非MST域之间所运行的STP" class="headerlink" title="①CST：公共生成树  MST域与非MST域之间所运行的STP"></a>①CST：公共生成树  MST域与非MST域之间所运行的STP</h4><h4 id="②IST：内部生成树，运行MSTP"><a href="#②IST：内部生成树，运行MSTP" class="headerlink" title="②IST：内部生成树，运行MSTP"></a>②IST：内部生成树，运行MSTP</h4><h4 id="③MSTPI：MSTP内部生成树的实例，默认有实例0且所有的vlan都在其中"><a href="#③MSTPI：MSTP内部生成树的实例，默认有实例0且所有的vlan都在其中" class="headerlink" title="③MSTPI：MSTP内部生成树的实例，默认有实例0且所有的vlan都在其中"></a>③MSTPI：MSTP内部生成树的实例，默认有实例0且所有的vlan都在其中</h4><h4 id="④CISTP：由CST和IST构成的整个交换网络的树"><a href="#④CISTP：由CST和IST构成的整个交换网络的树" class="headerlink" title="④CISTP：由CST和IST构成的整个交换网络的树"></a>④CISTP：由CST和IST构成的整个交换网络的树</h4><h4 id="⑤总根：整个交换网络的根桥"><a href="#⑤总根：整个交换网络的根桥" class="headerlink" title="⑤总根：整个交换网络的根桥"></a>⑤总根：整个交换网络的根桥</h4><h4 id="⑥域根：是MSTP域内的根桥"><a href="#⑥域根：是MSTP域内的根桥" class="headerlink" title="⑥域根：是MSTP域内的根桥"></a>⑥域根：是MSTP域内的根桥</h4><h4 id="⑦主交换机：距离总跟最近的交换机"><a href="#⑦主交换机：距离总跟最近的交换机" class="headerlink" title="⑦主交换机：距离总跟最近的交换机"></a>⑦主交换机：距离总跟最近的交换机</h4><h2 id="二十一、配置"><a href="#二十一、配置" class="headerlink" title="二十一、配置"></a>二十一、配置</h2><pre class=" language-YAML"><code class="language-YAML">SW3(config)#spanning-tree mode mst
+SW3(config)#spanning-tree mst configuration
+SW3(config-mst)# name ccnp
+SW3(config-mst)# revision 1
+SW3(config-mst)# instance 1 vlan 10, 20, 30
+SW3(config-mst)# instance 2 vlan 40, 50, 60
+SW2(config)#spanning-tree mst 1 root primary →更改实例1的根桥
+</code></pre>
+<h2 id="二十二、STP的优化"><a href="#二十二、STP的优化" class="headerlink" title="二十二、STP的优化"></a>二十二、STP的优化</h2><h4 id="（1）BPDU-guard"><a href="#（1）BPDU-guard" class="headerlink" title="（1）BPDU guard"></a>（1）BPDU guard</h4><p>作用：如果在快速端口收到BPDU，则会将该端口关闭（err-disabled）</p>
+<pre class=" language-YAML"><code class="language-YAML">*Jul  6 03:06:48.486: %SPANTREE-2-BLOCK_BPDUGUARD: Received BPDU on port Ethernet0/2 with BPDU Guard enabled. Disabling port.
+Sw2#
+*Jul  6 03:06:48.486: %PM-4-ERR_DISABLE: bpduguard error detected on Et0/2, putting Et0/2 in err-disable state
+</code></pre>
+<p>（2）配置：</p>
+<pre class=" language-YAML"><code class="language-YAML">①Sw2(config)#spanning-tree portfast edge bpduguard →针对所有portfast接口
+②Sw2(config-if)#spanning-tree bpduguard enable→强制将在接口下启用 
+</code></pre>
+<p>err-disabled：错误状态  端口检测到错误的连接，会将端口自动关闭（shut-no shut）<br>bpdufilter（不建议）<br>作用：破坏快速端口的特性，进行正常的生成树端口选举<br>配置：</p>
+<pre class=" language-YAML"><code class="language-YAML">①Sw2(config-if)#spanning-tree bpdufilter enable 
+②SW5(config)#spanning-tree portfast edge bpdufilter default rootguard
+</code></pre>
+<p>作用：保护根桥，如果在启用该特性的端口收到更优的BPDU，会将改端口进入blocking状态<br>配置：</p>
+<pre class=" language-YAML"><code class="language-YAML">SW2(config-if)#spanning-tree guard root
+</code></pre>
+<p>现象： </p>
+<pre class=" language-YAML"><code class="language-YAML">*Jul  6 03:35:32.367: STP: VLAN0001 heard root  4097-aabb.cc00.5000 on Et0/2
+*Jul  6 03:35:32.367:     supersedes 32769-aabb.cc00.1000
+*Jul  6 03:35:32.367: %SPANTREE-2-ROOTGUARD_BLOCK: Root guard blocking port Ethernet0/2 on VLAN0001.
+*Jul  6 03:35:32.367: STP: VLAN0001 sent Topology Change Notice on Et0/0
+*Jul  6 03:35:32.368: STP[1]: Generating TC trap for port Ethernet0/2
+*Jul  6 03:35:32.368: STP: VLAN0001 Et0/2 -> blocking loop guard
+</code></pre>
+<p>作用：检测单向链路所造成的环路问题<br>配置：</p>
+<pre class=" language-YAML"><code class="language-YAML">SW2(config)#spanning-tree loopguard default 
+SW2(config-if)#spanning-tree guard loop 
+</code></pre>
+<p>UDLD：光纤<br>Flexlink：不关心STP，只是对链路做主备</p>
 
                 
             </div>
@@ -451,7 +544,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">缝纫机 抖火车</a>
+                    <a href="/about" rel="external nofollow noreferrer">缝纫机抖火车</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -461,7 +554,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://frjdhc.github.io/2023/01/07/hello-world/">https://frjdhc.github.io/2023/01/07/hello-world/</a>
+                    <a href="https://frjdhc.github.io/2023/01/08/stp/">https://frjdhc.github.io/2023/01/08/stp/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -474,7 +567,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">缝纫机 抖火车</a>
+                    <a href="/about" target="_blank">缝纫机抖火车</a>
                     !
                 </span>
             </div>
@@ -498,7 +591,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                                    <span class="chip bg-color">网络工程</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%BA%A4%E6%8D%A2%E5%8D%8F%E8%AE%AE/">
+                                    <span class="chip bg-color">交换协议</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -575,17 +676,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2023/01/07/ospf/">
+                <a href="/2023/01/08/stp/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="OSPF">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="STP">
                         
-                        <span class="card-title">OSPF</span>
+                        <span class="card-title">STP</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -595,9 +697,63 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-01-07
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/blog/" class="post-category">
+                                    blog
+                                </a>
+                            
+                            
                         </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                        <span class="chip bg-color">网络工程</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%A4%E6%8D%A2%E5%8D%8F%E8%AE%AE/">
+                        <span class="chip bg-color">交换协议</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/01/08/mpls-vpn/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="MPLS_VPN">
+                        
+                        <span class="card-title">MPLS_VPN</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-08
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -617,49 +773,11 @@
                         <span class="chip bg-color">网络工程</span>
                     </a>
                     
-                    <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
-                        <span class="chip bg-color">路由协议</span>
+                    <a href="/tags/vpn/">
+                        <span class="chip bg-color">vpn</span>
                     </a>
                     
                 </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/01/07/hello-world/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-07
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            缝纫机 抖火车
-                            
-                        </span>
-                    </div>
-                </div>
-
                 
             </div>
         </div>

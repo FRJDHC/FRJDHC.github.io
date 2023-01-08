@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, FRJBlog">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="BGP, FRJBlog">
+    <meta name="description" content="BGP  边界网关协议一、IGP和EGP的区别IGP：内部网关协议，实现AS内的路由发现和学习EGP：外部网关协议，实现AS间的路由传递BGP：边界网关协议，属于距离矢量路由协议AS：范围是1-65535 私有的范围：64512-65535">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | FRJBlog</title>
+    <title>BGP | FRJBlog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -345,12 +345,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">BGP</h1>
                 </div>
             </div>
         </div>
@@ -372,12 +372,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                                <span class="chip bg-color">网络工程</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
+                                <span class="chip bg-color">路由协议</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/blog/" class="post-category">
+                                blog
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -386,7 +403,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-01-07
+                    2023-01-08
                 </div>
                 
 
@@ -395,14 +412,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    73
+                    1.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    6 分
                 </div>
                 
 
@@ -422,19 +439,92 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span>
+                <h1 id="BGP-边界网关协议"><a href="#BGP-边界网关协议" class="headerlink" title="BGP  边界网关协议"></a>BGP  边界网关协议</h1><h2 id="一、IGP和EGP的区别"><a href="#一、IGP和EGP的区别" class="headerlink" title="一、IGP和EGP的区别"></a>一、IGP和EGP的区别</h2><p>IGP：内部网关协议，实现<strong>AS内</strong>的路由发现和学习<br>EGP：外部网关协议，实现<strong>AS间</strong>的路由传递<br>BGP：边界网关协议，属于<strong>距离矢量路由协议</strong><br>AS：范围是1-65535 私有的范围：64512-65535</p>
+<h2 id="二、BGP的特征"><a href="#二、BGP的特征" class="headerlink" title="二、BGP的特征"></a>二、BGP的特征</h2><h4 id="1、距离矢量路由协议"><a href="#1、距离矢量路由协议" class="headerlink" title="1、距离矢量路由协议"></a>1、距离矢量路由协议</h4><h4 id="2、基于TCP端口179"><a href="#2、基于TCP端口179" class="headerlink" title="2、基于TCP端口179"></a>2、基于TCP端口179</h4><h4 id="3、keepalive的hellotime是60S，deadtime是180S"><a href="#3、keepalive的hellotime是60S，deadtime是180S" class="headerlink" title="3、keepalive的hellotime是60S，deadtime是180S"></a>3、keepalive的hellotime是60S，deadtime是180S</h4><h4 id="4、选路不考虑链路的带宽延迟等，依靠的是路由携带的属性"><a href="#4、选路不考虑链路的带宽延迟等，依靠的是路由携带的属性" class="headerlink" title="4、选路不考虑链路的带宽延迟等，依靠的是路由携带的属性"></a>4、选路不考虑链路的带宽延迟等，依靠的是路由携带的属性</h4><h4 id="5、主要用于大型网络环境"><a href="#5、主要用于大型网络环境" class="headerlink" title="5、主要用于大型网络环境"></a>5、主要用于大型网络环境</h4><h2 id="三、BGP的对等体（邻居）"><a href="#三、BGP的对等体（邻居）" class="headerlink" title="三、BGP的对等体（邻居）"></a>三、BGP的对等体（邻居）</h2><h4 id="1、IBGP："><a href="#1、IBGP：" class="headerlink" title="1、IBGP："></a>1、IBGP：</h4><p>邻居与自己处于相同AS的邻居关系</p>
+<h4 id="2、EBGP："><a href="#2、EBGP：" class="headerlink" title="2、EBGP："></a>2、EBGP：</h4><p>邻居与自己处于不同AS的邻居关系</p>
+<h2 id="四、BGP的报文"><a href="#四、BGP的报文" class="headerlink" title="四、BGP的报文"></a>四、BGP的报文</h2><h4 id="1、open："><a href="#1、open：" class="headerlink" title="1、open："></a>1、open：</h4><p>建立邻居</p>
+<h4 id="2、keepalive："><a href="#2、keepalive：" class="headerlink" title="2、keepalive："></a>2、keepalive：</h4><p>维持邻居关系，确认</p>
+<h4 id="3、update："><a href="#3、update：" class="headerlink" title="3、update："></a>3、update：</h4><p>路由的更新</p>
+<h4 id="4、notification："><a href="#4、notification：" class="headerlink" title="4、notification："></a>4、notification：</h4><p>检测到BGP的错误状态连接</p>
+<h2 id="五、BGP的状态"><a href="#五、BGP的状态" class="headerlink" title="五、BGP的状态"></a>五、BGP的状态</h2><h4 id="1、idle"><a href="#1、idle" class="headerlink" title="1、idle:"></a>1、idle:</h4><p>查找邻居的路由</p>
+<h4 id="2、connect："><a href="#2、connect：" class="headerlink" title="2、connect："></a>2、connect：</h4><p>TCP三次握手建立成功</p>
+<h4 id="3、open-sent："><a href="#3、open-sent：" class="headerlink" title="3、open sent："></a>3、open sent：</h4><p>建立BGP的邻居</p>
+<h4 id="4、Open-confirm："><a href="#4、Open-confirm：" class="headerlink" title="4、Open confirm："></a>4、Open confirm：</h4><p>建立BGP会话参数协议</p>
+<h4 id="5、establish："><a href="#5、establish：" class="headerlink" title="5、establish："></a>5、establish：</h4><p>路由更新</p>
+<h4 id="6、active："><a href="#6、active：" class="headerlink" title="6、active："></a>6、active：</h4><p>TCP三次握手失败、AS号不一致、邻居IP地址不一致</p>
+<h2 id="六、BGP的配置"><a href="#六、BGP的配置" class="headerlink" title="六、BGP的配置"></a>六、BGP的配置</h2><pre class=" language-YAML"><code class="language-YAML">R2(config)#router bgp 234
+R2(config-router)#bgp router-id 2.2.2.2
+R2(config-router)#neighbor 12.12.12.1 remote-as 100      //建立EBGP邻居，前提4.4.4.4可达
+R2(config-router)#neighbor 4.4.4.4 remote-as 234          //建立IBGP邻居，采用物理接口
+R2(config-router)#neighbor 4.4.4.4 update-source loopback 1//将更新源改为环回口
+R2(config-router)#neighbor 4.4.4.4 next-hop-self     //将下一跳改为自己
+R2(config-router)#network 2.2.2.0 mask 255.255.255.0  //精确通告（通告的是路由表条目）
+R2(config-router)#neighbor 1.1.1.1 ebgp-multihop ?    //更改EBGP的TTL值
+  <1-255>  maximum hop count
+R1#show ip bgp summary→查看邻居
+R1#show ip bgp→拓扑表
+>：代表的是加入路由表的下一跳
+m：多路径
+i：前i代表的该条目是IBGP通告
+R2#show ip route bgp→路由表
+B        1.1.1.0 [20/0] via 12.12.12.1, 01:09:19    与通告者的邻居关系是EBGP，AD为20
+B        5.5.5.0 [200/0] via 4.4.4.4, 00:28:02        与通告者的邻居关系是IBGP，AD为200
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server
+<h2 id="七、BGP的更新源问题"><a href="#七、BGP的更新源问题" class="headerlink" title="七、BGP的更新源问题"></a>七、BGP的更新源问题</h2><p>默认情况下，BGP的更新源是采用物理接口的IP地址，如果neighbor 指定的IP与更新源IP不一致，BGP处于idle状态</p>
+<h2 id="八、BGP的下一跳问题"><a href="#八、BGP的下一跳问题" class="headerlink" title="八、BGP的下一跳问题"></a>八、BGP的下一跳问题</h2><p>收到来自EBGP的路由信息，下一跳为邻居的出接口IP，此时通告给IBGP对等体时，不会更改下一跳IP，那么IBGP邻居收到这条路由十，因为下一跳不可达不会添加进路由表也不会通告给任何对等体</p>
+<h2 id="九、BGP的路由黑洞"><a href="#九、BGP的路由黑洞" class="headerlink" title="九、BGP的路由黑洞"></a>九、BGP的路由黑洞</h2><p>原因：由于IBGP的邻居是逻辑相连，可能出现内部路由器没有运行BGP导致没有相应的BGP条目，出现丢包<br>解决方法：全互联</p>
+<h2 id="十、BGP的环路抑制"><a href="#十、BGP的环路抑制" class="headerlink" title="十、BGP的环路抑制"></a>十、BGP的环路抑制</h2><pre class=" language-YAML"><code class="language-YAML">①IBGP的水平分割：收到来自IBGP对等体的路由，不会通告给IBGP对等体
+②EBGP的水平分割：经过一个AS区域会记录AS号，如果要进入的AS与自己的AS_path路径中重复，则不学习
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate
+<h2 id="十一、BGP的刷新"><a href="#十一、BGP的刷新" class="headerlink" title="十一、BGP的刷新"></a>十一、BGP的刷新</h2><pre class=" language-YAML"><code class="language-YAML">①R2#clear ip bgp *   重置邻居关系（硬清）
+②R2#clear ip bgp * soft    重置策略（软清）
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy
+<h2 id="十二、BGP的属性"><a href="#十二、BGP的属性" class="headerlink" title="十二、BGP的属性"></a>十二、BGP的属性</h2><h4 id="1、属性的分类"><a href="#1、属性的分类" class="headerlink" title="1、属性的分类"></a>1、属性的分类</h4><h6 id="1-1、公认必遵：数据包必须携带，厂商都识别"><a href="#1-1、公认必遵：数据包必须携带，厂商都识别" class="headerlink" title="1.1、公认必遵：数据包必须携带，厂商都识别"></a>1.1、公认必遵：数据包必须携带，厂商都识别</h6><h6 id="1-2、公认可选：数据包可以不携带，厂商都识别"><a href="#1-2、公认可选：数据包可以不携带，厂商都识别" class="headerlink" title="1.2、公认可选：数据包可以不携带，厂商都识别"></a>1.2、公认可选：数据包可以不携带，厂商都识别</h6><h6 id="1-3、可选传递：数据包可以不携带，可以传递给其他对等体"><a href="#1-3、可选传递：数据包可以不携带，可以传递给其他对等体" class="headerlink" title="1.3、可选传递：数据包可以不携带，可以传递给其他对等体"></a>1.3、可选传递：数据包可以不携带，可以传递给其他对等体</h6><h6 id="1-4、可选非传递：数据包可以不携带，不可以传递给其他对等体"><a href="#1-4、可选非传递：数据包可以不携带，不可以传递给其他对等体" class="headerlink" title="1.4、可选非传递：数据包可以不携带，不可以传递给其他对等体"></a>1.4、可选非传递：数据包可以不携带，不可以传递给其他对等体</h6><h4 id="2、属性"><a href="#2、属性" class="headerlink" title="2、属性"></a>2、属性</h4><h6 id="2-1、weight：权重—–思科私有（华为的协议首选值）"><a href="#2-1、weight：权重—–思科私有（华为的协议首选值）" class="headerlink" title="2.1、weight：权重—–思科私有（华为的协议首选值）"></a>2.1、weight：权重—–思科私有（华为的协议首选值）</h6><p>特点：选择去往目标网段的出接口，只对本地生效，不传递给其他对等体，<strong>本地</strong>network的<strong>权重</strong>为<strong>32768</strong>，<strong>接收</strong>的路由<strong>权重默认为0</strong>，<strong>权重越大越优</strong></p>
+<pre class=" language-YAML"><code class="language-YAML">R1(config-router)#neighbor 12.12.12.2 weight 10
+access-list 1 permit 172.16.1.0 0.0.0.255
+route-map weight permit 10
+ match ip address 1
+ set weight 20
+route-map weight permit 20
+neighbor 12.12.12.2 route-map weight in
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h6 id="2-2、LocPrf：本地优先级，选择离开本地AS的出口，默认IBGP的优先级为100，经过EBGP时，会剥离这个属性，越大越优"><a href="#2-2、LocPrf：本地优先级，选择离开本地AS的出口，默认IBGP的优先级为100，经过EBGP时，会剥离这个属性，越大越优" class="headerlink" title="2.2、LocPrf：本地优先级，选择离开本地AS的出口，默认IBGP的优先级为100，经过EBGP时，会剥离这个属性，越大越优"></a>2.2、LocPrf：本地优先级，选择离开本地AS的出口，默认IBGP的优先级为100，经过EBGP时，会剥离这个属性，越大越优</h6><pre class=" language-YAML"><code class="language-YAML">access-list 2 permit 172.16.2.0 0.0.0.255
+route-map loc permit 10
+ match ip address 2
+ set local-preference 200
+route-map loc permit 20
+neighbor 14.14.14.2 route-map loc in
+</code></pre>
+<h6 id="2-3、下一跳—指向下一个AS的入口IP地址"><a href="#2-3、下一跳—指向下一个AS的入口IP地址" class="headerlink" title="2.3、下一跳—指向下一个AS的入口IP地址"></a>2.3、下一跳—指向下一个AS的入口IP地址</h6><p>如果是0.0.0.0代表的本地产生的网段，路由是AS外部且来自EBGP对等体，下一跳为EBGP邻居的接口IP，将此条路由发送给IBGP时，不会更改下一跳</p>
+<h6 id="2-4、AS-PATH"><a href="#2-4、AS-PATH" class="headerlink" title="2.4、AS_PATH"></a>2.4、AS_PATH</h6><p>a.会记录经过的AS号，添加进AS_PATH<br>b.选路通过AS_PATH中个数少的<br>c.不会进入AS_PATH中已经出现的AS<br>d.AS号的最右边可以代表源AS</p>
+<pre class=" language-YAML"><code class="language-YAML">access-list 1 permit 192.168.1.0 0.0.0.255
+route-map as permit 10
+ match ip address 1
+ set as-path prepend 100 200
+route-map as permit 20
+ neighbor 12.12.12.1 route-map as in
+</code></pre>
+<h6 id="2-5、Origin-起源——通过什么方式进入BGP的"><a href="#2-5、Origin-起源——通过什么方式进入BGP的" class="headerlink" title="2.5、Origin  起源——通过什么方式进入BGP的"></a>2.5、Origin  起源——通过什么方式进入BGP的</h6><pre class=" language-YAML"><code class="language-YAML">Origin codes: i - IGP, e - EGP, ? - incomplete
+i：后代表的是通过network的方式进入BGP
+e：通过EBP的方式进入BGP
+?：代表通告重分布进BGP
+优先级：i>e>?
+access-list 2 permit 192.168.2.0 0.0.0.255
+route-map or permit 10
+ match ip address 2
+ set origin incomplete
+route-map or permit 20
+ neighbor 12.12.12.1 route-map or in
+</code></pre>
+<h6 id="2-6、MED-度量值（可选非传递）"><a href="#2-6、MED-度量值（可选非传递）" class="headerlink" title="2.6、MED  度量值（可选非传递）"></a>2.6、MED  度量值（可选非传递）</h6><p>用于通告EBGP对等进入本地AS的开销，默认情况下，EBGP只会比较同一个AS的开销，比较不同AS开销需要启用→<strong>bgp always-compare-med</strong></p>
+<pre class=" language-YAML"><code class="language-YAML">access-list 1 permit 172.16.2.0 0.0.0.255
+route-map med permit 10
+ match ip address 1
+ set metric 50
+route-map med permit 20
+ neighbor 14.14.14.1 route-map med out
+</code></pre>
+<h6 id="2-7、优选EBGP，次选IBGP"><a href="#2-7、优选EBGP，次选IBGP" class="headerlink" title="2.7、优选EBGP，次选IBGP"></a>2.7、优选EBGP，次选IBGP</h6><h6 id="2-8、选择最近的IGP邻居"><a href="#2-8、选择最近的IGP邻居" class="headerlink" title="2.8、选择最近的IGP邻居"></a>2.8、选择最近的IGP邻居</h6><h6 id="2-9、选择最老的EBGP邻居（路由时间最长）"><a href="#2-9、选择最老的EBGP邻居（路由时间最长）" class="headerlink" title="2.9、选择最老的EBGP邻居（路由时间最长）"></a>2.9、选择最老的EBGP邻居（路由时间最长）</h6><h6 id="2-10、选择邻居最低的BGP的ID"><a href="#2-10、选择邻居最低的BGP的ID" class="headerlink" title="2.10、选择邻居最低的BGP的ID"></a>2.10、选择邻居最低的BGP的ID</h6><h6 id="2-11、选择最低的邻居IP"><a href="#2-11、选择最低的邻居IP" class="headerlink" title="2.11、选择最低的邻居IP"></a>2.11、选择最低的邻居IP</h6><p>口诀：PLLAOMEN</p>
 
                 
             </div>
@@ -451,7 +541,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">缝纫机 抖火车</a>
+                    <a href="/about" rel="external nofollow noreferrer">缝纫机抖火车</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -461,7 +551,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://frjdhc.github.io/2023/01/07/hello-world/">https://frjdhc.github.io/2023/01/07/hello-world/</a>
+                    <a href="https://frjdhc.github.io/2023/01/08/bgp/">https://frjdhc.github.io/2023/01/08/bgp/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -474,7 +564,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">缝纫机 抖火车</a>
+                    <a href="/about" target="_blank">缝纫机抖火车</a>
                     !
                 </span>
             </div>
@@ -498,7 +588,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                                    <span class="chip bg-color">网络工程</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
+                                    <span class="chip bg-color">路由协议</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -579,13 +677,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/01/07/ospf/">
+                <a href="/2023/01/08/igp/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="OSPF">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="IGP">
                         
-                        <span class="card-title">OSPF</span>
+                        <span class="card-title">IGP</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -596,7 +694,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-01-07
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-01-08
                         </span>
                         <span class="publish-author">
                             
@@ -629,16 +727,16 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/01/07/hello-world/">
+                <a href="/2023/01/08/eigrp/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="EIGRP">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">EIGRP</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -649,17 +747,32 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-08
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            缝纫机 抖火车
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/blog/" class="post-category">
+                                    blog
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                        <span class="chip bg-color">网络工程</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
+                        <span class="chip bg-color">路由协议</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

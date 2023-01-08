@@ -4,8 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, FRJBlog">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="IGP, FRJBlog">
+    <meta name="description" content="IGP  内部网关协议一、路由重分布背景：公司合并、产商设备的兼容性问题，导致局域网不能互联，各个路由协议所运行的算法不兼容解决方法→路由重分布：不同协议间的路由学习
+二、重分布的对象1、直连2、静态路由3、其他动态路由协议
+三、重分布的类">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +19,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | FRJBlog</title>
+    <title>IGP | FRJBlog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -345,12 +347,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">IGP</h1>
                 </div>
             </div>
         </div>
@@ -372,12 +374,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                                <span class="chip bg-color">网络工程</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
+                                <span class="chip bg-color">路由协议</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/blog/" class="post-category">
+                                blog
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -386,7 +405,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-01-07
+                    2023-01-08
                 </div>
                 
 
@@ -395,14 +414,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    73
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    6 分
                 </div>
                 
 
@@ -422,19 +441,95 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span>
+                <h1 id="IGP-内部网关协议"><a href="#IGP-内部网关协议" class="headerlink" title="IGP  内部网关协议"></a>IGP  内部网关协议</h1><h2 id="一、路由重分布"><a href="#一、路由重分布" class="headerlink" title="一、路由重分布"></a>一、路由重分布</h2><p>背景：公司合并、产商设备的兼容性问题，导致局域网不能互联，各个路由协议所运行的算法不兼容<br>解决方法→路由重分布：不同协议间的路由学习</p>
+<h2 id="二、重分布的对象"><a href="#二、重分布的对象" class="headerlink" title="二、重分布的对象"></a>二、重分布的对象</h2><p>1、直连<br>2、静态路由<br>3、其他动态路由协议</p>
+<h2 id="三、重分布的类型"><a href="#三、重分布的类型" class="headerlink" title="三、重分布的类型"></a>三、重分布的类型</h2><p>1、单点单向→默认路由<br>2、单点双向<br>3、双点单向<br>4、双点双向</p>
+<h2 id="四、重分布产生的网络问题"><a href="#四、重分布产生的网络问题" class="headerlink" title="四、重分布产生的网络问题"></a>四、重分布产生的网络问题</h2><p>1、次优路径<br>2、环路</p>
+<h2 id="五、初始度量值（种子度量值）"><a href="#五、初始度量值（种子度量值）" class="headerlink" title="五、初始度量值（种子度量值）"></a>五、初始度量值（种子度量值）</h2><p>1、RIP和EIGRP的初始度量值为无穷大<br>2、OSPF的初始度量值为20</p>
+<h2 id="六、配置"><a href="#六、配置" class="headerlink" title="六、配置"></a>六、配置</h2><h4 id="1、RIP"><a href="#1、RIP" class="headerlink" title="1、RIP"></a>1、RIP</h4><pre class=" language-YAML"><code class="language-YAML">R3(config)#router rip
+R3(config-router)#redistribute ospf 110 metric 3
+R3(config-router)#redistribute eigrp 90 metric 1
+metric 1：代表的是将其他协议的初始度量值设置为1
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server
+<h4 id="2、OSPF"><a href="#2、OSPF" class="headerlink" title="2、OSPF"></a>2、OSPF</h4><pre class=" language-YAML"><code class="language-YAML">R3(config)#router ospf 110
+R3(config-router)#redistribute static subnets
+R3(config-router)#redistribute rip subnets 
+subnets ：重分布详细的子网信息
+R3(config-router)#redistribute eigrp 90 subnets metric 30 metric-type 1
+将EIGRP的外部通告进OSPF区域时，初始度量值更改为30，类型为OE1
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate
+<h4 id="3、EIGRP"><a href="#3、EIGRP" class="headerlink" title="3、EIGRP"></a>3、EIGRP</h4><pre class=" language-YAML"><code class="language-YAML">R3(config-router)#redistribute rip metric 10000 1 1 1 1500
+10000（带宽）1 （延迟）1（可靠性）1（负载）1（MTU）
+D EX     23.23.23.0 [170/307456] via 89.89.89.1, 00:00:03, Ethernet0/0
+D EX：代表的是EIGRP的外部路由
+直连：0
+静态：1
+D：90
+OSPF：110
+IS-IS：115
+RIP：120
+D EX：170
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy
+<h4 id="4、IS-IS"><a href="#4、IS-IS" class="headerlink" title="4、IS-IS"></a>4、IS-IS</h4><pre class=" language-YAML"><code class="language-YAML">R7(config)#router ospf 110
+R7(config-router)#redistribute isis level-2 subnets
+其他协议重分布ISIS时，默认重分布的是L2的路由
+R7(config-router)#redistribute isis ?
+  level-1      IS-IS level-1 routes only
+  level-1-2    IS-IS level-1 and level-2 routes
+  level-2      IS-IS level-2 routes only→默认
+R7(config-router)#redistribute ospf 110 level-2
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>ISIS不通告直连</p>
+<h2 id="七、管理距离"><a href="#七、管理距离" class="headerlink" title="七、管理距离"></a>七、管理距离</h2><h4 id="1、更改全局AD"><a href="#1、更改全局AD" class="headerlink" title="1、更改全局AD"></a>1、更改全局AD</h4><h4 id="2、更改特点源的路由AD"><a href="#2、更改特点源的路由AD" class="headerlink" title="2、更改特点源的路由AD"></a>2、更改特点源的路由AD</h4><h4 id="3、更改特定路由的AD→需要使用ACL"><a href="#3、更改特定路由的AD→需要使用ACL" class="headerlink" title="3、更改特定路由的AD→需要使用ACL"></a>3、更改特定路由的AD→需要使用ACL</h4><p>更改只具有本地意义→影响的本地数据包的转发</p>
+<h4 id="①-RIP"><a href="#①-RIP" class="headerlink" title="①.RIP"></a>①.RIP</h4><pre class=" language-YAML"><code class="language-YAML">①R3(config-router)#distance 119       //更改RIP的AD值为119
+②R2(config-router)#distance 118 12.12.12.1 0.0.0.0   //将12.12.12.1通告的路由AD值更改为118
+③R2(config)#access-list 1 permit 172.16.1.0 0.0.0.255
+R2(config-router)#distance 117 12.12.12.1 0.0.0.0 1
+通过ACL匹配特定网段，在distance上调用
+</code></pre>
+<h4 id="②-EIGRP：内部和外部"><a href="#②-EIGRP：内部和外部" class="headerlink" title="②.EIGRP：内部和外部"></a>②.EIGRP：内部和外部</h4><pre class=" language-YAML"><code class="language-YAML">①R8(config-router)#distance eigrp 91 171  //将内部AD值改为91，外部改为171
+②R8(config-router)#distance 92 89.89.89.2 0.0.0.0  //更改只能作用在内部的EIGRP
+③R8(config)#access-list 1 permit 99.99.99.0 0.0.0.255
+R8(config-router)#distance 93 89.89.89.2 0.0.0.0 1
+</code></pre>
+<h4 id="③-OSPF：通告者"><a href="#③-OSPF：通告者" class="headerlink" title="③.OSPF：通告者"></a>③.OSPF：通告者</h4><pre class=" language-YAML"><code class="language-YAML">①R4(config-router)#distance ospf external 111 inter-area 112 intra-area 113
+external 111：更改外部AD为111
+inter-area 112：更改区域间AD为112
+intra-area 113：更改区域内AD为113
+②R4(config-router)#distance 114 67.67.67.1 0.0.0.0
+注意：如果需要更改的路由是ABR/ASBR通告的，则在源IP上配置的是通告者的RID
+③R4(config)#access-list 1 permit 172.16.3.0 0.0.0.255
+R4(config-router)#distance 115 38.38.38.1 0.0.0.0 1   //注意：通告者
+</code></pre>
+<h2 id="八、ACL的特殊应用"><a href="#八、ACL的特殊应用" class="headerlink" title="八、ACL的特殊应用"></a>八、ACL的特殊应用</h2><h4 id="1、匹配A类："><a href="#1、匹配A类：" class="headerlink" title="1、匹配A类："></a>1、匹配A类：</h4><h2 id="什么是A类地址？第一个字节的第一个二进制是0，其余无所谓YAML-0XXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-01111111-255-255-255-access-list-1-permit-0-0-0-0-127-255-255-255-2、匹配B类：YAML-10XXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-00111111-255-255-255-access-list-1-permit-128-0-0-0-63-255-255-255-3、匹配C类：-96-96-96-YAML110XXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX00011111-255-255-255access-list-1-permit-192-0-0-0-31-255-255-255"><a href="#什么是A类地址？第一个字节的第一个二进制是0，其余无所谓YAML-0XXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-01111111-255-255-255-access-list-1-permit-0-0-0-0-127-255-255-255-2、匹配B类：YAML-10XXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-00111111-255-255-255-access-list-1-permit-128-0-0-0-63-255-255-255-3、匹配C类：-96-96-96-YAML110XXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX00011111-255-255-255access-list-1-permit-192-0-0-0-31-255-255-255" class="headerlink" title="什么是A类地址？第一个字节的第一个二进制是0，其余无所谓YAML 0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX 01111111.255.255.255 access-list 1 permit 0.0.0.0 127.255.255.255 #### 2、匹配B类：YAML 10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX 00111111.255.255.255 access-list 1 permit 128.0.0.0 63.255.255.255 #### 3、匹配C类：```YAML110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX00011111.255.255.255access-list 1 permit 192.0.0.0 31.255.255.255"></a>什么是A类地址？第一个字节的第一个二进制是0，其余无所谓<br><code>YAML 0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX 01111111.255.255.255 access-list 1 permit 0.0.0.0 127.255.255.255 </code><br>#### 2、匹配B类：<br><code>YAML 10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX 00111111.255.255.255 access-list 1 permit 128.0.0.0 63.255.255.255 </code><br>#### 3、匹配C类：<br>```YAML<br>110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX<br>00011111.255.255.255<br>access-list 1 permit 192.0.0.0 31.255.255.255</h2><p>10.1.1.0/24  10.1.2.0/24  10.1.3.0/24 10.1.4.0/24<br>匹配奇数：10.1.1.0/24 、10.1.3.0/24<br>access-list 1 permit 10.1.1.0 0.0.254.255<br>匹配偶数：10.1.2.0/24、10.1.4.0/24<br>access-list 1 permit 10.1.0.0 0.0.254.255</p>
+<pre><code>## 九、分发列表-----distribute-list
+作用：用来过滤路由→ACL
+过滤的方向有两种：in/out
+分发调用的位置：接口/协议
+
+#### 1、RIP/EIGRP
+```YAML
+eq1:R2(config)#access-list 4 deny 172.16.1.0 0.0.0.255
+       R2(config)#access-list 4 permit any
+       R2(config-router)#distribute-list 4 in e0/0
+       在e0/0的进方向过滤172.16.1.0，现象是路由表此条目消失
+</code></pre>
+<p>如果是out方向：</p>
+<pre class=" language-YAML"><code class="language-YAML">R1(config-router)#distribute-list 1 out e0/0
+在e0/0的出方向过滤172.16.1.0，现象是本地路由表此条目存在，邻居消失
+②OSPF
+R4(config)#access-list 2 deny 172.168.2.0 0.0.0.255
+R4(config)#access-list 2 permit any  
+R4(config)#router ospf 110
+R4(config-router)#distribute-list 2 in e0/0
+</code></pre>
+<p>现象：本地没有172.168.2.0，但是邻居路由表有此条路由<br>注意：分发列表过滤的是路由对LSA没有作用，OSPF邻居通告的是LSA，是通过SPF自己产生路由，分发列表in方向作用在拓扑表将要把路由加入路由表的过程中。分发列表在OSPF中调用接口out方向没有任何意义。</p>
+<h4 id="2、OSPF中out方向—-ASBR上使用"><a href="#2、OSPF中out方向—-ASBR上使用" class="headerlink" title="2、OSPF中out方向—-ASBR上使用"></a>2、OSPF中out方向—-ASBR上使用</h4><pre class=" language-YAML"><code class="language-YAML">R3(config)#access-list 1 deny 172.168.2.0 0.0.0.255
+R3(config)#access-list 1 permit any 
+R3(config)#router ospf 110
+R3(config-router)#distribute-list 1 out rip
+</code></pre>
+<p>将RIP的ACL1的条目重分布进OSPF中过滤掉</p>
 
                 
             </div>
@@ -451,7 +546,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">缝纫机 抖火车</a>
+                    <a href="/about" rel="external nofollow noreferrer">缝纫机抖火车</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -461,7 +556,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://frjdhc.github.io/2023/01/07/hello-world/">https://frjdhc.github.io/2023/01/07/hello-world/</a>
+                    <a href="https://frjdhc.github.io/2023/01/08/igp/">https://frjdhc.github.io/2023/01/08/igp/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -474,7 +569,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">缝纫机 抖火车</a>
+                    <a href="/about" target="_blank">缝纫机抖火车</a>
                     !
                 </span>
             </div>
@@ -498,7 +593,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                                    <span class="chip bg-color">网络工程</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
+                                    <span class="chip bg-color">路由协议</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -579,13 +682,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/01/07/ospf/">
+                <a href="/2023/01/08/bgp-ccie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="OSPF">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="BGP-CCIE">
                         
-                        <span class="card-title">OSPF</span>
+                        <span class="card-title">BGP-CCIE</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -596,7 +699,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-01-07
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-01-08
                         </span>
                         <span class="publish-author">
                             
@@ -621,6 +724,10 @@
                         <span class="chip bg-color">路由协议</span>
                     </a>
                     
+                    <a href="/tags/CCIE/">
+                        <span class="chip bg-color">CCIE</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -629,16 +736,16 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/01/07/hello-world/">
+                <a href="/2023/01/08/bgp/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="BGP">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">BGP</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -649,17 +756,32 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-08
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            缝纫机 抖火车
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/blog/" class="post-category">
+                                    blog
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                        <span class="chip bg-color">网络工程</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
+                        <span class="chip bg-color">路由协议</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

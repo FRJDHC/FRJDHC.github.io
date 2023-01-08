@@ -1,0 +1,1415 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="MPLS_VPN, FRJBlog">
+    <meta name="description" content="MPLS：多协议标签交换数据包在网络节点的处理方式路由器可以根据功能分成两个平面：控制平面和数据平面控制平面：路由协议、路由表（RIB）→生成路由的下一跳数据平面：CEF表→用来转发①通过CPU的方式处理：每一个数据包都需要CPU处理，解析">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>MPLS_VPN | FRJBlog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(https://pic.sl.al/gdrive/pic/2023-01-07/63b96da09f594.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">FRJBlog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">FRJBlog</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">MPLS_VPN</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                                <span class="chip bg-color">网络工程</span>
+                            </a>
+                        
+                            <a href="/tags/vpn/">
+                                <span class="chip bg-color">vpn</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/blog/" class="post-category">
+                                blog
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-01-08
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    21 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="MPLS：多协议标签交换"><a href="#MPLS：多协议标签交换" class="headerlink" title="MPLS：多协议标签交换"></a>MPLS：多协议标签交换</h1><p>数据包在网络节点的处理方式<br>路由器可以根据功能分成两个平面：控制平面和数据平面<br>控制平面：路由协议、路由表（RIB）→生成路由的下一跳<br>数据平面：CEF表→用来转发<br>①通过CPU的方式处理：<br>每一个数据包都需要CPU处理，解析IP报头的每一个字段<br>②快速转发（一次路由多次交换）：<br>第一个数据包还是需要经过CPU的处理，但是后面的数据包会根据第一次数据包转发时留下的缓存表，直接封装，不需要经过CPU处理。<br>③基于拓扑的快速转发：<br>基于动态路由协议生成CEF表</p>
+<h2 id="一、MPLS的特点"><a href="#一、MPLS的特点" class="headerlink" title="一、MPLS的特点"></a>一、MPLS的特点</h2><h4 id="1、封装位置："><a href="#1、封装位置：" class="headerlink" title="1、封装位置："></a>1、封装位置：</h4><p>数据帧+MPLS+IP，</p>
+<h4 id="2、MPLS格式"><a href="#2、MPLS格式" class="headerlink" title="2、MPLS格式"></a>2、MPLS格式</h4><h6 id="（1）长度："><a href="#（1）长度：" class="headerlink" title="（1）长度："></a>（1）长度：</h6><p>短而定长→4个字节</p>
+<h6 id="（2）label空间"><a href="#（2）label空间" class="headerlink" title="（2）label空间"></a>（2）label空间</h6><p>（20比特）+EXP（3比特）+S（1比特）+TTL（8比特）</p>
+<pre class=" language-YAML"><code class="language-YAML">①label空间：范围2^20
+a.0-15是系统保留：已经赋予了标签功能，不能给用户使用
+ i   标签0：IPv4的显式空：倒数最后一跳路由器分配给邻居的标签为0，邻居使用倒数最后一跳设备分配的“0”标签发给倒数最后一跳设备，收到标签“0”读取EXP字段然后直接弹出标签
+ ii  标签2：IPv6的显式空：作用与IPv4相同，只不过部署在IPv6环境
+ iii 标签3：隐式空（imp-null）：倒数第一跳设备分配给倒数第二跳设备标签为“3”，倒数第二跳设备收到标签“3”时，如果需要发送数据包给倒数第一跳设备，直接先弹出MPLS标签（LSR为本地设备的网段分配隐式空标签）→思科设备会为路由表中的路由分配标签，华为默认情况下只会给本地直连非物理口的32位主机路由分配标签
+b.16往后是可以动态分配
+②EXP：部署QoS→结合标签0、2保证QoS的连续性
+③S：栈顶栈底标识符→MPLS支持多层嵌套，当S为1时，表示为最底层标签
+④TTL：生命周期→作用与IPv4的TTL一样，但是两种处理方式
+</code></pre>
+<h4 id="3、术语"><a href="#3、术语" class="headerlink" title="3、术语"></a>3、术语</h4><h6 id="①LSR："><a href="#①LSR：" class="headerlink" title="①LSR："></a>①LSR：</h6><p>标签交换路由器→所有UP的接口都启用了MPLS</p>
+<h6 id="②LER："><a href="#②LER：" class="headerlink" title="②LER："></a>②LER：</h6><p>标签边缘路由器→部分UP的接口启用了MPLS</p>
+<h6 id="③LSP："><a href="#③LSP：" class="headerlink" title="③LSP："></a>③LSP：</h6><p>标签交换路径→MPLS数据包所走的路径，LSP是单向的，方向与数据包的走向一致，LSP的第一台LER为入节点（ingress）执行的动作是压入标签，最后一台为出节点（egress），中间LSR为中间节点（transit）执行的动作是标签交换，如果涉及PHP，则执行弹出标签，中间节点的个数没有限制，但是入节点和出节点有且只有一个，上游与下游的概念依据数据包的走向（R3→R2→R1：R1是R2的下游，R2是R3的下游）</p>
+<h6 id="④FEC："><a href="#④FEC：" class="headerlink" title="④FEC："></a>④FEC：</h6><p>转发等价类→具有相同特征的报文（源IP、目的IP、源端口、目的端口、VPN）执行相同的转发操作</p>
+<h4 id="4、PHP：倒数第二跳弹出"><a href="#4、PHP：倒数第二跳弹出" class="headerlink" title="4、PHP：倒数第二跳弹出"></a>4、PHP：倒数第二跳弹出</h4><h6 id="①作用："><a href="#①作用：" class="headerlink" title="①作用："></a>①作用：</h6><p>减少LER的查表次数→本地网段分配给邻居的标签为隐式空（标签3）</p>
+<h6 id="②过程："><a href="#②过程：" class="headerlink" title="②过程："></a>②过程：</h6><p>倒数第二台路由器收到标签为“3”，会将对应网段的数据包执行提前弹出标签的动作，在倒数第一台与倒数第二台之间传递的是纯IP数据包</p>
+<h4 id="5、标签的分发协议——LDP"><a href="#5、标签的分发协议——LDP" class="headerlink" title="5、标签的分发协议——LDP"></a>5、标签的分发协议——LDP</h4><h6 id="（1）标签的生成可以通过TDP、LDP、RSVP-TE、MP-BGP"><a href="#（1）标签的生成可以通过TDP、LDP、RSVP-TE、MP-BGP" class="headerlink" title="（1）标签的生成可以通过TDP、LDP、RSVP-TE、MP-BGP"></a>（1）标签的生成可以通过TDP、LDP、RSVP-TE、MP-BGP</h6><h6 id="（2）LDP是公有协议，目前所有厂商支持，是运用最广泛的协议"><a href="#（2）LDP是公有协议，目前所有厂商支持，是运用最广泛的协议" class="headerlink" title="（2）LDP是公有协议，目前所有厂商支持，是运用最广泛的协议"></a>（2）LDP是公有协议，目前所有厂商支持，是运用最广泛的协议</h6><h6 id="（3）LDP建立过程"><a href="#（3）LDP建立过程" class="headerlink" title="（3）LDP建立过程"></a>（3）LDP建立过程</h6><pre class=" language-YAML"><code class="language-YAML">①发现阶段：LDP使用transport address向224.0.0.2发送HELLO报文，使用传输层UDP源和目端口646
+②建立阶段：LSR相应HELLO包与来源建立LDP会话
+  a.由RID地址大的一方先发起TCP的SYN报文（由RID地址大的发起TCP连接）
+  b.由RID大的发送初始报文，携带LDP参数→label space identifier
+  i:当label space identifier的值为0时代表LDP标签分配是基于设备的→FEC1-X-接口1；FEC-X-接口2
+  ii:当label space identifier的值为1时代表LDP标签分配是基于接口的→FEC1-A；FEC-B
+  Mar  6 01:53:09.640: %LDP-5-NBRCHG: LDP Neighbor 4.4.4.4:0 (2) is UP
+  c.Address message：表明本地设备为自己的路由分配什么标签，LSR为本地设备的网段分配隐式空标签→我分配的标签是邻居访问我时要使用的标签，我使用的标签是邻居分配的
+  d.通过LDP的HELLO报文以及keep alive保活
+</code></pre>
+<h4 id="6、MPLS的配置"><a href="#6、MPLS的配置" class="headerlink" title="6、MPLS的配置"></a>6、MPLS的配置</h4><pre class=" language-YAML"><code class="language-YAML">R2(config)#ip cef 默认开启
+R2(config)#mpls label protocol ldp 默认标签分发协议就是LDP
+R2(config)#mpls ldp router-id loopback 1 force →将LDP的RID设置为环回口
+R2(config)#int e0/1
+R2(config-if)#mpls ip →接口下启用MPLS
+</code></pre>
+<p>查看命令：</p>
+<pre class=" language-YAML"><code class="language-YAML">R2#show mpls interfaces →哪些接口使能了MPLS
+R2#show mpls ldp neighbor →查看LDP的信息
+R2#show mpls ldp bindings →查看本地设备所有的标签信息（自己分配的和邻居分发的）
+R2#show mpls forwarding-table →MPLS的转发表
+</code></pre>
+<h4 id="7、路由汇总对MPLS的影响"><a href="#7、路由汇总对MPLS的影响" class="headerlink" title="7、路由汇总对MPLS的影响"></a>7、路由汇总对MPLS的影响</h4><p>影响：如果MPLS区域中LSR做了路由汇总，路由汇总会产生本地直连的汇总路由，LSR会为该路由分配隐式空标签，会造成邻居使用该标签时，提前将MPLS标签弹出，造成LSP中断可能出现由MPLS转发变成IP转发，在VPN环境中会暴露私网IP而产生黑洞。</p>
+<h4 id="8、MPLS解决路由黑洞问题"><a href="#8、MPLS解决路由黑洞问题" class="headerlink" title="8、MPLS解决路由黑洞问题"></a>8、MPLS解决路由黑洞问题</h4><p>在MPLS域中通过对BGP的下一跳打标签，实现MPLS转发然后3层BGP路由不可达问题</p>
+<h4 id="9、MPLS的环路检测"><a href="#9、MPLS的环路检测" class="headerlink" title="9、MPLS的环路检测"></a>9、MPLS的环路检测</h4><p>有两种处理方式：uniform和pipe</p>
+<h6 id="①uniform："><a href="#①uniform：" class="headerlink" title="①uniform："></a>①uniform：</h6><p>在入节点IP的TTL减1然后复制到MPLS的TTL字段，在出节点将MPLS的TTL字段减1然后复制到IP的TTL字段（默认的方式）</p>
+<h6 id="②pipe："><a href="#②pipe：" class="headerlink" title="②pipe："></a>②pipe：</h6><p>MPLS的TTL与IP的TTL没有关系，MPLS的TTL在数据包进入MPLS区域时，TTL值为255，IP字段的TTL值只会在入节点和出节点减1</p>
+<h6 id="③将uniform模式切换为pipe模式"><a href="#③将uniform模式切换为pipe模式" class="headerlink" title="③将uniform模式切换为pipe模式"></a>③将uniform模式切换为pipe模式</h6><p>→R5(config)#no mpls ip  propagate-ttl→出于网络安全的角度考虑，隐藏MPLS区域的拓扑结构</p>
+<h2 id="二、MPLS-VPN"><a href="#二、MPLS-VPN" class="headerlink" title="二、MPLS VPN"></a>二、MPLS VPN</h2><p>VPN的模式：overlay（不需要ISP参与→DMVPN）和peer to peer（需要运营商参与→MPLS VPN）</p>
+<h4 id="1-术语："><a href="#1-术语：" class="headerlink" title="1)术语："></a>1)术语：</h4><h6 id="（1）P设备："><a href="#（1）P设备：" class="headerlink" title="（1）P设备："></a>（1）P设备：</h6><p>ISP网络中没有连接客户的设备</p>
+<h6 id="（2）PE设备："><a href="#（2）PE设备：" class="headerlink" title="（2）PE设备："></a>（2）PE设备：</h6><p>ISP网络中连接客户的设备</p>
+<h6 id="（3）CE设备："><a href="#（3）CE设备：" class="headerlink" title="（3）CE设备："></a>（3）CE设备：</h6><p>客户网络中连接ISP的设备</p>
+<h4 id="2）组件："><a href="#2）组件：" class="headerlink" title="2）组件："></a>2）组件：</h4><h6 id="（1）VRF："><a href="#（1）VRF：" class="headerlink" title="（1）VRF："></a>（1）VRF：</h6><p>虚拟路由转发<br>①作用：在PE上隔离不同客户的路由<br>②配置：只需要在PE上配置</p>
+<pre class=" language-YAML"><code class="language-YAML">R4(config)#ip vrf CA
+R4(config)#int e0/0
+R4(config-if)#ip vrf forwarding CA→将接口加入到VRF
+% Interface Ethernet0/0 IPv4 disabled and address(es) removed due to enabling VRF CA
+R4#show ip route vrf CA
+R4#ping vrf CA 202.101.14.1
+R4#show ip cef vrf CA
+R4#show ip vrf CA
+</code></pre>
+<h6 id="（2）RD：路由区分"><a href="#（2）RD：路由区分" class="headerlink" title="（2）RD：路由区分"></a>（2）RD：路由区分</h6><p>①作用：解决PE设备客户地址冲突问题<br>②64比特的RD+IPv4地址=VPNv4地址（96比特）<br>③配置：</p>
+<pre class=" language-YAML"><code class="language-YAML">R4(config-vrf)#rd 65001:100
+</code></pre>
+<h6 id="（3）RT：路由区分"><a href="#（3）RT：路由区分" class="headerlink" title="（3）RT：路由区分"></a>（3）RT：路由区分</h6><p>①作用：控制VPNv4匹配特定的VRF<br>②import RT和export RT控制PE设备路由的收发，import和export的数字要匹配<br>③配置：</p>
+<pre class=" language-YAML"><code class="language-YAML">R4(config-vrf)#route-target export 65001:100→发出路由携带65001:100
+R4(config-vrf)#route-target import 65001:100→接收路由携带65001:100
+</code></pre>
+<h6 id="（4）MP-BGP：多协议BGP"><a href="#（4）MP-BGP：多协议BGP" class="headerlink" title="（4）MP-BGP：多协议BGP"></a>（4）MP-BGP：多协议BGP</h6><p>①作用：只在PE上部署，传递VPNv4路由<br>②配置：</p>
+<pre class=" language-YAML"><code class="language-YAML">R4(config-router)#address-family vpnv4 
+R4(config-router-af)#neighbor 7.7.7.7 activate 
+R4#show ip bgp vpnv4 all summary 
+</code></pre>
+<h6 id="（5）MPLS的标签栈"><a href="#（5）MPLS的标签栈" class="headerlink" title="（5）MPLS的标签栈"></a>（5）MPLS的标签栈</h6><p>①顶部标签：由ISP网络的的LSR分配的→用于数据包在MPLS骨干网中交换<br>②底部标签：由PE上的MP-BGP分配→用来标识VPNv4路由<br>③结构：IPv4+RD=VPNv4+底部标签（VPNv4标签）+顶部标签（LDP标签）</p>
+<h6 id="（6）PE-CE的路由："><a href="#（6）PE-CE的路由：" class="headerlink" title="（6）PE-CE的路由："></a>（6）PE-CE的路由：</h6><p>传递客户路由</p>
+<h2 id="三、MPLS的配置"><a href="#三、MPLS的配置" class="headerlink" title="三、MPLS的配置"></a>三、MPLS的配置</h2><h4 id="（1）MPLS域中的IGP"><a href="#（1）MPLS域中的IGP" class="headerlink" title="（1）MPLS域中的IGP"></a>（1）MPLS域中的IGP</h4><h4 id="（2）MPLS域中的LDP"><a href="#（2）MPLS域中的LDP" class="headerlink" title="（2）MPLS域中的LDP"></a>（2）MPLS域中的LDP</h4><h4 id="（3）PE上的VRF→RD、RT"><a href="#（3）PE上的VRF→RD、RT" class="headerlink" title="（3）PE上的VRF→RD、RT"></a>（3）PE上的VRF→RD、RT</h4><pre class=" language-YAML"><code class="language-YAML">R4(config)#ip vrf CA
+R4(config-vrf)#rd 65001:100
+R4(config-vrf)#route-target export 100:1→发送路由携带100:1的BGP属性
+R4(config-vrf)#route-target import 100:2→接收路由携带100:2的BGP属性
+R4(config-vrf)#int e0/0 
+R4(config-if)#ip vrf forwarding CA
+R4(config-if)#ip address 202.101.14.2 255.255.255.0
+</code></pre>
+<h4 id="（4）PE之间的MP-BGP"><a href="#（4）PE之间的MP-BGP" class="headerlink" title="（4）PE之间的MP-BGP"></a>（4）PE之间的MP-BGP</h4><pre class=" language-YAML"><code class="language-YAML">R4(config)#router bgp 100
+R4(config-router)#bgp router-id 4.4.4.4
+R4(config-router)#no bgp default ipv4-unicast→关闭交换IPv4路由
+R4(config-router)#neighbor 7.7.7.7 remote-as 100
+R4(config-router)#neighbor 7.7.7.7 update-source Loopback1
+R4(config-router)#address-family vpnv4→进入VPNv4的地址族
+R4(config-router-af)#neighbor 7.7.7.7 activate→激活VPNv4邻居关系
+</code></pre>
+<h4 id="（5）PE-CE之间的IGP"><a href="#（5）PE-CE之间的IGP" class="headerlink" title="（5）PE-CE之间的IGP"></a>（5）PE-CE之间的IGP</h4><pre class=" language-YAML"><code class="language-YAML">R4(config)#ip route vrf CA 10.1.1.0 255.255.255.0 202.101.14.1→配置静态路由
+R7(config)#router rip
+R7(config-router)#address-family ipv4 vrf CA→将RIP放入vrf CA中
+R7(config-router)#network 202.101.78.0
+R7(config-router)#no auto-summary
+R7(config-router)#version 2
+</code></pre>
+<h4 id="（6）重分布：（4）与（5）的重分布"><a href="#（6）重分布：（4）与（5）的重分布" class="headerlink" title="（6）重分布：（4）与（5）的重分布"></a>（6）重分布：（4）与（5）的重分布</h4><pre class=" language-YAML"><code class="language-YAML">R7(config)#router rip
+R7(config-router)#address-family ipv4 vrf CA
+R7(config-router)#redistribute bgp 100 metric 1
+R7(config)#router bgp 100
+R7(config-router)#address-family ipv4 vrf CA
+R7(config-router-af)#redistribute rip
+R4(config)#router bgp 100
+R4(config-router)#address-family ipv4 vrf CA
+R4(config-router)#redistribute static
+</code></pre>
+<p>查看命令</p>
+<pre class=" language-YAML"><code class="language-YAML">R4#show ip bgp vpnv4 all summary 
+R4#show ip bgp vpnv4 all         
+R4#show ip bgp vpnv4 all 10.1.2.0
+R4#show ip cef vrf CA 10.1.2.0
+</code></pre>
+<h6 id="①CA1与CA2-CB1与CB2-CC1与CC2"><a href="#①CA1与CA2-CB1与CB2-CC1与CC2" class="headerlink" title="①CA1与CA2  CB1与CB2  CC1与CC2"></a>①CA1与CA2  CB1与CB2  CC1与CC2</h6><h6 id="②CA1与CC2"><a href="#②CA1与CC2" class="headerlink" title="②CA1与CC2"></a>②CA1与CC2</h6><h6 id="③CC1与CB2、CB2与CC2通过CC1中转-路径跟踪！"><a href="#③CC1与CB2、CB2与CC2通过CC1中转-路径跟踪！" class="headerlink" title="③CC1与CB2、CB2与CC2通过CC1中转 路径跟踪！"></a>③CC1与CB2、CB2与CC2通过CC1中转 路径跟踪！</h6><p>（1）BGP→EBGP的水平分割→最优选<br>（2）OSPF/RIP   DN比特位、域标志、R7的BGP选路（AS-PATH）<br>（3）EIGRP：R7的BGP选路（AS-PATH）  CC属性</p>
+<p>BGP的邻居建立   TCP    update→loop   peer  loop   默认  接口IP    TCP的只有单向的   只有一方发起连接<br>双方都配update  RID大的发起TCP连接   只有一方有配置update   有配置的一方发起TCP连接  connect  es</p>
+<h2 id="四、PE-CE的路由"><a href="#四、PE-CE的路由" class="headerlink" title="四、PE-CE的路由"></a>四、PE-CE的路由</h2><h4 id="（1）静态路由："><a href="#（1）静态路由：" class="headerlink" title="（1）静态路由："></a>（1）静态路由：</h4><pre class=" language-YAML"><code class="language-YAML">R4(config)#ip route vrf CA 10.1.1.0 255.255.255.0 202.101.14.1→不是点对点链路必须使用下一跳
+</code></pre>
+<h4 id="（2）RIP：注意版本→v2"><a href="#（2）RIP：注意版本→v2" class="headerlink" title="（2）RIP：注意版本→v2"></a>（2）RIP：注意版本→v2</h4><pre class=" language-YAML"><code class="language-YAML">R7(config)#router rip    
+R7(config-router)#address-family ipv4 vrf CA
+R7(config-router-af)#version 2
+R7(config-router-af)#network 202.101.78.0
+R7(config-router-af)#redistribute bgp 100 metric 1
+在MP-BGP中路由的MED继承IGP的开销
+</code></pre>
+<h4 id="（3）EIGRP"><a href="#（3）EIGRP" class="headerlink" title="（3）EIGRP"></a>（3）EIGRP</h4><h6 id="①配置"><a href="#①配置" class="headerlink" title="①配置"></a>①配置</h6><pre class=" language-YAML"><code class="language-YAML">R4(config)#router eigrp 90
+R4(config-router)#address-family ipv4 vrf CB autonomous-system 90→注意AS要配置，主AS号与子AS没有必然联系
+R4(config-router-af)#network 202.101.24.0
+R4(config-router-af)#no auto-summary 
+R4(config-router-af)#redistribute bgp 100 metric 10000 1 1 1 1→注意双向重分布
+</code></pre>
+<p>现象：</p>
+<pre class=" language-YAML"><code class="language-YAML">AS号相同时
+D        172.16.1.0/24 [90/435200] via 202.101.79.1, 00:01:10, Ethernet0/0
+AS号不同时
+D EX     172.16.1.0/24 [170/281856] via 202.101.79.1, 00:00:07, Ethernet0/0
+②次优路径：
+a.MP-BGP为EIGRP分配的CC属性： Cost:pre-bestpath:128:409600，BGP路由器在比较EIGRP和MP-IBGP路由时，不比较AD，直接比较开销
+相同的BGP路由，如果有一条携带CC属性，则优选CC属性的路由（CC属性优先级比权重还高）
+b.SOO在EIGRP中的使用：通过比对路由中BGP的扩展团体属性SOO，如果路由器收到路由中所携带的SOO与本地一致，则拒绝更新路由
+R4(config)#route-map soo
+R4(config-route-map)#set extcommunity soo 100:1
+R4(config-route-map)#int e0/1
+R4(config-if)#ip vrf sitemap soo
+</code></pre>
+<h4 id="（4）OSPF"><a href="#（4）OSPF" class="headerlink" title="（4）OSPF"></a>（4）OSPF</h4><h6 id="①配置-1"><a href="#①配置-1" class="headerlink" title="①配置"></a>①配置</h6><pre class=" language-YAML"><code class="language-YAML">R4(config)#router ospf 110 vrf CC→不同VRF进程号不一样，也不能跟全局OSPF进程号一样
+R4(config-router)#network 202.101.34.0 0.0.0.255 a 0
+R4(config-router)#redistribute bgp 100 subnets 
+注意：MP-BGP重分布OSPF的路由时，默认情况不会重分布外部路由→R7(config-router-af)#redistribute ospf 110 match external internal 
+</code></pre>
+<p>现象：<br>O IA     192.168.10.1 [110/21] via 202.101.107.1, 00:00:09, Ethernet0/0→进程号相同但是也是区域间路由</p>
+<h6 id="②MPLS-VPN中的OSPF超级骨干区域→路由变成OIA的原因"><a href="#②MPLS-VPN中的OSPF超级骨干区域→路由变成OIA的原因" class="headerlink" title="②MPLS  VPN中的OSPF超级骨干区域→路由变成OIA的原因"></a>②MPLS  VPN中的OSPF超级骨干区域→路由变成OIA的原因</h6><p>a.超级骨干区域保证OSPF的区域连续性<br>b.超级骨干区域不会改变OSPF的路由类型→内部路由不变以及外部路由不变<br>c.MP-BGP的开销复制OSPF的开销</p>
+<h6 id="③MP-BGP为OSPF分配的扩展属性"><a href="#③MP-BGP为OSPF分配的扩展属性" class="headerlink" title="③MP-BGP为OSPF分配的扩展属性"></a>③MP-BGP为OSPF分配的扩展属性</h6><p>1）OSPF DOMAIN ID:0x0005:0x0000006E0200→代表的是否在OSPF的相同区域，默认情况下，域ID等于OSPF的进程号</p>
+<pre class=" language-YAML"><code class="language-YAML">（1）作用：如果PE之间的域ID相同，则OSPF的LSA类型保持原有的结构，如果域ID不一样，所有LSA转换为5类LSA（OE2）
+（2）更改域ID，在PE上配置：R2(config-router)#domain-id 0.0.0.120
+</code></pre>
+<p>2）OSPF RT:0.0.0.0:2:0：route-type→路由类型<br>前提是，不同站点间的区域号一致</p>
+<pre class=" language-YAML"><code class="language-YAML">O IA   20:1→OSPF RT:0.0.0.0:2:0→区域ID为0，为OSPF的内部路由，0没有意义
+O IA   50:1→OSPF RT:0.0.0.0:3:0→位区域间路由，0没有意义
+O E2  30:1→OSPF RT:0.0.0.0:5:1→区域ID为0，为OSPF的外部路由，1代表的是OE2
+O E1  40:1→OSPF RT:0.0.0.0:5:0→区域ID为0，位OSPF的外部路由，0代表的是OE1
+区域号不一致，一边是区域0一边是区域1，区域号会变
+（1）作用：传递OSPF的路由类型
+（2）三个字段：区域号+OSFP的路由类型+OE1/OE2，
+a.区域号：代表该路由对端PE所在的区域
+OSPF的内部还是外部：1类、2类全部为2代表的是区域内、3类LSA为3代表区域间、5类类LSA为5代表OSPF的外部区域，option为0代表OE1，为1代表OE2
+</code></pre>
+<p>3）OSPF ROUTER ID:202.101.34.2:0<br>4）OSPF的down比特位</p>
+<pre class=" language-YAML"><code class="language-YAML">（1）解决MPLS VPN中PE-CE的次优路径问题
+（2）PE上将MP-BGP的路由重分布进OSPF时，OSPF会将该条LSA的down比特置1，其他PE收到down比特置1的LSA时，在OSPF的拓扑表中存在，但是不会通过SPF算法添加进路由表
+（3）扩展：如果站点是多区域的OSPF，那么OSPF区域内的ABR会将DOWN比特置0
+</code></pre>
+<p>5）域标志：domain-tag</p>
+<pre class=" language-YAML"><code class="language-YAML">（1）作用：早期DOWN比特位不支持5类LSA的次优路径问题，因此引入域标志，PE上将MP-BGP的路由重分布进OSPF时，OSPF的5类LSA会添加域标志，标志为BGP的AS号，如果其他PE设备收到LSA携带域标志，与本地的BGP的AS号进行比较，如果一致则拒绝，反之接收
+（2）更改域标志
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">R4(config-router)#domain-tag ?
+  <1-4294967295>  OSPF domain tag - 32-bit value
+</code></pre>
+<h2 id="五、MPLS-VPN-with-OSPF-的sham-link"><a href="#五、MPLS-VPN-with-OSPF-的sham-link" class="headerlink" title="五、MPLS VPN with OSPF 的sham link"></a>五、MPLS VPN with OSPF 的sham link</h2><h4 id="1）sham-link："><a href="#1）sham-link：" class="headerlink" title="1）sham link："></a>1）sham link：</h4><p>适用于MPLS VPN环境中PE-CE之间采用OSPF，且不同站点之间的OSPF存在后门链路（低速链路）</p>
+<h6 id="（1）作用："><a href="#（1）作用：" class="headerlink" title="（1）作用："></a>（1）作用：</h6><p>解决存在后门链路的情况下，路由选路选择后门链路作为主链路（O），MPLS VPN作为备用链路的情况（O IA）</p>
+<h6 id="（2）sham-link："><a href="#（2）sham-link：" class="headerlink" title="（2）sham link："></a>（2）sham link：</h6><p>在MPLS VPN</p>
+<h6 id="（3）配置："><a href="#（3）配置：" class="headerlink" title="（3）配置："></a>（3）配置：</h6><p>①在PE上设置/32的sham link的地址<br>②sham link要在特定的VRF中</p>
+<pre class=" language-YAML"><code class="language-YAML">interface Loopback2
+ ip vrf forwarding CA
+ ip address 22.22.22.22 255.255.255.255
+</code></pre>
+<p>③将sham link地址通告进MP-BGP→不能通告进OSPF</p>
+<pre class=" language-YAML"><code class="language-YAML">address-family ipv4 vrf CA
+  network 44.44.44.44 mask 255.255.255.255
+</code></pre>
+<p>④架设sham link</p>
+<pre class=" language-YAML"><code class="language-YAML">router ospf 110
+area 0 sham-link 44.44.44.44（源） 22.22.22.22（目）
+</code></pre>
+<h6 id="（5）BGP：常用→简单（不需要重分布）"><a href="#（5）BGP：常用→简单（不需要重分布）" class="headerlink" title="（5）BGP：常用→简单（不需要重分布）"></a>（5）BGP：常用→简单（不需要重分布）</h6><p>①PE的配置：</p>
+<pre class=" language-YAML"><code class="language-YAML">address-family ipv4 vrf CA
+  neighbor 45.45.45.2 remote-as 65001
+</code></pre>
+<p>②站点相同AS号问题</p>
+<pre class=" language-YAML"><code class="language-YAML">a.as-overide：将站点的AS号替换为ISP的AS号
+R4(config-router)#address-family ipv4 vrf CA
+b.allowas-in：R5(config-router)#neighbor 45.45.45.1 allowas-in 
+</code></pre>
+<p>③如果使用以上功能，EBGP的水平分割会被旁路，使用SOO拒绝路由更新</p>
+<pre class=" language-YAML"><code class="language-YAML">R4(config-router)#address-famiR1(config)#ipv6 route ::/0 2021:14::2ly ipv4 vrf CA
+R4(config-router-af)#neighbor 45.45.45.2 soo ?
+  ASN:nn or IP-address:nn  VPN extended community
+</code></pre>
+<h2 id="六、MCE"><a href="#六、MCE" class="headerlink" title="六、MCE"></a>六、MCE</h2><h4 id="MCE："><a href="#MCE：" class="headerlink" title="MCE："></a>MCE：</h4><p>CE设备部署VRF，实现客户业务隔离</p>
+<h4 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h4><p>R1R2R3有9.9.9.0/24，但是R4的OSPF的数据库有5类LSA但是路由表没有相对应LSA的路由（数据库中的LSA不添加进路由表）</p>
+<h4 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h4><p>capability vrf-lite→关闭DOWN检查<br>具体见录屏</p>
+<h2 id="七、6VPE"><a href="#七、6VPE" class="headerlink" title="七、6VPE"></a>七、6VPE</h2><h4 id="（1）部署IPv6的基本环境"><a href="#（1）部署IPv6的基本环境" class="headerlink" title="（1）部署IPv6的基本环境"></a>（1）部署IPv6的基本环境</h4><pre class=" language-YAML"><code class="language-YAML">R8(config)#ipv6 unicast-routing →开启IPv6功能
+R1(config-if)#int e0/0
+R1(config-if)#ipv6 address 2021:14::1/64
+R1(config)#ipv6 route ::/0 2021:14::2→默认路由
+</code></pre>
+<h4 id="（2）部署IPv6的VRF"><a href="#（2）部署IPv6的VRF" class="headerlink" title="（2）部署IPv6的VRF"></a>（2）部署IPv6的VRF</h4><pre class=" language-YAML"><code class="language-YAML">R4(config)#vrf definition IPv6
+R4(config-vrf)#rd 100:1
+R4(config-vrf)#route-target 100:1
+R4(config-vrf)#address-family ipv6 unicast →开启VRF的IPv6功能
+R4(config-if)#int e0/0
+R4(config-if)#vrf forwarding IPv6
+R4(config-if)#ipv6 address 2021:14::2/64
+</code></pre>
+<h4 id="（3）部署IPv6的静态路由"><a href="#（3）部署IPv6的静态路由" class="headerlink" title="（3）部署IPv6的静态路由"></a>（3）部署IPv6的静态路由</h4><pre class=" language-YAML"><code class="language-YAML">R4(config)#ipv6 route vrf IPv6 1::1/64 2021:14::1
+</code></pre>
+<h4 id="（4）部署IPv6的MP-BGP建立VPNv6的邻居关系，在IPv6的VRF中重分布静态"><a href="#（4）部署IPv6的MP-BGP建立VPNv6的邻居关系，在IPv6的VRF中重分布静态" class="headerlink" title="（4）部署IPv6的MP-BGP建立VPNv6的邻居关系，在IPv6的VRF中重分布静态"></a>（4）部署IPv6的MP-BGP建立VPNv6的邻居关系，在IPv6的VRF中重分布静态</h4><pre class=" language-YAML"><code class="language-YAML">router bgp 100
+ bgp log-neighbor-changes
+ neighbor 4.4.4.4 remote-as 100
+ neighbor 4.4.4.4 update-source Loopback1
+ !
+ address-family vpnv6
+  neighbor 4.4.4.4 activate
+  neighbor 4.4.4.4 send-community extended
+ exit-address-family
+ address-family ipv6 vrf IPv6
+  redistribute static
+</code></pre>
+<h2 id="八、MPLS-VPN的Internet接入"><a href="#八、MPLS-VPN的Internet接入" class="headerlink" title="八、MPLS VPN的Internet接入"></a>八、MPLS VPN的Internet接入</h2><h4 id="（1）使用双链路或者子接口"><a href="#（1）使用双链路或者子接口" class="headerlink" title="（1）使用双链路或者子接口"></a>（1）使用双链路或者子接口</h4><h6 id="①在PE和CE上创建子接口，划分NAT和MPLS-VPN"><a href="#①在PE和CE上创建子接口，划分NAT和MPLS-VPN" class="headerlink" title="①在PE和CE上创建子接口，划分NAT和MPLS_VPN"></a>①在PE和CE上创建子接口，划分NAT和MPLS_VPN</h6><pre class=" language-YAML"><code class="language-YAML">interface Ethernet0/0.10
+ description NAT
+ encapsulation dot1Q 10
+ ip address 202.101.14.2 255.255.255.0
+interface Ethernet0/0.20
+ description MPLS_VPN
+ encapsulation dot1Q 20
+ ip vrf forwarding CA
+ ip address 192.168.14.2 255.255.255.0
+</code></pre>
+<h6 id="②打通MPLS-VPN→e0-x2F-0-20"><a href="#②打通MPLS-VPN→e0-x2F-0-20" class="headerlink" title="②打通MPLS_VPN→e0/0.20"></a>②打通MPLS_VPN→e0/0.20</h6><h6 id="③部署NAT→e0-x2F-0-10，注意一下，inside和outside接口"><a href="#③部署NAT→e0-x2F-0-10，注意一下，inside和outside接口" class="headerlink" title="③部署NAT→e0/0.10，注意一下，inside和outside接口"></a>③部署NAT→e0/0.10，注意一下，inside和outside接口</h6><h6 id="④默认路由下发→BGP的默认路由下发"><a href="#④默认路由下发→BGP的默认路由下发" class="headerlink" title="④默认路由下发→BGP的默认路由下发"></a>④默认路由下发→BGP的默认路由下发</h6><h4 id="（2）使用Tunnel口"><a href="#（2）使用Tunnel口" class="headerlink" title="（2）使用Tunnel口"></a>（2）使用Tunnel口</h4><h6 id="①打通MPLS-VPN"><a href="#①打通MPLS-VPN" class="headerlink" title="①打通MPLS_VPN"></a>①打通MPLS_VPN</h6><h6 id="②架设隧道→注意Tun配置"><a href="#②架设隧道→注意Tun配置" class="headerlink" title="②架设隧道→注意Tun配置"></a>②架设隧道→注意Tun配置</h6><pre class=" language-YAML"><code class="language-YAML">interface Tunnel1
+ ip address 192.168.14.2 255.255.255.0
+ tunnel source Ethernet0/0
+ tunnel destination 202.101.14.1
+ tunnel vrf CA→隧道的目的地址从VRF CA路由表中查询
+</code></pre>
+<h6 id="③部署NAT→隧道口为outside，NAT转换集为隧道口，默认路由的下一跳为隧道口"><a href="#③部署NAT→隧道口为outside，NAT转换集为隧道口，默认路由的下一跳为隧道口" class="headerlink" title="③部署NAT→隧道口为outside，NAT转换集为隧道口，默认路由的下一跳为隧道口"></a>③部署NAT→隧道口为outside，NAT转换集为隧道口，默认路由的下一跳为隧道口</h6><h6 id="④默认路由下发→BGP的默认路由下发-1"><a href="#④默认路由下发→BGP的默认路由下发-1" class="headerlink" title="④默认路由下发→BGP的默认路由下发"></a>④默认路由下发→BGP的默认路由下发</h6><h4 id="（3）使用VRF-Specify-Default-route"><a href="#（3）使用VRF-Specify-Default-route" class="headerlink" title="（3）使用VRF Specify Default route"></a>（3）使用VRF Specify Default route</h4><p>特点：NAT部署在MPLS域中，在域中指定网关（R5-loop1），分支不能通过总部访问Internet</p>
+<h6 id="①MPLS-VPN"><a href="#①MPLS-VPN" class="headerlink" title="①MPLS_VPN"></a>①MPLS_VPN</h6><h6 id="②在PE上部署NAT"><a href="#②在PE上部署NAT" class="headerlink" title="②在PE上部署NAT"></a>②在PE上部署NAT</h6><pre class=" language-YAML"><code class="language-YAML">a.默认路由下一跳：创建VRF的默认路由时，下一跳地址为global路由表中，需要指定VRF默认路由的下一跳地址从global路由表中查找
+R4(config)#ip route vrf CA 0.0.0.0 0.0.0.0 5.5.5.5 global
+b.NAT转换集问题：默认情况下不会转换VRF的路由
+R4(config)#ip nat inside source list 1 interface e0/3 vrf CA overload 
+</code></pre>
+<h6 id="③默认路由下发，由PE下发给CE"><a href="#③默认路由下发，由PE下发给CE" class="headerlink" title="③默认路由下发，由PE下发给CE"></a>③默认路由下发，由PE下发给CE</h6><h2 id="九、域间MPLS-VPN"><a href="#九、域间MPLS-VPN" class="headerlink" title="九、域间MPLS_VPN"></a>九、域间MPLS_VPN</h2><h4 id="option1：背靠背VRF→ASBR之间建立BGP的邻居关系传递IP路由"><a href="#option1：背靠背VRF→ASBR之间建立BGP的邻居关系传递IP路由" class="headerlink" title="option1：背靠背VRF→ASBR之间建立BGP的邻居关系传递IP路由"></a>option1：背靠背VRF→ASBR之间建立BGP的邻居关系传递IP路由</h4><h4 id="option2：ASBR之间建立MP-BGP邻居传递VPNv4路由"><a href="#option2：ASBR之间建立MP-BGP邻居传递VPNv4路由" class="headerlink" title="option2：ASBR之间建立MP-BGP邻居传递VPNv4路由"></a>option2：ASBR之间建立MP-BGP邻居传递VPNv4路由</h4><h6 id="①R4-config-router-no-bgp-default-route-target-filter-→关闭RT值匹配"><a href="#①R4-config-router-no-bgp-default-route-target-filter-→关闭RT值匹配" class="headerlink" title="①R4(config-router)#no bgp default route-target filter →关闭RT值匹配"></a>①R4(config-router)#no bgp default route-target filter →关闭RT值匹配</h6><h6 id="②PE上存在收到其他站点的BGP路由下一跳不可达"><a href="#②PE上存在收到其他站点的BGP路由下一跳不可达" class="headerlink" title="②PE上存在收到其他站点的BGP路由下一跳不可达"></a>②PE上存在收到其他站点的BGP路由下一跳不可达</h6><p>（1）在ASBR上使用下一跳为自己，VPNv4标签发生变化→VPNv4标签经历两次变化</p>
+<pre class=" language-YAML"><code class="language-YAML">R5(config-router)#address-family vpnv4 
+R5(config-router-af)#neighbor 7.7.7.7 next-hop-self 
+</code></pre>
+<p>（2）将下一跳重分布进IGP，ASBR之间还是存在下一跳发生变化→VPNv4标签经历一次变化</p>
+<pre class=" language-YAML"><code class="language-YAML">ip prefix-list hop seq 10 permit 192.168.45.2/32
+route-map hop permit 10
+ match ip address prefix-list hop
+ redistribute connected route-map hop
+</code></pre>
+<p>（3）ASBR之间建立LDP→将环回口设置为RID→VPNv4标签经历一次变化</p>
+<pre class=" language-YAML"><code class="language-YAML">interface Ethernet0/0
+ ip address 192.168.45.2 255.255.255.0
+ mpls ip
+</code></pre>
+<h4 id="option3：VPNv4标签在传递的过程不发生变化（VPNv4路由的下一跳不变）"><a href="#option3：VPNv4标签在传递的过程不发生变化（VPNv4路由的下一跳不变）" class="headerlink" title="option3：VPNv4标签在传递的过程不发生变化（VPNv4路由的下一跳不变）"></a>option3：VPNv4标签在传递的过程不发生变化（VPNv4路由的下一跳不变）</h4><h6 id="①RR之间建立MP-EBGP多跳传递VPNv4路由，RR传递路由时，不改变下一跳"><a href="#①RR之间建立MP-EBGP多跳传递VPNv4路由，RR传递路由时，不改变下一跳" class="headerlink" title="①RR之间建立MP-EBGP多跳传递VPNv4路由，RR传递路由时，不改变下一跳"></a>①RR之间建立MP-EBGP多跳传递VPNv4路由，RR传递路由时，不改变下一跳</h6><pre class=" language-YAML"><code class="language-YAML">  neighbor 100.100.100.100 next-hop-unchanged
+</code></pre>
+<h6 id="②ASBR之间建立EBGP邻居关系，开启标签分发功能"><a href="#②ASBR之间建立EBGP邻居关系，开启标签分发功能" class="headerlink" title="②ASBR之间建立EBGP邻居关系，开启标签分发功能"></a>②ASBR之间建立EBGP邻居关系，开启标签分发功能</h6><pre class=" language-YAML"><code class="language-YAML"> neighbor 192.168.45.2 send-label
+</code></pre>
+<h6 id="③注意双向重分布→RR的IP地址和路由的下一跳"><a href="#③注意双向重分布→RR的IP地址和路由的下一跳" class="headerlink" title="③注意双向重分布→RR的IP地址和路由的下一跳"></a>③注意双向重分布→RR的IP地址和路由的下一跳</h6><p>作业：三个域间MPLS_VPN 给5个路径跟踪截图</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">缝纫机抖火车</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://frjdhc.github.io/2023/01/08/mpls-vpn/">https://frjdhc.github.io/2023/01/08/mpls-vpn/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">缝纫机抖火车</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                                    <span class="chip bg-color">网络工程</span>
+                                </a>
+                            
+                                <a href="/tags/vpn/">
+                                    <span class="chip bg-color">vpn</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/01/08/stp/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="STP">
+                        
+                        <span class="card-title">STP</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-01-08
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/blog/" class="post-category">
+                                    blog
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                        <span class="chip bg-color">网络工程</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%A4%E6%8D%A2%E5%8D%8F%E8%AE%AE/">
+                        <span class="chip bg-color">交换协议</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/01/08/bgp-ccie/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="BGP-CCIE">
+                        
+                        <span class="card-title">BGP-CCIE</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/blog/" class="post-category">
+                                    blog
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B/">
+                        <span class="chip bg-color">网络工程</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
+                        <span class="chip bg-color">路由协议</span>
+                    </a>
+                    
+                    <a href="/tags/CCIE/">
+                        <span class="chip bg-color">CCIE</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: FRJBlog<br />'
+            + '文章作者: 缝纫机 抖火车<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023</span>
+            
+            <a href="/about" target="_blank">缝纫机 抖火车</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">19.4k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/FRJDHC" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1002623596@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/niao-shi-45" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/niao-shi-45" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
