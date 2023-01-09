@@ -4,6 +4,97 @@
   
     
     <entry>
+      <title>缝纫机的钢笔画</title>
+      <link href="/2023/01/09/ink/"/>
+      <url>/2023/01/09/ink/</url>
+      
+        <content type="html"><![CDATA[<p>我以为到了大学会有充足的时间画画和看书，我错了<br>高中画画更多是为了逃避，打发无聊的时间，我把这种逃避的行为当成了爱好<br>那时候画画不是因为爱好，而是我没有手机<br>我觉得是时候给自己画一本画册了</p><h1 id="缝纫机的钢笔画-画渣的临摹"><a href="#缝纫机的钢笔画-画渣的临摹" class="headerlink" title="缝纫机的钢笔画(画渣的临摹)"></a>缝纫机的钢笔画(画渣的临摹)</h1><h2 id="2022-4-6"><a href="#2022-4-6" class="headerlink" title="2022.4.6"></a>2022.4.6</h2><p><img src="/images/1.jpg" alt="流浪地球"></p><blockquote><p>临摹自流浪地球宣传画(局部)</p></blockquote><h2 id="2022-4-8"><a href="#2022-4-8" class="headerlink" title="2022.4.8"></a>2022.4.8</h2><p><img src="/images/7.jpg" alt="雅囡的眼镜"></p><blockquote><p>临摹自贝贝龙《雅囡的眼镜》</p></blockquote><h2 id="2022-5-31"><a href="#2022-5-31" class="headerlink" title="2022.5.31"></a>2022.5.31</h2><p><img src="/images/2.jpg" alt="即使我不再是十五岁"></p><blockquote><p>临摹自漫画《即使我不再是15歲》</p></blockquote><h2 id="2022-6-16"><a href="#2022-6-16" class="headerlink" title="2022.6.16"></a>2022.6.16</h2><p><img src="/images/3.jpg" alt="莫娜"></p><blockquote><p>我忘了是哪个画师了<br>芽衣shake it！看我派坦克来把你们这群OP送上天！</p></blockquote><h2 id="2022-12-8"><a href="#2022-12-8" class="headerlink" title="2022.12.8"></a>2022.12.8</h2><p><img src="/images/4.jpg" alt="我来搞定变色油墨"></p><blockquote><p>临摹自阿奔的钢笔画</p></blockquote><h2 id="2022-12-17"><a href="#2022-12-17" class="headerlink" title="2022.12.17"></a>2022.12.17</h2><p><img src="/images/5.jpg" alt="山"></p><blockquote><p>临摹自阿奔的钢笔画</p></blockquote><h2 id="2022-12-23"><a href="#2022-12-23" class="headerlink" title="2022.12.23"></a>2022.12.23</h2><p><img src="/images/6.jpg" alt="山"></p><blockquote><p>临摹自阿奔的钢笔画</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> blog </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 钢笔画 </tag>
+            
+            <tag> 画画 </tag>
+            
+            <tag> 临摹 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>网络高可靠性</title>
+      <link href="/2023/01/09/high-network-reliability/"/>
+      <url>/2023/01/09/high-network-reliability/</url>
+      
+        <content type="html"><![CDATA[<h1 id="一、NTP-网络时间协议"><a href="#一、NTP-网络时间协议" class="headerlink" title="一、NTP  网络时间协议"></a>一、NTP  网络时间协议</h1><h2 id="1、作用："><a href="#1、作用：" class="headerlink" title="1、作用："></a>1、作用：</h2><p>同步局域网中设备的时间，NTP服务器</p><h2 id="2、模式"><a href="#2、模式" class="headerlink" title="2、模式"></a>2、模式</h2><h3 id="①服务器"><a href="#①服务器" class="headerlink" title="①服务器"></a>①服务器</h3><h3 id="②客户端"><a href="#②客户端" class="headerlink" title="②客户端"></a>②客户端</h3><h3 id="③对等体"><a href="#③对等体" class="headerlink" title="③对等体"></a>③对等体</h3><pre class=" language-YAML"><code class="language-YAML">R1(config)#ntp peer 2.2.2.2</code></pre><h3 id="④广播-x2F-组播"><a href="#④广播-x2F-组播" class="headerlink" title="④广播/组播"></a>④广播/组播</h3><p>层值：  &lt;1-15&gt;  Stratum number<br>层值高的被低的同步→对等体</p><h2 id="3、配置"><a href="#3、配置" class="headerlink" title="3、配置"></a>3、配置</h2><p>服务器</p><pre class=" language-YAML"><code class="language-YAML">R1#clock set 10:16:00 10 jul 2020R1(config)#clock timezone UTC +8     //更改时区为东八区R1(config)#ntp master 1R1(config)#ntp source lo1        //NTP服务器使用的IPR1(config)#ntp authenticate       //启用验证R1(config)#ntp authentication-key 1 md5 cisco   //创建密钥R1(config)#ntp trusted-key 1   //信任密钥</code></pre><p>客户端</p><pre class=" language-YAML"><code class="language-YAML">R2(config)#ntp authenticate R2(config)#ntp authentication-key 1 md5 ciscoR2(config)#ntp trusted-key 1R2(config)#ntp server 1.1.1.1 key 1 source loo1   //同步时携带密钥R2#show clockR2#show ntp status </code></pre><h1 id="二、IP-SLA"><a href="#二、IP-SLA" class="headerlink" title="二、IP SLA"></a>二、IP SLA</h1><h2 id="1、作用：-1"><a href="#1、作用：-1" class="headerlink" title="1、作用："></a>1、作用：</h2><p>检测链路的性能，可以根据用户的业务需求，设置不同探测流量</p><h2 id="2、组件："><a href="#2、组件：" class="headerlink" title="2、组件："></a>2、组件：</h2><h3 id="①根据需求定义流量"><a href="#①根据需求定义流量" class="headerlink" title="①根据需求定义流量"></a>①根据需求定义流量</h3><p>→协议/端口</p><h3 id="②探测流量的发送频率"><a href="#②探测流量的发送频率" class="headerlink" title="②探测流量的发送频率"></a>②探测流量的发送频率</h3><h3 id="③将探测结果存放在MIB中"><a href="#③将探测结果存放在MIB中" class="headerlink" title="③将探测结果存放在MIB中"></a>③将探测结果存放在MIB中</h3><h2 id="3、配置-1"><a href="#3、配置-1" class="headerlink" title="3、配置"></a>3、配置</h2><h3 id="①跟踪连通性"><a href="#①跟踪连通性" class="headerlink" title="①跟踪连通性"></a>①跟踪连通性</h3><pre class=" language-YAML"><code class="language-YAML">R1(config)#ip sla 1        R1(config-ip-sla)#icmp-echo 3.3.3.3R1(config)#ip sla schedule 1 start-time now life forever R1(config)#ip sla 2R1(config-ip-sla)#http get http://www.baidu.com/ source-ip 1.1.1.1R1(config)#ip sla schedule 2 start-time now life forever R1(config)#ip route 3.3.3.0 255.255.255.0 202.101.12.2 track 1</code></pre><h3 id="②跟踪端口"><a href="#②跟踪端口" class="headerlink" title="②跟踪端口"></a>②跟踪端口</h3><pre class=" language-YAML"><code class="language-YAML">R1(config)#track 2 interface e0/0  line-protocol →端口是否是up的R1(config)#track 2 interface e0/0  ip routing →端口是否有IP地址</code></pre><h1 id="三、SPAN"><a href="#三、SPAN" class="headerlink" title="三、SPAN"></a>三、SPAN</h1><h2 id="1、端口镜像："><a href="#1、端口镜像：" class="headerlink" title="1、端口镜像："></a>1、端口镜像：</h2><p>监控网络的流量，通过流量副本发送到嗅探器上</p><h3 id="①本地SPAN：在同一vlan"><a href="#①本地SPAN：在同一vlan" class="headerlink" title="①本地SPAN：在同一vlan"></a>①本地SPAN：在同一vlan</h3><pre class=" language-YAML"><code class="language-YAML">SW4(config)#monitor session 1 source vlan 10 both    //侦听vlan的流量SW4(config)#monitor session 1 destination int g1/0  //将探测的流量发送到g1/0</code></pre><h3 id="②远程SPAN跨：vlan"><a href="#②远程SPAN跨：vlan" class="headerlink" title="②远程SPAN跨：vlan"></a>②远程SPAN跨：vlan</h3><pre class=" language-YAML"><code class="language-YAML">SW5(config)#vlan 30    //创建侦听使用的vlanSW5(config)#monitor session 2 source interface g0/1 - 2 both    //侦听流量的端口SW5(config)#monitor session 2 destination remote vlan 30       //发送到VLAN30上SW4(config)#vlan 30SW4(config)#monitor session 2 source remote vlan 30           //指定vlan30为侦听的流量SW4(config)#monitor session 2 destination int g1/0          //将侦听的流量发送到g1/0上</code></pre><h2 id="2、日志"><a href="#2、日志" class="headerlink" title="2、日志"></a>2、日志</h2><p>通过搭建日志服务器（有安装网管软件的终端），缓存网络设备的日志消息</p><pre class=" language-YAML"><code class="language-YAML">R1(config)#logging host 192.168.26.133→指定你的日志服务器R1(config)#logging trap ?  <0-7>          Logging severity level  alerts         Immediate action needed           (severity=1)  critical       Critical conditions               (severity=2)  debugging      Debugging messages                (severity=7)  emergencies    System is unusable                (severity=0)  errors         Error conditions                  (severity=3)  informational  Informational messages            (severity=6)  notifications  Normal but significant conditions (severity=5)  warnings       Warning conditions                (severity=4)  <cr></code></pre><h1 id="四、SNMP"><a href="#四、SNMP" class="headerlink" title="四、SNMP"></a>四、SNMP</h1><p>简单的网络管理协议<br>组件：管理器（有安装网管软件的终端）、代理（请求）、MIB（管理数据库）</p><pre class=" language-YAML"><code class="language-YAML">R1(config)#snmp-server community cisco123 rw</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络工程 </tag>
+            
+            <tag> 思科 </tag>
+            
+            <tag> Cisco </tag>
+            
+            <tag> 交换协议 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>FHRP</title>
+      <link href="/2023/01/09/fhrp/"/>
+      <url>/2023/01/09/fhrp/</url>
+      
+        <content type="html"><![CDATA[<h1 id="FHRP-第一跳冗余协议"><a href="#FHRP-第一跳冗余协议" class="headerlink" title="FHRP  第一跳冗余协议"></a>FHRP  第一跳冗余协议</h1><p>PC的第一跳  网关的备份<br>HSRP（思科私有）  GLBP（思科私有）   VRRP（公有）<br><strong>原理</strong> ：<br>将多台设备虚拟成一台网关设备，并且产生虚拟IP和虚拟MAC地址，当PC请求网关的MAC地址时，将虚拟的MAC地址作为回应，多台设备会有一台设备作为数据的转发，其他设备用于备份，对PC而言，网关的备份是透明的。<br><strong>区别</strong> ：<br>HSRP：私有<br>VRRP：公有   虚拟IP可以放在成员接口上<br>GLBP：私有   实现负载均衡  只能跟踪对象</p><h2 id="一、HSRP"><a href="#一、HSRP" class="headerlink" title="一、HSRP"></a>一、HSRP</h2><p><strong>思科私有</strong><br>组播地址：224.0.0.2<br>虚拟MAC地址：0000.0c07.acXX<br>Hello time 3 sec<br>hold time 10 sec</p><h3 id="1、HSRP的角色"><a href="#1、HSRP的角色" class="headerlink" title="1、HSRP的角色"></a>1、HSRP的角色</h3><h4 id="①active："><a href="#①active：" class="headerlink" title="①active："></a>①active：</h4><p>活跃 作为主机转发的网关</p><h4 id="②standby："><a href="#②standby：" class="headerlink" title="②standby："></a>②standby：</h4><p>备份 作为active的备份<br>选举规则：</p><blockquote><p>a.优先级  Priority 100 (default 100)，越大越优<br>b.比较启用HSRP接口的IP地址：越大越优<br>注意：默认情况下，抢占功能没有开启（具有非抢占性）</p></blockquote><h3 id="2、HSRP的状态"><a href="#2、HSRP的状态" class="headerlink" title="2、HSRP的状态"></a>2、HSRP的状态</h3><h4 id="①初始（init）："><a href="#①初始（init）：" class="headerlink" title="①初始（init）："></a>①初始（init）：</h4><p>接口启用、关闭，配置更改</p><h4 id="②侦听（listening）："><a href="#②侦听（listening）：" class="headerlink" title="②侦听（listening）："></a>②侦听（listening）：</h4><p>侦听hello，可识别虚拟IP地址</p><h4 id="③发言（speak）："><a href="#③发言（speak）：" class="headerlink" title="③发言（speak）："></a>③发言（speak）：</h4><p>发送hello包，参与选举</p><h4 id="④备份（standby）："><a href="#④备份（standby）：" class="headerlink" title="④备份（standby）："></a>④备份（standby）：</h4><p>成为备用网关，并参与活跃路由器的选举</p><h4 id="⑤活跃（active）："><a href="#⑤活跃（active）：" class="headerlink" title="⑤活跃（active）："></a>⑤活跃（active）：</h4><p>成为活跃网关，并侦听hello包，定期发送hello包</p><h3 id="3、HSRP的配置"><a href="#3、HSRP的配置" class="headerlink" title="3、HSRP的配置"></a>3、HSRP的配置</h3><pre class=" language-YAML"><code class="language-YAML">R2(config)#int e0/0R2(config-if)#standby 10 ip 192.168.1.254    //创建组别10,并设置虚拟网关为192.168.1.254R2(config-if)#standby 10 priority ?                //更改优先级  <0-255>  Priority valueR2(config-if)#standby 10 preempt                //开启抢占R3(config-if)#standby 10 timers 1 3             //更改时间（hold时间是hello的三倍）R2(config-if)#standby 10 authentication md5 key-string cisco   /启用密文验证R2(config-if)#standby 10 authentication text cisco   //启用明文验证R2(config-if)#standby 10 authentication md5 key-chain cisco key chain cisco key 1  key-string cisco</code></pre><p>查看命令</p><pre class=" language-YAML"><code class="language-YAML">R2#show standby brief </code></pre><p>HSRP和STP结合时，有STP的阻塞端口可能导致次优路径的问题，所以建议将根桥和acticve放在同一个设备上<br>HSRP的负载均衡实现：需要通过创建多个组别，每一个组别的活跃和备份网关不一致</p><h3 id="4、HSRP的上行链路问题"><a href="#4、HSRP的上行链路问题" class="headerlink" title="4、HSRP的上行链路问题"></a>4、HSRP的上行链路问题</h3><p>由于HSRP无法直接侦听上行链路的好坏，上行链路down，HSRP的HELLO依旧可以发送，不会影响角色的更换</p><h4 id="方法①："><a href="#方法①：" class="headerlink" title="方法①："></a>方法①：</h4><p>通过track侦听上行链路的up/down，HSRP的设备的上行端口（跟踪接口）<br>缺点：只能对本地的端口进行检测，无法检测对端的端口好坏</p><pre class=" language-YAML"><code class="language-YAML">R2(config)#track 1 interface e0/1 line-protocol       //创建track跟踪端口e0/1的好坏R2(config-if)#standby 10 track 1 decrement 10</code></pre><p>如果track1成立（端口坏，track成立），hsrp的优先级降10</p><h4 id="方法②"><a href="#方法②" class="headerlink" title="方法②:"></a>方法②:</h4><pre class=" language-YAML"><code class="language-YAML">IP SLA  检测连通性   （跟踪对象）R2(config)#ip sla 10R2(config-ip-sla)#icmp-echo 192.168.12.1      //侦听是否可以到达192.168.12.1R2(config-ip-sla-echo)#frequency 5R2(config)#ip sla schedule 10 life forever start-time now   //有效时间为永远，从现在开始执行R2(config)#track 10 ip sla 10          //用track关联SLAR2(config-track)#exitR2(config)#int e0/0R2(config-if)#standby 10 track 10 decrement 20    //调用track间接调用SLA</code></pre><h2 id="二、VRRP"><a href="#二、VRRP" class="headerlink" title="二、VRRP"></a>二、VRRP</h2><p><strong>公有的</strong><br>抢占默认开启<br>组播地址：224.0.0.18<br>虚拟MAC地址：0000.5e00.01XX<br>HELLO：1S<br>Hold：3S<br>虚拟的IP地址可以设置在成员接口上，且该成员的优先级是255（最高）<br>不能跟踪</p><h3 id="1、角色"><a href="#1、角色" class="headerlink" title="1、角色"></a>1、角色</h3><h4 id="①master："><a href="#①master：" class="headerlink" title="①master："></a>①master：</h4><p>类似HSRP的active</p><h4 id="②backup："><a href="#②backup：" class="headerlink" title="②backup："></a>②backup：</h4><p>类似HSRP的standby</p><h3 id="2、状态"><a href="#2、状态" class="headerlink" title="2、状态"></a>2、状态</h3><h4 id="①init"><a href="#①init" class="headerlink" title="①init"></a>①init</h4><h4 id="②backup"><a href="#②backup" class="headerlink" title="②backup"></a>②backup</h4><h4 id="③master"><a href="#③master" class="headerlink" title="③master"></a>③master</h4><h3 id="3、配置"><a href="#3、配置" class="headerlink" title="3、配置"></a>3、配置</h3><pre class=" language-YAML"><code class="language-YAML">R3(config)#int e0/1R3(config-if)#vrrp 1 ip 192.168.1.254R3(config-if)#vrrp 1 priority ?  <1-254>  Priority levelR3(config-if)#vrrp 1 preempt R2(config-if)#vrrp 1 authentication md5 key-string cisco   /启用密文验证R2(config-if)#vrrp 1 authentication text cisco   //启用明文验证R2(config-if)#vrrp 1 authentication md5 key-chain cisco R3(config)#track 1 interface e0/0 line-protocol R3(config-if)#vrrp 1 track 1 decrement 10R3(config)#ip sla 1R3(config-ip-sla)#icmp-echo 192.168.13.1R3(config-ip-sla-echo)#frequency 5R3(config)#ip sla schedule 1 life forever start-time now R3(config)#track 1 ip sla 1R3(config)#int e0/1R3(config-if)#vrrp 1 track 1 decrement 10</code></pre><h2 id="三、GLBP"><a href="#三、GLBP" class="headerlink" title="三、GLBP"></a>三、GLBP</h2><p><strong>思科私有</strong><br>每一台设备都可以转发流量<br>组播地址：224.0.0.102<br>虚拟MAC地址：0007.b400.01XX<br>Hello time 3 sec<br>hold time 10 sec<br>Preemption disabled<br>Priority 100 (default)</p><h3 id="1、角色-1"><a href="#1、角色-1" class="headerlink" title="1、角色"></a>1、角色</h3><h4 id="①AVG："><a href="#①AVG：" class="headerlink" title="①AVG："></a>①AVG：</h4><p>虚拟网关，为AVF分配虚拟的MAC地址</p><h4 id="②AVF："><a href="#②AVF：" class="headerlink" title="②AVF："></a>②AVF：</h4><p>虚拟转发器，数量最多可以4个，AVG可以是AVF</p><h3 id="2、状态-1"><a href="#2、状态-1" class="headerlink" title="2、状态"></a>2、状态</h3><h4 id="①init-1"><a href="#①init-1" class="headerlink" title="①init"></a>①init</h4><h4 id="②listening"><a href="#②listening" class="headerlink" title="②listening"></a>②listening</h4><h4 id="③active"><a href="#③active" class="headerlink" title="③active"></a>③active</h4><h3 id="3、配置-1"><a href="#3、配置-1" class="headerlink" title="3、配置"></a>3、配置</h3><pre class=" language-YAML"><code class="language-YAML">R2(config-if)#glbp 1 ip 192.168.1.254R2(config-if)#glbp 1 priority ?  <1-255>  Priority valueR2(config-if)#glbp 1 preempt</code></pre><h3 id="4、负载均衡选项"><a href="#4、负载均衡选项" class="headerlink" title="4、负载均衡选项"></a>4、负载均衡选项</h3><pre class=" language-YAML"><code class="language-YAML">R2(config-if)#glbp 1 load-balancing ?  host-dependent     主机  round-robin           轮询  weighted                权重R2(config-if)#glbp 1 authentication md5 key-string cisco   /启用密文验证R2(config-if)#glbp 1 authentication text cisco   //启用明文验证R2(config-if)#glbp 1 authentication md5 key-chain cisco R3(config)#ip sla 1R3(config-ip-sla)#icmp-echo 192.168.13.1R3(config-ip-sla-echo)#frequency 5R3(config)#ip sla schedule 1 life forever start-time now R3(config)#track 1 ip sla 1R3(config)#int e0/1R3(config-if)#glbp 1 track 1 decrement 10</code></pre><p>只能跟踪对象</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络工程 </tag>
+            
+            <tag> 思科 </tag>
+            
+            <tag> Cisco </tag>
+            
+            <tag> 交换协议 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>「2010年的房地产调控，我们收获了什么？写在房价暴涨前」</title>
       <link href="/2023/01/08/2010-nian-de-fang-di-chan-diao-kong-wo-men-shou-huo-liao-shi-me-xie-zai-fang-jie-bao-zhang-qian/"/>
       <url>/2023/01/08/2010-nian-de-fang-di-chan-diao-kong-wo-men-shou-huo-liao-shi-me-xie-zai-fang-jie-bao-zhang-qian/</url>
@@ -46,7 +137,7 @@
       
       <categories>
           
-          <category> blog </category>
+          <category> 笔记 </category>
           
       </categories>
       
@@ -54,6 +145,10 @@
         <tags>
             
             <tag> 网络工程 </tag>
+            
+            <tag> 思科 </tag>
+            
+            <tag> Cisco </tag>
             
             <tag> 交换协议 </tag>
             
@@ -73,7 +168,7 @@
       
       <categories>
           
-          <category> blog </category>
+          <category> 笔记 </category>
           
       </categories>
       
@@ -81,6 +176,10 @@
         <tags>
             
             <tag> 网络工程 </tag>
+            
+            <tag> 思科 </tag>
+            
+            <tag> Cisco </tag>
             
             <tag> vpn </tag>
             
@@ -100,7 +199,7 @@
       
       <categories>
           
-          <category> blog </category>
+          <category> 笔记 </category>
           
       </categories>
       
@@ -110,6 +209,10 @@
             <tag> 网络工程 </tag>
             
             <tag> 路由协议 </tag>
+            
+            <tag> 思科 </tag>
+            
+            <tag> Cisco </tag>
             
             <tag> CCIE </tag>
             
@@ -129,7 +232,7 @@
       
       <categories>
           
-          <category> blog </category>
+          <category> 笔记 </category>
           
       </categories>
       
@@ -139,6 +242,10 @@
             <tag> 网络工程 </tag>
             
             <tag> 路由协议 </tag>
+            
+            <tag> 思科 </tag>
+            
+            <tag> Cisco </tag>
             
         </tags>
       
@@ -156,7 +263,7 @@
       
       <categories>
           
-          <category> blog </category>
+          <category> 笔记 </category>
           
       </categories>
       
@@ -166,6 +273,10 @@
             <tag> 网络工程 </tag>
             
             <tag> 路由协议 </tag>
+            
+            <tag> 思科 </tag>
+            
+            <tag> Cisco </tag>
             
         </tags>
       
@@ -183,7 +294,7 @@
       
       <categories>
           
-          <category> blog </category>
+          <category> 笔记 </category>
           
       </categories>
       
@@ -193,6 +304,43 @@
             <tag> 网络工程 </tag>
             
             <tag> 路由协议 </tag>
+            
+            <tag> 思科 </tag>
+            
+            <tag> Cisco </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>华为基础配置</title>
+      <link href="/2023/01/08/huawei-basic-command/"/>
+      <url>/2023/01/08/huawei-basic-command/</url>
+      
+        <content type="html"><![CDATA[<h1 id="华为基础配置"><a href="#华为基础配置" class="headerlink" title="华为基础配置"></a>华为基础配置</h1><p>vlan、trunk<br>access/trunk/hybrid（混杂端口）<br><strong>hybrid</strong>：连接的对象是终端设备，则hybrid不对vlan打标签，等效于access（人为判断）<br><strong>hybrid</strong>：连接的对象是交换机，则hybrid对vlan打标签，等效于trunk（人为判断）</p><pre class=" language-YAML"><code class="language-YAML"><LSW3>system-view = enable+ conf t //切换到配置模式[Huawei]sysname LSW3 //修改主机名[LSW3]quit=exit      end=crtl+z[LSW3]display current-configuration //查看所有命令[LSW3]display vlan //查看vlan[LSW3] dis ip int brief //查看接口地址</code></pre><h2 id="1、创建vlan"><a href="#1、创建vlan" class="headerlink" title="1、创建vlan"></a>1、创建vlan</h2><pre class=" language-YAML"><code class="language-YAML">[LSW3]vlan 10 //创建单个vlan[LSW3]vlan batch 10 20 30 40 //创建多个vlan</code></pre><h2 id="2、配置hybrid"><a href="#2、配置hybrid" class="headerlink" title="2、配置hybrid"></a>2、配置hybrid</h2><pre class=" language-YAML"><code class="language-YAML">[lsw1]int g0/0/4[lsw1-GigabitEthernet0/0/4]port link-type hybrid [lsw1-GigabitEthernet0/0/4]port hybrid tagged vlan 100[lsw1-GigabitEthernet0/0/4]port hybrid untagged vlan 100</code></pre><h2 id="3、配置access"><a href="#3、配置access" class="headerlink" title="3、配置access"></a>3、配置access</h2><pre class=" language-YAML"><code class="language-YAML">[lsw2]int g0/0/1[lsw2-GigabitEthernet0/0/1]port link-type access [lsw2-GigabitEthernet0/0/1]port default vlan 10</code></pre><h2 id="4、配置trunk"><a href="#4、配置trunk" class="headerlink" title="4、配置trunk"></a>4、配置trunk</h2><pre class=" language-YAML"><code class="language-YAML">[lsw2-GigabitEthernet0/0/2]int g0/0/03[lsw2-GigabitEthernet0/0/3]port link-type trunk [lsw2-GigabitEthernet0/0/3]port trunk allow-pass vlan all </code></pre><p><strong>注意</strong>：华为trunk<strong>默认不放行</strong>所有vlan，只能手动放行<br>华为的所有<strong>接口都是up</strong></p><h2 id="5、华为三层交换机的配置"><a href="#5、华为三层交换机的配置" class="headerlink" title="5、华为三层交换机的配置"></a>5、华为三层交换机的配置</h2><p>配置svi接口–交换虚拟接口</p><pre class=" language-YAML"><code class="language-YAML">interface Vlanif10  //首先要创建vlanip address 192.168.10.254 24</code></pre><h2 id="6、配置ospf"><a href="#6、配置ospf" class="headerlink" title="6、配置ospf"></a>6、配置ospf</h2><pre class=" language-YAML"><code class="language-YAML">[lsw1]ospf 110 router-id 1.1.1.1[lsw1-ospf-110]area 0[lsw1-ospf-110-area-0.0.0.0]network 192.168.10.0 0.0.0.255[r1]dis ospf peer  //查看ospf 邻居关系[r1]dis ip  routing-table protocol  ospf //只看ospf的路由表</code></pre><h2 id="7、选路依据"><a href="#7、选路依据" class="headerlink" title="7、选路依据"></a>7、选路依据</h2><p>华为：pre（优先级）/cost<br>思科：ad值/metric<br>rip ad<br>bgp ad </p><pre class=" language-YAML"><code class="language-YAML">[lsw1]ping -a 192.168.10.254 10.1.1.2 //特定的源ping 目标类似source<r1>reset  ospf process  =clear ip ospf process ospf //下发默认路由 default-route-advertise always </code></pre><h2 id="8、bgp的配置"><a href="#8、bgp的配置" class="headerlink" title="8、bgp的配置"></a>8、bgp的配置</h2><pre class=" language-YAML"><code class="language-YAML">[isp]bgp 200 配置bgp的as号[isp-bgp]peer 202.101.100.100 as-number 100 配置邻居的as号[isp-bgp]network 8.8.8.0 24 通告网段dis bgp peer 查看bgp的邻居</code></pre><h2 id="9、DHCP"><a href="#9、DHCP" class="headerlink" title="9、DHCP"></a>9、DHCP</h2><h3 id="1）默认dhcp功能关闭"><a href="#1）默认dhcp功能关闭" class="headerlink" title="1）默认dhcp功能关闭"></a>1）默认dhcp功能关闭</h3><pre class=" language-YAML"><code class="language-YAML">dhcp enable</code></pre><h3 id="2）dhcp分配方式有两种！"><a href="#2）dhcp分配方式有两种！" class="headerlink" title="2）dhcp分配方式有两种！"></a>2）dhcp分配方式有两种！</h3><pre class=" language-YAML"><code class="language-YAML">dhcp select global //全局地址池分配interface GigabitEthernet0/0/0 dhcp select globaldhcp select interface //接口地址池分配interface GigabitEthernet0/0/0 dhcp select global interface dhcp server gateway-list 192.168.0.1</code></pre><h2 id="10、dhcp的配置"><a href="#10、dhcp的配置" class="headerlink" title="10、dhcp的配置"></a>10、dhcp的配置</h2><pre class=" language-YAML"><code class="language-YAML">[r1]ip pool pc1  //创建地址池[r1-ip-pool-pc1]network 192.168.10.0 mask 24[r1-ip-pool-pc1]gateway-list 192.168.10.254</code></pre><h2 id="11、中继"><a href="#11、中继" class="headerlink" title="11、中继"></a>11、中继</h2><pre class=" language-YAML"><code class="language-YAML">dhcp enable//开启dhcp 服务int vlan 10dhcp select relaydhcp relay serve-ip 10.1.1.2[r1]dis ip poo name pc1 used  //查看地址池使用情况</code></pre><h2 id="12、nat-x2F-acl的配置"><a href="#12、nat-x2F-acl的配置" class="headerlink" title="12、nat/acl的配置"></a>12、nat/acl的配置</h2><h3 id="1）端口配置nat"><a href="#1）端口配置nat" class="headerlink" title="1）端口配置nat"></a>1）端口配置nat</h3><pre class=" language-YAML"><code class="language-YAML">[r1]acl 2000[r1-acl-basic-2000]rule 0 permit source 192.168.10.0 0.0.0.255[r1-acl-basic-2000]rule 1 permit source 192.168.20.0 0.0.0.255 //nat中调用的acl最后是默认拒绝所有int g0/0/0nat outbound 2000 直接调用acl</code></pre><h3 id="2）server-nat"><a href="#2）server-nat" class="headerlink" title="2）server-nat"></a>2）server-nat</h3><pre class=" language-YAML"><code class="language-YAML">interface GigabitEthernet0/0/1 nat server global 202.101.100.99 inside 192.168.99.1</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络工程 </tag>
+            
+            <tag> 路由协议 </tag>
+            
+            <tag> 交换协议 </tag>
+            
+            <tag> 华为 </tag>
+            
+            <tag> Huawei </tag>
             
         </tags>
       
@@ -210,7 +358,7 @@
       
       <categories>
           
-          <category> blog </category>
+          <category> 笔记 </category>
           
       </categories>
       
@@ -220,6 +368,10 @@
             <tag> 网络工程 </tag>
             
             <tag> 路由协议 </tag>
+            
+            <tag> 思科 </tag>
+            
+            <tag> Cisco </tag>
             
         </tags>
       
