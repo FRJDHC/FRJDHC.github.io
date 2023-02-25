@@ -4,10 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="IGP, FRJBlog">
-    <meta name="description" content="IGP  内部网关协议一、路由重分布背景：公司合并、产商设备的兼容性问题，导致局域网不能互联，各个路由协议所运行的算法不兼容解决方法→路由重分布：不同协议间的路由学习
-二、重分布的对象1、直连2、静态路由3、其他动态路由协议
-三、重分布的类">
+    <meta name="keywords" content="DMVPN, FRJBlog">
+    <meta name="description" content="【DMVPN】思科私有 DSVPNEIGRP与DMVPN是绝配!（1）传统VPN的缺陷：①占用中心站点的带宽②分支之间的访问需要经过总部，进行两次加解密过程，延迟大③中心站点需要维护多条IPSecSA
+（2）DMVPN的特点：①支持full">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>IGP | FRJBlog</title>
+    <title>DMVPN | FRJBlog</title>
     <link rel="stylesheet" type="text/css" href="/libs/artitalk/artitalk.min.css">
     <link rel="icon" type="image/png" href="/source/favicon.png">
     
@@ -285,12 +284,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">IGP</h1>
+                    <h1 class="description center-align post-title">DMVPN</h1>
                 </div>
             </div>
         </div>
@@ -318,16 +317,16 @@
                                 <span class="chip bg-color">网络工程</span>
                             </a>
                         
-                            <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
-                                <span class="chip bg-color">路由协议</span>
-                            </a>
-                        
                             <a href="/tags/%E6%80%9D%E7%A7%91/">
                                 <span class="chip bg-color">思科</span>
                             </a>
                         
                             <a href="/tags/Cisco/">
                                 <span class="chip bg-color">Cisco</span>
+                            </a>
+                        
+                            <a href="/tags/vpn/">
+                                <span class="chip bg-color">vpn</span>
                             </a>
                         
                     </div>
@@ -351,7 +350,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-01-08
+                    2023-02-25
                 </div>
                 
 
@@ -360,7 +359,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1.5k
                 </div>
                 
 
@@ -387,95 +386,84 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="IGP-内部网关协议"><a href="#IGP-内部网关协议" class="headerlink" title="IGP  内部网关协议"></a>IGP  内部网关协议</h1><h2 id="一、路由重分布"><a href="#一、路由重分布" class="headerlink" title="一、路由重分布"></a>一、路由重分布</h2><p>背景：公司合并、产商设备的兼容性问题，导致局域网不能互联，各个路由协议所运行的算法不兼容<br>解决方法→路由重分布：不同协议间的路由学习</p>
-<h2 id="二、重分布的对象"><a href="#二、重分布的对象" class="headerlink" title="二、重分布的对象"></a>二、重分布的对象</h2><p>1、直连<br>2、静态路由<br>3、其他动态路由协议</p>
-<h2 id="三、重分布的类型"><a href="#三、重分布的类型" class="headerlink" title="三、重分布的类型"></a>三、重分布的类型</h2><p>1、单点单向→默认路由<br>2、单点双向<br>3、双点单向<br>4、双点双向</p>
-<h2 id="四、重分布产生的网络问题"><a href="#四、重分布产生的网络问题" class="headerlink" title="四、重分布产生的网络问题"></a>四、重分布产生的网络问题</h2><p>1、次优路径<br>2、环路</p>
-<h2 id="五、初始度量值（种子度量值）"><a href="#五、初始度量值（种子度量值）" class="headerlink" title="五、初始度量值（种子度量值）"></a>五、初始度量值（种子度量值）</h2><p>1、RIP和EIGRP的初始度量值为无穷大<br>2、OSPF的初始度量值为20</p>
-<h2 id="六、配置"><a href="#六、配置" class="headerlink" title="六、配置"></a>六、配置</h2><h4 id="1、RIP"><a href="#1、RIP" class="headerlink" title="1、RIP"></a>1、RIP</h4><pre class=" language-YAML"><code class="language-YAML">R3(config)#router rip
-R3(config-router)#redistribute ospf 110 metric 3
-R3(config-router)#redistribute eigrp 90 metric 1
-metric 1：代表的是将其他协议的初始度量值设置为1
+                <h1 id="【DMVPN】思科私有-DSVPN"><a href="#【DMVPN】思科私有-DSVPN" class="headerlink" title="【DMVPN】思科私有 DSVPN"></a>【DMVPN】思科私有 DSVPN</h1><h1 id="EIGRP与DMVPN是绝配"><a href="#EIGRP与DMVPN是绝配" class="headerlink" title="EIGRP与DMVPN是绝配!"></a>EIGRP与DMVPN是绝配!</h1><h3 id="（1）传统VPN的缺陷："><a href="#（1）传统VPN的缺陷：" class="headerlink" title="（1）传统VPN的缺陷："></a>（1）传统VPN的缺陷：</h3><p>①占用中心站点的带宽<br>②分支之间的访问需要经过总部，进行两次加解密过程，延迟大<br>③中心站点需要维护多条IPSecSA</p>
+<h3 id="（2）DMVPN的特点："><a href="#（2）DMVPN的特点：" class="headerlink" title="（2）DMVPN的特点："></a>（2）DMVPN的特点：</h3><p>①支持full-mesh的网络拓扑→实连接（hub-spoke）和虚连接（spoke-spoke）<br>②多分支与总部的VPN连接只有一对<br>③延迟低→一次加解密<br>④分支之间的隧道动态建立，分支之间的访问无需经过hub<br>⑤新增spoke，无需更改hub的配置</p>
+<h3 id="（3）DMVPN的组件"><a href="#（3）DMVPN的组件" class="headerlink" title="（3）DMVPN的组件"></a>（3）DMVPN的组件</h3><p>①mGRE：建立隧道<br>②NHRP：下一跳解析协议→解析隧道IP与公网IP的映射→ARP理解<br>③动态路由协议：学习内网→建议使用EIGRP→绝配<br>④IPSec：加密→同样也是对GRE做加密→封装模式（传输模式）</p>
+<h3 id="（4）mGRE："><a href="#（4）mGRE：" class="headerlink" title="（4）mGRE："></a>（4）mGRE：</h3><p>单点GRE需要指定源IP和目的IP，由于DMVPN总部需要跟多个分支建立隧道，使用mGRE，可以实现一个隧道接口跟多跟分支站点的隧道建立连接，mGRE需要指定源IP，但是不需要指定目的IP地址，目的IP地址由NHRP解析</p>
+<h3 id="（5）NHRP：下一跳解析协议"><a href="#（5）NHRP：下一跳解析协议" class="headerlink" title="（5）NHRP：下一跳解析协议"></a>（5）NHRP：下一跳解析协议</h3><p>①C/S架构：C→分支，S指的是总部<br>②所有的分支需要将自己的公网IP与隧道IP的映射发送给hub，hub在本地有NHRP数据库，存储所有分支的IP映射，spoke1需要跟spoke2，建立VPN连接时，由于不知道spoke2的公网IP，因此向hub发送NHRP请求信息，请求spoke2的公网IP，hub通过数据库查找spoke2的映射信息，向spoke1回应NHRP的回应信息，spoke1得到spoke2的公网IP，就可以建立VPN连接</p>
+<h3 id="（6）DMVPN的三个阶段"><a href="#（6）DMVPN的三个阶段" class="headerlink" title="（6）DMVPN的三个阶段"></a>（6）DMVPN的三个阶段</h3><h4 id="阶段一：Hub采用mGRE，spokes采用的单点GRE，spokes间的流量需要通过hub转发"><a href="#阶段一：Hub采用mGRE，spokes采用的单点GRE，spokes间的流量需要通过hub转发" class="headerlink" title="阶段一：Hub采用mGRE，spokes采用的单点GRE，spokes间的流量需要通过hub转发"></a>阶段一：Hub采用mGRE，spokes采用的单点GRE，spokes间的流量需要通过hub转发</h4><h6 id="HUB端的配置"><a href="#HUB端的配置" class="headerlink" title="HUB端的配置"></a>HUB端的配置</h6><pre class=" language-YAML"><code class="language-YAML">interface Tunnel1
+ ip address 192.168.123.1 255.255.255.0
+ ip nhrp authentication cisco123
+ ip nhrp map multicast dynamic→开启组播功能→跑协议
+ ip nhrp network-id 123→定义一个工作组
+ tunnel source Ethernet0/0
+ tunnel mode gre multipoint→将隧道改为mGRE
+--------------IPSec-----------------------------
+crypto isakmp policy 10
+ authentication pre-share
+crypto isakmp key cisco123 address 0.0.0.0→分支站点公网IP不固定        
+crypto ipsec transform-set zwh esp-3des esp-sha-hmac 
+ mode transport
+crypto ipsec profile zwh
+ set transform-set zwh
+interface Tunnel1
+tunnel protection ipsec profile zwh
 </code></pre>
-<h4 id="2、OSPF"><a href="#2、OSPF" class="headerlink" title="2、OSPF"></a>2、OSPF</h4><pre class=" language-YAML"><code class="language-YAML">R3(config)#router ospf 110
-R3(config-router)#redistribute static subnets
-R3(config-router)#redistribute rip subnets 
-subnets ：重分布详细的子网信息
-R3(config-router)#redistribute eigrp 90 subnets metric 30 metric-type 1
-将EIGRP的外部通告进OSPF区域时，初始度量值更改为30，类型为OE1
+<h6 id="spoke的配置："><a href="#spoke的配置：" class="headerlink" title="spoke的配置："></a>spoke的配置：</h6><pre class=" language-YAML"><code class="language-YAML">interface Tunnel1
+ ip address 192.168.123.2 255.255.255.0
+ ip nhrp authentication cisco123
+ ip nhrp map multicast 202.101.1.1→与HUB的公网IP建立组播功能
+ ip nhrp map 192.168.123.1 202.101.1.1→绑定HUB的隧道IP与公网IP
+ ip nhrp network-id 123
+ ip nhrp nhs 192.168.123.1→指定NHRP的服务器（HUB的隧道IP）
+ tunnel source Ethernet0/0
+ tunnel destination 202.101.1.1
+---------------------------IPSec-----------------------------
+crypto isakmp policy 10
+ authentication pre-share
+crypto isakmp key cisco123 address 202.101.1.1    
+crypto ipsec transform-set zwh esp-3des esp-sha-hmac 
+ mode transport
+crypto ipsec profile zwh
+ set transform-set zwh 
+interface Tunnel1
+tunnel protection ipsec profile zwh
 </code></pre>
-<h4 id="3、EIGRP"><a href="#3、EIGRP" class="headerlink" title="3、EIGRP"></a>3、EIGRP</h4><pre class=" language-YAML"><code class="language-YAML">R3(config-router)#redistribute rip metric 10000 1 1 1 1500
-10000（带宽）1 （延迟）1（可靠性）1（负载）1（MTU）
-D EX     23.23.23.0 [170/307456] via 89.89.89.1, 00:00:03, Ethernet0/0
-D EX：代表的是EIGRP的外部路由
-直连：0
-静态：1
-D：90
-OSPF：110
-IS-IS：115
-RIP：120
-D EX：170
+<p>现象：出现HUB能正常学习spokes的内网网段，但是spokes之间无法学习对端的路由，原因是HUB从隧道接口收到spoke1的路由，需要再从这个隧道接口发送给spoke2，但是由于水平分割问题，HUB不会将相同路由从相同的进行接收后再转发</p>
+<h6 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h6><p>①关闭水平分割→HUB(config-if)#no ip split-horizon eigrp 90 →关闭水平分割<br>②在水平分割开启的情况下使用路由汇总</p>
+<pre class=" language-YAML"><code class="language-YAML">interface Tunnel1
+ ip summary-address eigrp 90 192.168.0.0 255.255.0.0
 </code></pre>
-<h4 id="4、IS-IS"><a href="#4、IS-IS" class="headerlink" title="4、IS-IS"></a>4、IS-IS</h4><pre class=" language-YAML"><code class="language-YAML">R7(config)#router ospf 110
-R7(config-router)#redistribute isis level-2 subnets
-其他协议重分布ISIS时，默认重分布的是L2的路由
-R7(config-router)#redistribute isis ?
-  level-1      IS-IS level-1 routes only
-  level-1-2    IS-IS level-1 and level-2 routes
-  level-2      IS-IS level-2 routes only→默认
-R7(config-router)#redistribute ospf 110 level-2
+<h6 id="查看命令"><a href="#查看命令" class="headerlink" title="查看命令"></a>查看命令</h6><pre class=" language-YAML"><code class="language-YAML">HUB#show dmvpn ?
+HUB#show ip nhrp 
 </code></pre>
-<p>ISIS不通告直连</p>
-<h2 id="七、管理距离"><a href="#七、管理距离" class="headerlink" title="七、管理距离"></a>七、管理距离</h2><h4 id="1、更改全局AD"><a href="#1、更改全局AD" class="headerlink" title="1、更改全局AD"></a>1、更改全局AD</h4><h4 id="2、更改特点源的路由AD"><a href="#2、更改特点源的路由AD" class="headerlink" title="2、更改特点源的路由AD"></a>2、更改特点源的路由AD</h4><h4 id="3、更改特定路由的AD→需要使用ACL"><a href="#3、更改特定路由的AD→需要使用ACL" class="headerlink" title="3、更改特定路由的AD→需要使用ACL"></a>3、更改特定路由的AD→需要使用ACL</h4><p>更改只具有本地意义→影响的本地数据包的转发</p>
-<h4 id="①-RIP"><a href="#①-RIP" class="headerlink" title="①.RIP"></a>①.RIP</h4><pre class=" language-YAML"><code class="language-YAML">①R3(config-router)#distance 119       //更改RIP的AD值为119
-②R2(config-router)#distance 118 12.12.12.1 0.0.0.0   //将12.12.12.1通告的路由AD值更改为118
-③R2(config)#access-list 1 permit 172.16.1.0 0.0.0.255
-R2(config-router)#distance 117 12.12.12.1 0.0.0.0 1
-通过ACL匹配特定网段，在distance上调用
+<h6 id="缺陷："><a href="#缺陷：" class="headerlink" title="缺陷："></a>缺陷：</h6><p>spokes的流量需要经过hub中转，占用带宽</p>
+<h4 id="阶段二：HUB和Spokes的隧道均使用mGRE，spokes可以不需要经过hub的中转"><a href="#阶段二：HUB和Spokes的隧道均使用mGRE，spokes可以不需要经过hub的中转" class="headerlink" title="阶段二：HUB和Spokes的隧道均使用mGRE，spokes可以不需要经过hub的中转"></a>阶段二：HUB和Spokes的隧道均使用mGRE，spokes可以不需要经过hub的中转</h4><h6 id="spoke的配置"><a href="#spoke的配置" class="headerlink" title="spoke的配置"></a>spoke的配置</h6><pre class=" language-YAML"><code class="language-YAML">interface Tunnel1
+ ip address 192.168.123.2 255.255.255.0
+ no ip redirects
+ ip nhrp authentication cisco123
+ ip nhrp map multicast 202.101.1.1
+ ip nhrp map 192.168.123.1 202.101.1.1
+ ip nhrp network-id 123
+ ip nhrp nhs 192.168.123.1
+ tunnel source Ethernet0/0
+ tunnel mode gre multipoint
 </code></pre>
-<h4 id="②-EIGRP：内部和外部"><a href="#②-EIGRP：内部和外部" class="headerlink" title="②.EIGRP：内部和外部"></a>②.EIGRP：内部和外部</h4><pre class=" language-YAML"><code class="language-YAML">①R8(config-router)#distance eigrp 91 171  //将内部AD值改为91，外部改为171
-②R8(config-router)#distance 92 89.89.89.2 0.0.0.0  //更改只能作用在内部的EIGRP
-③R8(config)#access-list 1 permit 99.99.99.0 0.0.0.255
-R8(config-router)#distance 93 89.89.89.2 0.0.0.0 1
+<h6 id="现象："><a href="#现象：" class="headerlink" title="现象："></a>现象：</h6><p>spoke之间的流量还需要通过HUB中转，因为spokes间的路由还是通过hub学习而来，因此下一跳指向hub</p>
+<h6 id="解决方案：-1"><a href="#解决方案：-1" class="headerlink" title="解决方案："></a>解决方案：</h6><pre class=" language-YAML"><code class="language-YAML">HUB(config-if)#no ip next-hop-self eigrp 90 →eigrp关闭下一跳为自己
 </code></pre>
-<h4 id="③-OSPF：通告者"><a href="#③-OSPF：通告者" class="headerlink" title="③.OSPF：通告者"></a>③.OSPF：通告者</h4><pre class=" language-YAML"><code class="language-YAML">①R4(config-router)#distance ospf external 111 inter-area 112 intra-area 113
-external 111：更改外部AD为111
-inter-area 112：更改区域间AD为112
-intra-area 113：更改区域内AD为113
-②R4(config-router)#distance 114 67.67.67.1 0.0.0.0
-注意：如果需要更改的路由是ABR/ASBR通告的，则在源IP上配置的是通告者的RID
-③R4(config)#access-list 1 permit 172.16.3.0 0.0.0.255
-R4(config-router)#distance 115 38.38.38.1 0.0.0.0 1   //注意：通告者
+<h6 id="现象：-1"><a href="#现象：-1" class="headerlink" title="现象："></a>现象：</h6><p>spoke1学习到spoke2的路由下一跳指向spoke2的隧道IP，spoke1因为下一跳信息通过NHRP向hub解析spoke2隧道IP所对应的公网IP，动态产生隧道，第一路径跟踪还需要hub做中转，但是后续数据包直接转发到spoke2</p>
+<h6 id="缺陷：-1"><a href="#缺陷：-1" class="headerlink" title="缺陷："></a>缺陷：</h6><p>路由汇总与不经过hub中转的功能无法兼容</p>
+<h4 id="阶段三：修复阶段二缺陷，实现上述两个功能的合并"><a href="#阶段三：修复阶段二缺陷，实现上述两个功能的合并" class="headerlink" title="阶段三：修复阶段二缺陷，实现上述两个功能的合并"></a>阶段三：修复阶段二缺陷，实现上述两个功能的合并</h4><h6 id="引入两个功能："><a href="#引入两个功能：" class="headerlink" title="引入两个功能："></a>引入两个功能：</h6><p>redirect（hub）和shortcut（spoke）</p>
+<h6 id="redirect："><a href="#redirect：" class="headerlink" title="redirect："></a>redirect：</h6><p>spoke1发送数据包到spoke2，由于汇总路由的下一跳指向hub，所以第一个数据经过hub转发，但是由于hubNHRP重定向功能，不仅将spoke1的第一个数据包转发给spoke2同时还告诉spoke1前往spoke2的最优下一跳</p>
+<h6 id="shortcut："><a href="#shortcut：" class="headerlink" title="shortcut："></a>shortcut：</h6><p>spoke端根据NHRP的重定向信息，强制更改本地CEF的下一跳为HUB指向的最优下一跳</p>
+<h6 id="现象：-2"><a href="#现象：-2" class="headerlink" title="现象："></a>现象：</h6><p>①看路径跟踪<br>②看路由表<br>H     192.168.30.0/24 [250/1] via 192.168.123.3, 00:03:09, Tunnel1→动态建立的详细路由<br>好处：HUB通告汇总路由，有业务产生时，动态产生详细路由</p>
+<h6 id="hub的配置："><a href="#hub的配置：" class="headerlink" title="hub的配置："></a>hub的配置：</h6><pre class=" language-YAML"><code class="language-YAML"> ip nhrp redirect
+spoke的配置：
+ ip nhrp shortcut
 </code></pre>
-<h2 id="八、ACL的特殊应用"><a href="#八、ACL的特殊应用" class="headerlink" title="八、ACL的特殊应用"></a>八、ACL的特殊应用</h2><h4 id="1、匹配A类："><a href="#1、匹配A类：" class="headerlink" title="1、匹配A类："></a>1、匹配A类：</h4><h2 id="什么是A类地址？第一个字节的第一个二进制是0，其余无所谓YAML-0XXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-01111111-255-255-255-access-list-1-permit-0-0-0-0-127-255-255-255-2、匹配B类：YAML-10XXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-00111111-255-255-255-access-list-1-permit-128-0-0-0-63-255-255-255-3、匹配C类：-96-96-96-YAML110XXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX00011111-255-255-255access-list-1-permit-192-0-0-0-31-255-255-255"><a href="#什么是A类地址？第一个字节的第一个二进制是0，其余无所谓YAML-0XXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-01111111-255-255-255-access-list-1-permit-0-0-0-0-127-255-255-255-2、匹配B类：YAML-10XXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-00111111-255-255-255-access-list-1-permit-128-0-0-0-63-255-255-255-3、匹配C类：-96-96-96-YAML110XXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX00011111-255-255-255access-list-1-permit-192-0-0-0-31-255-255-255" class="headerlink" title="什么是A类地址？第一个字节的第一个二进制是0，其余无所谓YAML 0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX 01111111.255.255.255 access-list 1 permit 0.0.0.0 127.255.255.255 #### 2、匹配B类：YAML 10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX 00111111.255.255.255 access-list 1 permit 128.0.0.0 63.255.255.255 #### 3、匹配C类：```YAML110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX00011111.255.255.255access-list 1 permit 192.0.0.0 31.255.255.255"></a>什么是A类地址？第一个字节的第一个二进制是0，其余无所谓<br><code>YAML 0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX 01111111.255.255.255 access-list 1 permit 0.0.0.0 127.255.255.255 </code><br>#### 2、匹配B类：<br><code>YAML 10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX 00111111.255.255.255 access-list 1 permit 128.0.0.0 63.255.255.255 </code><br>#### 3、匹配C类：<br>```YAML<br>110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX<br>00011111.255.255.255<br>access-list 1 permit 192.0.0.0 31.255.255.255</h2><p>10.1.1.0/24  10.1.2.0/24  10.1.3.0/24 10.1.4.0/24<br>匹配奇数：10.1.1.0/24 、10.1.3.0/24<br>access-list 1 permit 10.1.1.0 0.0.254.255<br>匹配偶数：10.1.2.0/24、10.1.4.0/24<br>access-list 1 permit 10.1.0.0 0.0.254.255</p>
-<pre><code>## 九、分发列表-----distribute-list
-作用：用来过滤路由→ACL
-过滤的方向有两种：in/out
-分发调用的位置：接口/协议
-
-#### 1、RIP/EIGRP
-```YAML
-eq1:R2(config)#access-list 4 deny 172.16.1.0 0.0.0.255
-       R2(config)#access-list 4 permit any
-       R2(config-router)#distribute-list 4 in e0/0
-       在e0/0的进方向过滤172.16.1.0，现象是路由表此条目消失
-</code></pre>
-<p>如果是out方向：</p>
-<pre class=" language-YAML"><code class="language-YAML">R1(config-router)#distribute-list 1 out e0/0
-在e0/0的出方向过滤172.16.1.0，现象是本地路由表此条目存在，邻居消失
-②OSPF
-R4(config)#access-list 2 deny 172.168.2.0 0.0.0.255
-R4(config)#access-list 2 permit any  
-R4(config)#router ospf 110
-R4(config-router)#distribute-list 2 in e0/0
-</code></pre>
-<p>现象：本地没有172.168.2.0，但是邻居路由表有此条路由<br>注意：分发列表过滤的是路由对LSA没有作用，OSPF邻居通告的是LSA，是通过SPF自己产生路由，分发列表in方向作用在拓扑表将要把路由加入路由表的过程中。分发列表在OSPF中调用接口out方向没有任何意义。</p>
-<h4 id="2、OSPF中out方向—-ASBR上使用"><a href="#2、OSPF中out方向—-ASBR上使用" class="headerlink" title="2、OSPF中out方向—-ASBR上使用"></a>2、OSPF中out方向—-ASBR上使用</h4><pre class=" language-YAML"><code class="language-YAML">R3(config)#access-list 1 deny 172.168.2.0 0.0.0.255
-R3(config)#access-list 1 permit any 
-R3(config)#router ospf 110
-R3(config-router)#distribute-list 1 out rip
-</code></pre>
-<p>将RIP的ACL1的条目重分布进OSPF中过滤掉</p>
+<h2 id="将DMVPN的IGP由EIGRP切换为OSPF会出现什么问题？"><a href="#将DMVPN的IGP由EIGRP切换为OSPF会出现什么问题？" class="headerlink" title="将DMVPN的IGP由EIGRP切换为OSPF会出现什么问题？"></a>将DMVPN的IGP由EIGRP切换为OSPF会出现什么问题？</h2><h3 id="出现OSPF的邻居翻滚"><a href="#出现OSPF的邻居翻滚" class="headerlink" title="出现OSPF的邻居翻滚"></a>出现OSPF的邻居翻滚</h3><h4 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h4><p>OSPF的网络类型，DMVPN的隧道使用的是mGRE，但是OSPF的隧道网络类型为点对点，不匹配，无法再隧道接口同时起两个OSPF邻居</p>
+<h4 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h4><p>修改隧道接口的OSPF网络类型为点对多点<br>如果IGP使用的是OSPF，出现下一跳可以指向最优的下一跳，但是无法做汇总（OSPF无法做区域内汇总）<br>O   % 192.168.20.0/24 [110/2010] via 192.168.123.1, 00:03:23, Tunnel1</p>
 
                 
             </div>
@@ -502,7 +490,7 @@ R3(config-router)#distribute-list 1 out rip
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://frjdhc.github.io/2023/01/08/igp/">https://frjdhc.github.io/2023/01/08/igp/</a>
+                    <a href="https://frjdhc.github.io/2023/02/25/dmvpn/">https://frjdhc.github.io/2023/02/25/dmvpn/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -544,16 +532,16 @@ R3(config-router)#distribute-list 1 out rip
                                     <span class="chip bg-color">网络工程</span>
                                 </a>
                             
-                                <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
-                                    <span class="chip bg-color">路由协议</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%80%9D%E7%A7%91/">
                                     <span class="chip bg-color">思科</span>
                                 </a>
                             
                                 <a href="/tags/Cisco/">
                                     <span class="chip bg-color">Cisco</span>
+                                </a>
+                            
+                                <a href="/tags/vpn/">
+                                    <span class="chip bg-color">vpn</span>
                                 </a>
                             
                         </div>
@@ -903,13 +891,13 @@ R3(config-router)#distribute-list 1 out rip
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/01/08/bgp-ccie/">
+                <a href="/2023/02/25/ipv6/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="BGP-CCIE">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="IPv6">
                         
-                        <span class="card-title">BGP-CCIE</span>
+                        <span class="card-title">IPv6</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -920,7 +908,7 @@ R3(config-router)#distribute-list 1 out rip
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-01-08
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-02-25
                         </span>
                         <span class="publish-author">
                             
@@ -941,20 +929,8 @@ R3(config-router)#distribute-list 1 out rip
                         <span class="chip bg-color">网络工程</span>
                     </a>
                     
-                    <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
-                        <span class="chip bg-color">路由协议</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%80%9D%E7%A7%91/">
-                        <span class="chip bg-color">思科</span>
-                    </a>
-                    
-                    <a href="/tags/Cisco/">
-                        <span class="chip bg-color">Cisco</span>
-                    </a>
-                    
-                    <a href="/tags/CCIE/">
-                        <span class="chip bg-color">CCIE</span>
+                    <a href="/tags/IPv6/">
+                        <span class="chip bg-color">IPv6</span>
                     </a>
                     
                 </div>
@@ -968,13 +944,13 @@ R3(config-router)#distribute-list 1 out rip
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/01/08/bgp/">
+                <a href="/2023/02/25/ipsecvpn/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="BGP">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="IPSecVPN">
                         
-                        <span class="card-title">BGP</span>
+                        <span class="card-title">IPSecVPN</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -985,7 +961,7 @@ R3(config-router)#distribute-list 1 out rip
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-25
                             </span>
                         <span class="publish-author">
                             
@@ -1006,16 +982,16 @@ R3(config-router)#distribute-list 1 out rip
                         <span class="chip bg-color">网络工程</span>
                     </a>
                     
-                    <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
-                        <span class="chip bg-color">路由协议</span>
-                    </a>
-                    
                     <a href="/tags/%E6%80%9D%E7%A7%91/">
                         <span class="chip bg-color">思科</span>
                     </a>
                     
                     <a href="/tags/Cisco/">
                         <span class="chip bg-color">Cisco</span>
+                    </a>
+                    
+                    <a href="/tags/vpn/">
+                        <span class="chip bg-color">vpn</span>
                     </a>
                     
                 </div>

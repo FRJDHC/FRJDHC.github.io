@@ -4,10 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="IGP, FRJBlog">
-    <meta name="description" content="IGP  内部网关协议一、路由重分布背景：公司合并、产商设备的兼容性问题，导致局域网不能互联，各个路由协议所运行的算法不兼容解决方法→路由重分布：不同协议间的路由学习
-二、重分布的对象1、直连2、静态路由3、其他动态路由协议
-三、重分布的类">
+    <meta name="keywords" content="IPv6, FRJBlog">
+    <meta name="description" content="【IPv4的缺陷】（1）地址范围2^32，地址空间不足（2）NAT破坏了端到端的通信（3）IPv4的报文结构比较复杂，设备处理报头比较繁琐，逐字段解析（4）IPv4本身没有安全机制
+【IPv6的特点】（1）没有NAT（2）地址范围：2^12">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>IGP | FRJBlog</title>
+    <title>IPv6 | FRJBlog</title>
     <link rel="stylesheet" type="text/css" href="/libs/artitalk/artitalk.min.css">
     <link rel="icon" type="image/png" href="/source/favicon.png">
     
@@ -285,12 +284,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">IGP</h1>
+                    <h1 class="description center-align post-title">IPv6</h1>
                 </div>
             </div>
         </div>
@@ -318,16 +317,8 @@
                                 <span class="chip bg-color">网络工程</span>
                             </a>
                         
-                            <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
-                                <span class="chip bg-color">路由协议</span>
-                            </a>
-                        
-                            <a href="/tags/%E6%80%9D%E7%A7%91/">
-                                <span class="chip bg-color">思科</span>
-                            </a>
-                        
-                            <a href="/tags/Cisco/">
-                                <span class="chip bg-color">Cisco</span>
+                            <a href="/tags/IPv6/">
+                                <span class="chip bg-color">IPv6</span>
                             </a>
                         
                     </div>
@@ -351,7 +342,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-01-08
+                    2023-02-25
                 </div>
                 
 
@@ -360,14 +351,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    3.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    14 分
                 </div>
                 
 
@@ -387,95 +378,158 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="IGP-内部网关协议"><a href="#IGP-内部网关协议" class="headerlink" title="IGP  内部网关协议"></a>IGP  内部网关协议</h1><h2 id="一、路由重分布"><a href="#一、路由重分布" class="headerlink" title="一、路由重分布"></a>一、路由重分布</h2><p>背景：公司合并、产商设备的兼容性问题，导致局域网不能互联，各个路由协议所运行的算法不兼容<br>解决方法→路由重分布：不同协议间的路由学习</p>
-<h2 id="二、重分布的对象"><a href="#二、重分布的对象" class="headerlink" title="二、重分布的对象"></a>二、重分布的对象</h2><p>1、直连<br>2、静态路由<br>3、其他动态路由协议</p>
-<h2 id="三、重分布的类型"><a href="#三、重分布的类型" class="headerlink" title="三、重分布的类型"></a>三、重分布的类型</h2><p>1、单点单向→默认路由<br>2、单点双向<br>3、双点单向<br>4、双点双向</p>
-<h2 id="四、重分布产生的网络问题"><a href="#四、重分布产生的网络问题" class="headerlink" title="四、重分布产生的网络问题"></a>四、重分布产生的网络问题</h2><p>1、次优路径<br>2、环路</p>
-<h2 id="五、初始度量值（种子度量值）"><a href="#五、初始度量值（种子度量值）" class="headerlink" title="五、初始度量值（种子度量值）"></a>五、初始度量值（种子度量值）</h2><p>1、RIP和EIGRP的初始度量值为无穷大<br>2、OSPF的初始度量值为20</p>
-<h2 id="六、配置"><a href="#六、配置" class="headerlink" title="六、配置"></a>六、配置</h2><h4 id="1、RIP"><a href="#1、RIP" class="headerlink" title="1、RIP"></a>1、RIP</h4><pre class=" language-YAML"><code class="language-YAML">R3(config)#router rip
-R3(config-router)#redistribute ospf 110 metric 3
-R3(config-router)#redistribute eigrp 90 metric 1
-metric 1：代表的是将其他协议的初始度量值设置为1
-</code></pre>
-<h4 id="2、OSPF"><a href="#2、OSPF" class="headerlink" title="2、OSPF"></a>2、OSPF</h4><pre class=" language-YAML"><code class="language-YAML">R3(config)#router ospf 110
-R3(config-router)#redistribute static subnets
-R3(config-router)#redistribute rip subnets 
-subnets ：重分布详细的子网信息
-R3(config-router)#redistribute eigrp 90 subnets metric 30 metric-type 1
-将EIGRP的外部通告进OSPF区域时，初始度量值更改为30，类型为OE1
-</code></pre>
-<h4 id="3、EIGRP"><a href="#3、EIGRP" class="headerlink" title="3、EIGRP"></a>3、EIGRP</h4><pre class=" language-YAML"><code class="language-YAML">R3(config-router)#redistribute rip metric 10000 1 1 1 1500
-10000（带宽）1 （延迟）1（可靠性）1（负载）1（MTU）
-D EX     23.23.23.0 [170/307456] via 89.89.89.1, 00:00:03, Ethernet0/0
-D EX：代表的是EIGRP的外部路由
-直连：0
-静态：1
-D：90
-OSPF：110
-IS-IS：115
-RIP：120
-D EX：170
-</code></pre>
-<h4 id="4、IS-IS"><a href="#4、IS-IS" class="headerlink" title="4、IS-IS"></a>4、IS-IS</h4><pre class=" language-YAML"><code class="language-YAML">R7(config)#router ospf 110
-R7(config-router)#redistribute isis level-2 subnets
-其他协议重分布ISIS时，默认重分布的是L2的路由
-R7(config-router)#redistribute isis ?
-  level-1      IS-IS level-1 routes only
-  level-1-2    IS-IS level-1 and level-2 routes
-  level-2      IS-IS level-2 routes only→默认
-R7(config-router)#redistribute ospf 110 level-2
-</code></pre>
-<p>ISIS不通告直连</p>
-<h2 id="七、管理距离"><a href="#七、管理距离" class="headerlink" title="七、管理距离"></a>七、管理距离</h2><h4 id="1、更改全局AD"><a href="#1、更改全局AD" class="headerlink" title="1、更改全局AD"></a>1、更改全局AD</h4><h4 id="2、更改特点源的路由AD"><a href="#2、更改特点源的路由AD" class="headerlink" title="2、更改特点源的路由AD"></a>2、更改特点源的路由AD</h4><h4 id="3、更改特定路由的AD→需要使用ACL"><a href="#3、更改特定路由的AD→需要使用ACL" class="headerlink" title="3、更改特定路由的AD→需要使用ACL"></a>3、更改特定路由的AD→需要使用ACL</h4><p>更改只具有本地意义→影响的本地数据包的转发</p>
-<h4 id="①-RIP"><a href="#①-RIP" class="headerlink" title="①.RIP"></a>①.RIP</h4><pre class=" language-YAML"><code class="language-YAML">①R3(config-router)#distance 119       //更改RIP的AD值为119
-②R2(config-router)#distance 118 12.12.12.1 0.0.0.0   //将12.12.12.1通告的路由AD值更改为118
-③R2(config)#access-list 1 permit 172.16.1.0 0.0.0.255
-R2(config-router)#distance 117 12.12.12.1 0.0.0.0 1
-通过ACL匹配特定网段，在distance上调用
-</code></pre>
-<h4 id="②-EIGRP：内部和外部"><a href="#②-EIGRP：内部和外部" class="headerlink" title="②.EIGRP：内部和外部"></a>②.EIGRP：内部和外部</h4><pre class=" language-YAML"><code class="language-YAML">①R8(config-router)#distance eigrp 91 171  //将内部AD值改为91，外部改为171
-②R8(config-router)#distance 92 89.89.89.2 0.0.0.0  //更改只能作用在内部的EIGRP
-③R8(config)#access-list 1 permit 99.99.99.0 0.0.0.255
-R8(config-router)#distance 93 89.89.89.2 0.0.0.0 1
-</code></pre>
-<h4 id="③-OSPF：通告者"><a href="#③-OSPF：通告者" class="headerlink" title="③.OSPF：通告者"></a>③.OSPF：通告者</h4><pre class=" language-YAML"><code class="language-YAML">①R4(config-router)#distance ospf external 111 inter-area 112 intra-area 113
-external 111：更改外部AD为111
-inter-area 112：更改区域间AD为112
-intra-area 113：更改区域内AD为113
-②R4(config-router)#distance 114 67.67.67.1 0.0.0.0
-注意：如果需要更改的路由是ABR/ASBR通告的，则在源IP上配置的是通告者的RID
-③R4(config)#access-list 1 permit 172.16.3.0 0.0.0.255
-R4(config-router)#distance 115 38.38.38.1 0.0.0.0 1   //注意：通告者
-</code></pre>
-<h2 id="八、ACL的特殊应用"><a href="#八、ACL的特殊应用" class="headerlink" title="八、ACL的特殊应用"></a>八、ACL的特殊应用</h2><h4 id="1、匹配A类："><a href="#1、匹配A类：" class="headerlink" title="1、匹配A类："></a>1、匹配A类：</h4><h2 id="什么是A类地址？第一个字节的第一个二进制是0，其余无所谓YAML-0XXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-01111111-255-255-255-access-list-1-permit-0-0-0-0-127-255-255-255-2、匹配B类：YAML-10XXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-00111111-255-255-255-access-list-1-permit-128-0-0-0-63-255-255-255-3、匹配C类：-96-96-96-YAML110XXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX00011111-255-255-255access-list-1-permit-192-0-0-0-31-255-255-255"><a href="#什么是A类地址？第一个字节的第一个二进制是0，其余无所谓YAML-0XXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-01111111-255-255-255-access-list-1-permit-0-0-0-0-127-255-255-255-2、匹配B类：YAML-10XXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-00111111-255-255-255-access-list-1-permit-128-0-0-0-63-255-255-255-3、匹配C类：-96-96-96-YAML110XXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX00011111-255-255-255access-list-1-permit-192-0-0-0-31-255-255-255" class="headerlink" title="什么是A类地址？第一个字节的第一个二进制是0，其余无所谓YAML 0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX 01111111.255.255.255 access-list 1 permit 0.0.0.0 127.255.255.255 #### 2、匹配B类：YAML 10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX 00111111.255.255.255 access-list 1 permit 128.0.0.0 63.255.255.255 #### 3、匹配C类：```YAML110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX00011111.255.255.255access-list 1 permit 192.0.0.0 31.255.255.255"></a>什么是A类地址？第一个字节的第一个二进制是0，其余无所谓<br><code>YAML 0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX 01111111.255.255.255 access-list 1 permit 0.0.0.0 127.255.255.255 </code><br>#### 2、匹配B类：<br><code>YAML 10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX 00111111.255.255.255 access-list 1 permit 128.0.0.0 63.255.255.255 </code><br>#### 3、匹配C类：<br>```YAML<br>110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX<br>00011111.255.255.255<br>access-list 1 permit 192.0.0.0 31.255.255.255</h2><p>10.1.1.0/24  10.1.2.0/24  10.1.3.0/24 10.1.4.0/24<br>匹配奇数：10.1.1.0/24 、10.1.3.0/24<br>access-list 1 permit 10.1.1.0 0.0.254.255<br>匹配偶数：10.1.2.0/24、10.1.4.0/24<br>access-list 1 permit 10.1.0.0 0.0.254.255</p>
-<pre><code>## 九、分发列表-----distribute-list
-作用：用来过滤路由→ACL
-过滤的方向有两种：in/out
-分发调用的位置：接口/协议
+                <h1 id="【IPv4的缺陷】"><a href="#【IPv4的缺陷】" class="headerlink" title="【IPv4的缺陷】"></a>【IPv4的缺陷】</h1><p>（1）地址范围2^32，地址空间不足<br>（2）NAT破坏了端到端的通信<br>（3）IPv4的报文结构比较复杂，设备处理报头比较繁琐，逐字段解析<br>（4）IPv4本身没有安全机制</p>
+<h1 id="【IPv6的特点】"><a href="#【IPv6的特点】" class="headerlink" title="【IPv6的特点】"></a>【IPv6的特点】</h1><p>（1）没有NAT<br>（2）地址范围：2^128<br>（3）一个接口可以有多个IPv6地址<br>（4）地址获取有三种方式：手工配置、无状态自动获取、有状态自动获取<br>（5）本身具备安全机制（AH、ESP的扩展报头）</p>
+<h1 id="【IPv6的报文格式】"><a href="#【IPv6的报文格式】" class="headerlink" title="【IPv6的报文格式】"></a>【IPv6的报文格式】</h1><p>IPv6的报头长度为40字节<br>（1）version<br>（2）traffic class：部署QoS<br>（3）flow label：类似FEC<br>（4）payload length：负载长度<br>（5）next header<br>（6）hop limit：TTL<br>（7）source address<br>（8）destination address<br>（9）option：扩展报头</p>
+<h1 id="【IPv6的扩展报头】"><a href="#【IPv6的扩展报头】" class="headerlink" title="【IPv6的扩展报头】"></a>【IPv6的扩展报头】</h1><p>（1）hop by hop：必须每一台设备都需要处理<br>（2）routing：list中列出某台设备，那么数据包必须经过那台设备转发<br>（3）目标报头选项：目标节点的相应信息<br>（4）分片报头<br>（5）IP AH<br>（6）IP ESP<br>（7）上层报头：表示后续字段为上层字段</p>
+<h1 id="【IPv6地址】"><a href="#【IPv6地址】" class="headerlink" title="【IPv6地址】"></a>【IPv6地址】</h1><p>（1）128比特→16字节<br>（2）冒号分16进制：共8组，一组16比特，4个16进制数表示，一个16进制数4比特<br>（3）IPv6的地址可以缩写，如果存在连续0（两组或者两组以上全为0）可以使用“::”省略，前导0可以用一个0代替<br>例子1：<br>完整：2021:417:0000:AABB:0000:0000:9876:1001<br>前导零省略：2021:417:0:AABB:0:0:9876:1001<br>::表示：2021:417:0000:AABB::9876:1001<br>例子2：<br>2021:417:0000:AABB:0000:0000:0000:1001<br>::表示：2021:417:0:AABB:0000::1001<br>例子3：<br>2021:0000:0000:AABB:0000:0000:9876:1001<br>省略：2021::AABB::9876:1001→错误（IPv6地址不能存在两个“::”）<br>正确的书写为：2021::AABB:0:0:9876:1001<br>例子4：<br>1::1→0001:0000:0000:0000:0000:0000:0000:0001<br>::→0000:0000:0000:0000:0000:0000:0000:0000</p>
+<h1 id="【IPv6地址类型】"><a href="#【IPv6地址类型】" class="headerlink" title="【IPv6地址类型】"></a>【IPv6地址类型】</h1><h3 id="（1）IPv6没有广播"><a href="#（1）IPv6没有广播" class="headerlink" title="（1）IPv6没有广播"></a>（1）IPv6没有广播</h3><h3 id="（2）链路本地地址"><a href="#（2）链路本地地址" class="headerlink" title="（2）链路本地地址"></a>（2）链路本地地址</h3><p>→link-local address is FE80::A8BB:CCFF:FE00:100</p>
+<h4 id="①传输范围："><a href="#①传输范围：" class="headerlink" title="①传输范围："></a>①传输范围：</h4><p>本链路有效→TTL=1</p>
+<h4 id="②特定接口："><a href="#②特定接口：" class="headerlink" title="②特定接口："></a>②特定接口：</h4><p>由于物理接口可以存在多个IPv6地址，使得IPv6地址无法与接口一对一对应，使用链路本地地址标识特定接口</p>
+<h4 id="③作用："><a href="#③作用：" class="headerlink" title="③作用："></a>③作用：</h4><p>路由协议的邻居建立、路由的下一跳等等</p>
+<h4 id="④如何产生？"><a href="#④如何产生？" class="headerlink" title="④如何产生？"></a>④如何产生？</h4><p>前缀FE80::，然后在MAC地址中间插入FFFE，并且MAC地址的第七比特反转<br>例子：</p>
+<pre class=" language-YAML"><code class="language-YAML">aabb.cc00.0100
+FE80::aabb:cc00:0100
+FE80::AABB:CCFF:FE00:100
+FE80::A1010BB:CCFF:FE00:100
+FE80::A1000BB:CCFF:FE00:100
+FE80::A8BB:CCFF:FE00:100
+FE80::A8BB:CCFF:FE00:100
 
-#### 1、RIP/EIGRP
-```YAML
-eq1:R2(config)#access-list 4 deny 172.16.1.0 0.0.0.255
-       R2(config)#access-list 4 permit any
-       R2(config-router)#distribute-list 4 in e0/0
-       在e0/0的进方向过滤172.16.1.0，现象是路由表此条目消失
+CD15.2021.0417→链路本地地址？
+FE80::CD15:20FF:FE21:417
+FE80::C 1101 15:20FF:FE21:417
+FE80::C 1111 15:20FF:FE21:417
+FE80::CF15:20FF:FE21:417
+FE80::CF15:20FF:FE21:417
 </code></pre>
-<p>如果是out方向：</p>
-<pre class=" language-YAML"><code class="language-YAML">R1(config-router)#distribute-list 1 out e0/0
-在e0/0的出方向过滤172.16.1.0，现象是本地路由表此条目存在，邻居消失
-②OSPF
-R4(config)#access-list 2 deny 172.168.2.0 0.0.0.255
-R4(config)#access-list 2 permit any  
-R4(config)#router ospf 110
-R4(config-router)#distribute-list 2 in e0/0
+<h4 id="⑤链路本地地址：FE80-EUI标识符（CF15-20FF-FE21-417）"><a href="#⑤链路本地地址：FE80-EUI标识符（CF15-20FF-FE21-417）" class="headerlink" title="⑤链路本地地址：FE80::EUI标识符（CF15:20FF:FE21:417）"></a>⑤链路本地地址：FE80::EUI标识符（CF15:20FF:FE21:417）</h4><h3 id="（3）全局单播地址"><a href="#（3）全局单播地址" class="headerlink" title="（3）全局单播地址"></a>（3）全局单播地址</h3><p>①前缀：2000::/3→（001）<br>②由IANA分配<br>③全局路由选择前缀、组织机构标识、接口ID</p>
+<h3 id="（4）独特的本地单播地址：类似IPv4的私有IP"><a href="#（4）独特的本地单播地址：类似IPv4的私有IP" class="headerlink" title="（4）独特的本地单播地址：类似IPv4的私有IP"></a>（4）独特的本地单播地址：类似IPv4的私有IP</h3><p>①前缀：FC00::/7<br>②局域网内部使用，在互联网不可路由</p>
+<h3 id="（5）IPv4映射地址"><a href="#（5）IPv4映射地址" class="headerlink" title="（5）IPv4映射地址"></a>（5）IPv4映射地址</h3><p>①使用在6vPE环境，将IPv4地址映射为IPv6地址<br>②192.168.1.1→::FFFF:C0A8:101</p>
+<h3 id="（6）IPv6的组播地址"><a href="#（6）IPv6的组播地址" class="headerlink" title="（6）IPv6的组播地址"></a>（6）IPv6的组播地址</h3><p>①前缀FF00::/8<br>②地址组成<br>FF00::/8→FF+flags+scope<br>FF固定<br>flags=0000，前面3个0固定，第四个比特位，如果为0表示永久，如果为1表示临时<br>scope：0000→表示使用的范围→E代表global</p>
+<h3 id="（7）组播MAC地址"><a href="#（7）组播MAC地址" class="headerlink" title="（7）组播MAC地址"></a>（7）组播MAC地址</h3><p>①前缀：3333.XXXX.XXXX后32比特由被请求节点组播地址的后32位</p>
+<h3 id="（8）被请求节点组播地址"><a href="#（8）被请求节点组播地址" class="headerlink" title="（8）被请求节点组播地址"></a>（8）被请求节点组播地址</h3><p>①前缀:FF02::1:FF/104+IPv6单播地址的后24位<br>②作用：DAD（重复地址检测）、获取邻居的MAC地址（NDP）</p>
+<h1 id="【IPv6地址的配置】"><a href="#【IPv6地址的配置】" class="headerlink" title="【IPv6地址的配置】"></a>【IPv6地址的配置】</h1><h3 id="（1）手工配置"><a href="#（1）手工配置" class="headerlink" title="（1）手工配置"></a>（1）手工配置</h3><pre class=" language-YAML"><code class="language-YAML">Router(config)#int e0/0
+Router(config-if)#ipv6 enable →产生链路本地地址
+Router(config-if)#int e0/1
+Router(config-if)#ipv6 add fe80::2021:0503:1914 link-local →手工配置链路本地地址
+Router(config-if)#ipv6 add 2021:503:1917::1/64→手工配置全局单播地址
+Router(config-if)#ipv6 address 2021:503::/64 eui-64 →自己给定前缀，接口ID由EUI-64生成
 </code></pre>
-<p>现象：本地没有172.168.2.0，但是邻居路由表有此条路由<br>注意：分发列表过滤的是路由对LSA没有作用，OSPF邻居通告的是LSA，是通过SPF自己产生路由，分发列表in方向作用在拓扑表将要把路由加入路由表的过程中。分发列表在OSPF中调用接口out方向没有任何意义。</p>
-<h4 id="2、OSPF中out方向—-ASBR上使用"><a href="#2、OSPF中out方向—-ASBR上使用" class="headerlink" title="2、OSPF中out方向—-ASBR上使用"></a>2、OSPF中out方向—-ASBR上使用</h4><pre class=" language-YAML"><code class="language-YAML">R3(config)#access-list 1 deny 172.168.2.0 0.0.0.255
-R3(config)#access-list 1 permit any 
-R3(config)#router ospf 110
-R3(config-router)#distribute-list 1 out rip
+<h3 id="（2）有状态自动获取→DHCPv6"><a href="#（2）有状态自动获取→DHCPv6" class="headerlink" title="（2）有状态自动获取→DHCPv6"></a>（2）有状态自动获取→DHCPv6</h3><h4 id="①配置："><a href="#①配置：" class="headerlink" title="①配置："></a>①配置：</h4><pre class=" language-YAML"><code class="language-YAML">R1(config)#ipv6 dhcp pool DHCP
+R1(config-dhcpv6)#address prefix 2020:ABCD:1234::/64
+R1(config-dhcpv6)#dns-server 1::1
+R1(config-dhcpv6)#domain-name www.yucedu.com
+R1(config)#int e0/1
+R1(config-if)#ipv6 dhcp server DHCP
 </code></pre>
-<p>将RIP的ACL1的条目重分布进OSPF中过滤掉</p>
+<p>客户端请求地址</p>
+<pre class=" language-YAML"><code class="language-YAML">Router(config-if)#ipv6 address dhcp 
+</code></pre>
+<h3 id="②基于UDP客户端546，服务端547"><a href="#②基于UDP客户端546，服务端547" class="headerlink" title="②基于UDP客户端546，服务端547"></a>②基于UDP客户端546，服务端547</h3><p>报文：solicit、advertise、request、reply</p>
+<h3 id="③DHCP中继：前提是路由可达"><a href="#③DHCP中继：前提是路由可达" class="headerlink" title="③DHCP中继：前提是路由可达"></a>③DHCP中继：前提是路由可达</h3><pre class=" language-YAML"><code class="language-YAML">R2(config-if)#ipv6 dhcp relay destination 2020:12::1
+R1#show ipv6 dhcp pool DHCP
+R1#show ipv6 dhcp binding 
+</code></pre>
+<h3 id="④DHCP中继如何判断分配给客户端什么前缀的地址→GIA"><a href="#④DHCP中继如何判断分配给客户端什么前缀的地址→GIA" class="headerlink" title="④DHCP中继如何判断分配给客户端什么前缀的地址→GIA"></a>④DHCP中继如何判断分配给客户端什么前缀的地址→GIA</h3><h3 id="⑤地址池分配的顺序？"><a href="#⑤地址池分配的顺序？" class="headerlink" title="⑤地址池分配的顺序？"></a>⑤地址池分配的顺序？</h3><p>1、MAC地址绑定<br>2、之前分配过的<br>3、从地址池中获取<br>4、从错误的地址状态中获取</p>
+<h1 id="【ICMPv6】"><a href="#【ICMPv6】" class="headerlink" title="【ICMPv6】"></a>【ICMPv6】</h1><h3 id="1、MAC地址解析"><a href="#1、MAC地址解析" class="headerlink" title="1、MAC地址解析"></a>1、MAC地址解析</h3><h4 id="①IPv6没有ARP协议，数据的发送需要二层MAC地址的情况下，需要解析IPv6单播对应的MAC地址→NDP"><a href="#①IPv6没有ARP协议，数据的发送需要二层MAC地址的情况下，需要解析IPv6单播对应的MAC地址→NDP" class="headerlink" title="①IPv6没有ARP协议，数据的发送需要二层MAC地址的情况下，需要解析IPv6单播对应的MAC地址→NDP"></a>①IPv6没有ARP协议，数据的发送需要二层MAC地址的情况下，需要解析IPv6单播对应的MAC地址→NDP</h4><h4 id="②NS（135）和NA（136）"><a href="#②NS（135）和NA（136）" class="headerlink" title="②NS（135）和NA（136）"></a>②NS（135）和NA（136）</h4><h4 id="③工作原理"><a href="#③工作原理" class="headerlink" title="③工作原理:"></a>③工作原理:</h4><p>HostA发送NS报文，源IP“hostA”目的IP“hostB的被请求节点组播地址”携带的内容：target：hostB的IPv6地址，option：“自己的MAC地址”<br>HostB发送NA报文，源IP“hostB”目的IP“hostA”携带的内容：hostB的MAC地址</p>
+<h3 id="2、DAD：重复地址检测"><a href="#2、DAD：重复地址检测" class="headerlink" title="2、DAD：重复地址检测"></a>2、DAD：重复地址检测</h3><p>①主机在使用IPv6地址之前判断这个地址是否已经被使用→地址还未使用（试验地址）<br>②NS（135）和NA136<br>③工作原理：<br>HostA发送NS报文，源IP“：：”目的IP“试验地址所对应的被请求节点组播地址”携带内容：target：试验地址<br>a.无人回应时→HostA发送NA报文，源IP“试验地址”目的IP“FF02::1”携带内容：试验地址与本地MAC地址的映射<br>b.有人回应：如果hostB的地址也是试验地址，则会放弃使用并且不会发送NA报文；如果该地址已经正在使用，则会回应NA报文，hostA收到NA报文会放弃使用该试验地址</p>
+<h3 id="3、路由器发现（无状态自动获取）"><a href="#3、路由器发现（无状态自动获取）" class="headerlink" title="3、路由器发现（无状态自动获取）"></a>3、路由器发现（无状态自动获取）</h3><h4 id="①作用："><a href="#①作用：" class="headerlink" title="①作用："></a>①作用：</h4><p>实现主机上线立刻获取IPv6地址（网络前缀、router lifetime、MTU）</p>
+<h4 id="②RS（133）和RA（134）"><a href="#②RS（133）和RA（134）" class="headerlink" title="②RS（133）和RA（134）"></a>②RS（133）和RA（134）</h4><h4 id="③工作原理："><a href="#③工作原理：" class="headerlink" title="③工作原理："></a>③工作原理：</h4><p>hostA发送RS报文，源IP“链路本地地址”目的IP“FF02::2”携带的内容为hostA的MAC地址<br>RouterA发送RA报文，源IP“链路本地地址”目的IP“FF02::1”携带的内容为网络前缀、路由器等级、MTU、router lifetime<br>hostA拿到IPv6网络前缀+EUI-64生成IPv6地址并且进行DAD</p>
+<h4 id="④路由器等级：低级、中级（默认等级）、高级"><a href="#④路由器等级：低级、中级（默认等级）、高级" class="headerlink" title="④路由器等级：低级、中级（默认等级）、高级"></a>④路由器等级：低级、中级（默认等级）、高级</h4><pre class=" language-YAML"><code class="language-YAML">R2(config-if)#ipv6 nd router-preference high 
+ND  ::/0 [2/0]
+     via FE80::A8BB:CCFF:FE00:210, Ethernet0/0
+NDp 2020:ABCD:1234::/64 [2/0]
+     via Ethernet0/0, directly connected
+</code></pre>
+<h3 id="4、重定向"><a href="#4、重定向" class="headerlink" title="4、重定向"></a>4、重定向</h3><h4 id="①作用：-1"><a href="#①作用：-1" class="headerlink" title="①作用："></a>①作用：</h4><p>在链路存在多台设备访问出现次优路径</p>
+<h4 id="②reject：type-x3D-137"><a href="#②reject：type-x3D-137" class="headerlink" title="②reject：type=137"></a>②reject：type=137</h4><h4 id="③工作原理：-1"><a href="#③工作原理：-1" class="headerlink" title="③工作原理："></a>③工作原理：</h4><p>hostA发送数据包给网关，routerA收到数据包后，判断是否可以发送重定向报文：<br>a.目的地址不是一个组播地址<br>b.接收报文和发送报文在同一接口<br>c.源IP和最优的下一跳在同一网络前缀<br>d.源IP和最优下一跳在邻居表中存在<br>满足条件时，RouterA发送ICMP，type=137的reject报文，hostA收到重定向报文，在本地路由表中添加一条目标网段的主机路由，下一跳指向最优的下一跳</p>
+<h3 id="5、path-MTU"><a href="#5、path-MTU" class="headerlink" title="5、path MTU"></a>5、path MTU</h3><h4 id="①作用：探查源与目的之间的最小MTU"><a href="#①作用：探查源与目的之间的最小MTU" class="headerlink" title="①作用：探查源与目的之间的最小MTU"></a>①作用：探查源与目的之间的最小MTU</h4><h4 id="②ICMP：type-x3D-2→packet-too-big"><a href="#②ICMP：type-x3D-2→packet-too-big" class="headerlink" title="②ICMP：type=2→packet too big"></a>②ICMP：type=2→packet too big</h4><h4 id="③源以自己接口的PMTU值发送探查报文，如果链路存在接口小于该PMTU值，则回送ICMP差错报告（packet-too-big）源收到差错报文时，就已报文携带的PMTU作为探查报文的PMTU值，如此反复，检测链路的最小PMTU"><a href="#③源以自己接口的PMTU值发送探查报文，如果链路存在接口小于该PMTU值，则回送ICMP差错报告（packet-too-big）源收到差错报文时，就已报文携带的PMTU作为探查报文的PMTU值，如此反复，检测链路的最小PMTU" class="headerlink" title="③源以自己接口的PMTU值发送探查报文，如果链路存在接口小于该PMTU值，则回送ICMP差错报告（packet too big）源收到差错报文时，就已报文携带的PMTU作为探查报文的PMTU值，如此反复，检测链路的最小PMTU"></a>③源以自己接口的PMTU值发送探查报文，如果链路存在接口小于该PMTU值，则回送ICMP差错报告（packet too big）源收到差错报文时，就已报文携带的PMTU作为探查报文的PMTU值，如此反复，检测链路的最小PMTU</h4><h1 id="【IPv6路由协议】"><a href="#【IPv6路由协议】" class="headerlink" title="【IPv6路由协议】"></a>【IPv6路由协议】</h1><h3 id="1、静态路由"><a href="#1、静态路由" class="headerlink" title="1、静态路由"></a>1、静态路由</h3><pre class=" language-YAML"><code class="language-YAML">R1(config)#ipv6 route 2021:504:1037::/64 2020:12::2
+</code></pre>
+<h3 id="2、RIPng"><a href="#2、RIPng" class="headerlink" title="2、RIPng"></a>2、RIPng</h3><h2 id="①使用UDP端口521②与IPv4不兼容③配置YAML-R1-config-ipv6-router-rip-CCIE-R1-config-rtr-int-e0-0-R1-config-if-ipv6-rip-CCIE-enable-R1-config-if-ipv6-rip-CCIE-default-information-originate-④重分布的种子度量值默认为1-3、EIGRP①使用链路本地地址建立邻居②进程可以关闭③自动汇总默认关闭④接口下通告⑤需要配置32位的RID-⑥配置：YAML-R5-config-ipv6-router-eigrp-90-R5-config-rtr-eigrp-router-id-5-5-5-5-R5-config-rtr-int-e0-0-R5-config-if-ipv6-eigrp-90-R2-config-rtr-redistribute-rip-CCIE-metric-10000-1-1-1-1-4、BGP-4-→TLV做扩展→ISIS使用TLV扩展支持IPv6-①使用AFI（IPv6）和SAFI（unicast）的参数能力支持IPv6，路由的更新使用MP-REACH-NLRI（14），撤销路由使用MP-UNREACH-NLRI（15），路由器没有32位的IPv4地址需要手工指定RID-②基于IPV4邻居传输IPv6路由→使用路由图修改下一跳（全局单播路由）YAML-route-map-hop-permit-10-set-ipv6-next-hop-2020-12-1→修改下一跳-router-bgp-100-bgp-router-id-1-1-1-1-bgp-log-neighbor-changes-neighbor-2-2-2-2-remote-as-100-neighbor-2-2-2-2-update-source-Loopback1-neighbor-5-5-5-5-remote-as-100-neighbor-5-5-5-5-update-source-Loopback1-address-family-ipv4-network-1-1-1-1-mask-255-255-255-255-neighbor-2-2-2-2-activate-neighbor-5-5-5-5-activate-exit-address-family-address-family-ipv6-network-11-11-128-neighbor-2-2-2-2-activate-neighbor-2-2-2-2-route-map-hop-out-neighbor-5-5-5-5-activate-neighbor-5-5-5-5-route-map-hop-out-exit-address-family-③基于IPv6传递IPv6路由→注意下一跳R5-config-router-ipv6-router-eigrp-90→R5-config-rtr-redistribute-connectedYAML-router-bgp-200-bgp-router-id-6-6-6-6-bgp-log-neighbor-changes-neighbor-5656-1-remote-as-100-address-family-ipv4-no-neighbor-5656-1-activate-exit-address-family-address-family-ipv6-neighbor-5656-1-activate-exit-address-family-R6-show-ip-bgp-ipv6-unicast-summary-R6-show-ip-bgp-ipv6-unicast-5、OSPFv3-（1）需要32位的RID-（2）建立邻居使用链路本地地址→全局单播地址被作为一个叶子节点挂在路由器上-（3）支持多拓扑-（4）LSA的变化→将拓扑与路由分离-①3、4、5、7LSA内容没有发生变化只是名称变了-②1、2类LSA发生变化→只携带拓扑信息不携带网络前缀-③新增8、9类LSA用于携带网络前缀-1类LSA：Router-Link-States→描述的是自己伪节点的拓扑信息-拓扑类型：transit、p2p、virtual-link-2类LSA：R3-show-ipv6-ospf-database-network→描述的是链路上的拓扑信息，由DR产生-8类LSA：Link-Type-8-Link-States-描述的是本地链路的所有前缀信息，每一台设备都会产生-9类LSA：Intra-Area-Prefix-Link-States→描述的是区域内各链路的所有前缀信息，如果是广播多路访问环境由DR产生，依靠1-x2F-2类LSA，如果是P2P-每一台路由器都会产生-由以上LSA构建区域内的SPF树"><a href="#①使用UDP端口521②与IPv4不兼容③配置YAML-R1-config-ipv6-router-rip-CCIE-R1-config-rtr-int-e0-0-R1-config-if-ipv6-rip-CCIE-enable-R1-config-if-ipv6-rip-CCIE-default-information-originate-④重分布的种子度量值默认为1-3、EIGRP①使用链路本地地址建立邻居②进程可以关闭③自动汇总默认关闭④接口下通告⑤需要配置32位的RID-⑥配置：YAML-R5-config-ipv6-router-eigrp-90-R5-config-rtr-eigrp-router-id-5-5-5-5-R5-config-rtr-int-e0-0-R5-config-if-ipv6-eigrp-90-R2-config-rtr-redistribute-rip-CCIE-metric-10000-1-1-1-1-4、BGP-4-→TLV做扩展→ISIS使用TLV扩展支持IPv6-①使用AFI（IPv6）和SAFI（unicast）的参数能力支持IPv6，路由的更新使用MP-REACH-NLRI（14），撤销路由使用MP-UNREACH-NLRI（15），路由器没有32位的IPv4地址需要手工指定RID-②基于IPV4邻居传输IPv6路由→使用路由图修改下一跳（全局单播路由）YAML-route-map-hop-permit-10-set-ipv6-next-hop-2020-12-1→修改下一跳-router-bgp-100-bgp-router-id-1-1-1-1-bgp-log-neighbor-changes-neighbor-2-2-2-2-remote-as-100-neighbor-2-2-2-2-update-source-Loopback1-neighbor-5-5-5-5-remote-as-100-neighbor-5-5-5-5-update-source-Loopback1-address-family-ipv4-network-1-1-1-1-mask-255-255-255-255-neighbor-2-2-2-2-activate-neighbor-5-5-5-5-activate-exit-address-family-address-family-ipv6-network-11-11-128-neighbor-2-2-2-2-activate-neighbor-2-2-2-2-route-map-hop-out-neighbor-5-5-5-5-activate-neighbor-5-5-5-5-route-map-hop-out-exit-address-family-③基于IPv6传递IPv6路由→注意下一跳R5-config-router-ipv6-router-eigrp-90→R5-config-rtr-redistribute-connectedYAML-router-bgp-200-bgp-router-id-6-6-6-6-bgp-log-neighbor-changes-neighbor-5656-1-remote-as-100-address-family-ipv4-no-neighbor-5656-1-activate-exit-address-family-address-family-ipv6-neighbor-5656-1-activate-exit-address-family-R6-show-ip-bgp-ipv6-unicast-summary-R6-show-ip-bgp-ipv6-unicast-5、OSPFv3-（1）需要32位的RID-（2）建立邻居使用链路本地地址→全局单播地址被作为一个叶子节点挂在路由器上-（3）支持多拓扑-（4）LSA的变化→将拓扑与路由分离-①3、4、5、7LSA内容没有发生变化只是名称变了-②1、2类LSA发生变化→只携带拓扑信息不携带网络前缀-③新增8、9类LSA用于携带网络前缀-1类LSA：Router-Link-States→描述的是自己伪节点的拓扑信息-拓扑类型：transit、p2p、virtual-link-2类LSA：R3-show-ipv6-ospf-database-network→描述的是链路上的拓扑信息，由DR产生-8类LSA：Link-Type-8-Link-States-描述的是本地链路的所有前缀信息，每一台设备都会产生-9类LSA：Intra-Area-Prefix-Link-States→描述的是区域内各链路的所有前缀信息，如果是广播多路访问环境由DR产生，依靠1-x2F-2类LSA，如果是P2P-每一台路由器都会产生-由以上LSA构建区域内的SPF树" class="headerlink" title="①使用UDP端口521②与IPv4不兼容③配置YAML R1(config)#ipv6 router rip CCIE R1(config-rtr)#int e0/0 R1(config-if)#ipv6 rip CCIE enable  R1(config-if)#ipv6 rip CCIE default-information originate   #### ④重分布的种子度量值默认为1### 3、EIGRP①使用链路本地地址建立邻居②进程可以关闭③自动汇总默认关闭④接口下通告⑤需要配置32位的RID#### ⑥配置：YAML R5(config)#ipv6 router eigrp 90 R5(config-rtr)#eigrp router-id 5.5.5.5 R5(config-rtr)#int e0/0 R5(config-if)#ipv6 eigrp 90 R2(config-rtr)#redistribute rip CCIE metric 10000 1 1 1 1 ### 4、BGP:4+  →TLV做扩展→ISIS使用TLV扩展支持IPv6#### ①使用AFI（IPv6）和SAFI（unicast）的参数能力支持IPv6，路由的更新使用MP_REACH_NLRI（14），撤销路由使用MP_UNREACH_NLRI（15），路由器没有32位的IPv4地址需要手工指定RID#### ②基于IPV4邻居传输IPv6路由→使用路由图修改下一跳（全局单播路由）YAML route-map hop permit 10  set ipv6 next-hop 2020:12::1→修改下一跳 router bgp 100  bgp router-id 1.1.1.1  bgp log-neighbor-changes  neighbor 2.2.2.2 remote-as 100  neighbor 2.2.2.2 update-source Loopback1  neighbor 5.5.5.5 remote-as 100  neighbor 5.5.5.5 update-source Loopback1  !  address-family ipv4   network 1.1.1.1 mask 255.255.255.255   neighbor 2.2.2.2 activate   neighbor 5.5.5.5 activate  exit-address-family  !  address-family ipv6   network 11::11/128   neighbor 2.2.2.2 activate   neighbor 2.2.2.2 route-map hop out   neighbor 5.5.5.5 activate   neighbor 5.5.5.5 route-map hop out  exit-address-family #### ③基于IPv6传递IPv6路由→注意下一跳R5(config-router)#ipv6 router eigrp 90→R5(config-rtr)#redistribute connectedYAML router bgp 200  bgp router-id 6.6.6.6  bgp log-neighbor-changes  neighbor 5656::1 remote-as 100  !  address-family ipv4   no neighbor 5656::1 activate  exit-address-family  !  address-family ipv6   neighbor 5656::1 activate  exit-address-family R6#show ip bgp ipv6 unicast summary  R6#show ip bgp ipv6 unicast ### 5、OSPFv3#### （1）需要32位的RID#### （2）建立邻居使用链路本地地址→全局单播地址被作为一个叶子节点挂在路由器上#### （3）支持多拓扑#### （4）LSA的变化→将拓扑与路由分离###### ①3、4、5、7LSA内容没有发生变化只是名称变了###### ②1、2类LSA发生变化→只携带拓扑信息不携带网络前缀###### ③新增8、9类LSA用于携带网络前缀#### 1类LSA：Router Link States→描述的是自己伪节点的拓扑信息#### 拓扑类型：transit、p2p、virtual-link#### 2类LSA：R3#show ipv6 ospf database network→描述的是链路上的拓扑信息，由DR产生#### 8类LSA：Link (Type-8) Link States 描述的是本地链路的所有前缀信息，每一台设备都会产生#### 9类LSA：Intra Area Prefix Link States→描述的是区域内各链路的所有前缀信息，如果是广播多路访问环境由DR产生，依靠1/2类LSA，如果是P2P,每一台路由器都会产生##由以上LSA构建区域内的SPF树"></a>①使用UDP端口521<br>②与IPv4不兼容<br>③配置<br><code>YAML R1(config)#ipv6 router rip CCIE R1(config-rtr)#int e0/0 R1(config-if)#ipv6 rip CCIE enable  R1(config-if)#ipv6 rip CCIE default-information originate   </code><br>#### ④重分布的种子度量值默认为1<br>### 3、EIGRP<br>①使用链路本地地址建立邻居<br>②进程可以关闭<br>③自动汇总默认关闭<br>④接口下通告<br>⑤需要配置32位的RID<br>#### ⑥配置：<br><code>YAML R5(config)#ipv6 router eigrp 90 R5(config-rtr)#eigrp router-id 5.5.5.5 R5(config-rtr)#int e0/0 R5(config-if)#ipv6 eigrp 90 R2(config-rtr)#redistribute rip CCIE metric 10000 1 1 1 1 </code><br>### 4、BGP:4+  →TLV做扩展→ISIS使用TLV扩展支持IPv6<br>#### ①使用AFI（IPv6）和SAFI（unicast）的参数能力支持IPv6，路由的更新使用MP_REACH_NLRI（14），撤销路由使用MP_UNREACH_NLRI（15），路由器没有32位的IPv4地址需要手工指定RID<br>#### ②基于IPV4邻居传输IPv6路由→使用路由图修改下一跳（全局单播路由）<br><code>YAML route-map hop permit 10  set ipv6 next-hop 2020:12::1→修改下一跳 router bgp 100  bgp router-id 1.1.1.1  bgp log-neighbor-changes  neighbor 2.2.2.2 remote-as 100  neighbor 2.2.2.2 update-source Loopback1  neighbor 5.5.5.5 remote-as 100  neighbor 5.5.5.5 update-source Loopback1  !  address-family ipv4   network 1.1.1.1 mask 255.255.255.255   neighbor 2.2.2.2 activate   neighbor 5.5.5.5 activate  exit-address-family  !  address-family ipv6   network 11::11/128   neighbor 2.2.2.2 activate   neighbor 2.2.2.2 route-map hop out   neighbor 5.5.5.5 activate   neighbor 5.5.5.5 route-map hop out  exit-address-family </code><br>#### ③基于IPv6传递IPv6路由→<br>注意下一跳R5(config-router)#ipv6 router eigrp 90→R5(config-rtr)#redistribute connected<br><code>YAML router bgp 200  bgp router-id 6.6.6.6  bgp log-neighbor-changes  neighbor 5656::1 remote-as 100  !  address-family ipv4   no neighbor 5656::1 activate  exit-address-family  !  address-family ipv6   neighbor 5656::1 activate  exit-address-family R6#show ip bgp ipv6 unicast summary  R6#show ip bgp ipv6 unicast </code><br>### 5、OSPFv3<br>#### （1）需要32位的RID<br>#### （2）建立邻居使用链路本地地址→全局单播地址被作为一个叶子节点挂在路由器上<br>#### （3）支持多拓扑<br>#### （4）LSA的变化→将拓扑与路由分离<br>###### ①3、4、5、7LSA内容没有发生变化只是名称变了<br>###### ②1、2类LSA发生变化→只携带拓扑信息不携带网络前缀<br>###### ③新增8、9类LSA用于携带网络前缀<br>#### 1类LSA：<br>Router Link States→描述的是自己伪节点的拓扑信息<br>#### 拓扑类型：<br>transit、p2p、virtual-link<br>#### 2类LSA：<br>R3#show ipv6 ospf database network→描述的是链路上的拓扑信息，由DR产生<br>#### 8类LSA：<br>Link (Type-8) Link States 描述的是本地链路的所有前缀信息，每一台设备都会产生<br>#### 9类LSA：<br>Intra Area Prefix Link States→描述的是区域内各链路的所有前缀信息，如果是广播多路访问环境由DR产生，依靠1/2类LSA，如果是P2P,每一台路由器都会产生<br>##由以上LSA构建区域内的SPF树</h2><h4 id="3类LSA："><a href="#3类LSA：" class="headerlink" title="3类LSA："></a>3类LSA：</h4><p>Inter Area Prefix Link States</p>
+<h4 id="4类LSA："><a href="#4类LSA：" class="headerlink" title="4类LSA："></a>4类LSA：</h4><p>Intra Area Prefix Link States</p>
+<h4 id="5类LSA："><a href="#5类LSA：" class="headerlink" title="5类LSA："></a>5类LSA：</h4><p>Type-5 AS External Link States</p>
+<h4 id="（5）配置："><a href="#（5）配置：" class="headerlink" title="（5）配置："></a>（5）配置：</h4><pre class=" language-YAML"><code class="language-YAML">router ospfv3 110
+ router-id 6.6.6.6
+ !
+ address-family ipv6 unicast
+  redistribute connected
+ exit-address-family
+interface Serial1/0
+ ipv6 address 2021:56::2/64
+ ipv6 ospf 110 area 2
+</code></pre>
+<h4 id="（6）影响OSPF邻居建立的因数"><a href="#（6）影响OSPF邻居建立的因数" class="headerlink" title="（6）影响OSPF邻居建立的因数"></a>（6）影响OSPF邻居建立的因数</h4><h5 id="①网络类型："><a href="#①网络类型：" class="headerlink" title="①网络类型："></a>①网络类型：</h5><p>MA、P2P（10S 40S）、NBMA、P2MP（30S、120S）NBMA只能跟NBMA建立（思科上MA、NBMA就能建立→改时间）</p>
+<h5 id="②RID："><a href="#②RID：" class="headerlink" title="②RID："></a>②RID：</h5><p>同区域直连不能一样，同区域非直连能够正常建立邻居，但是1LSA出现震荡，不同区域RID能够正常建立与计算路由，5类LSA震荡</p>
+<h5 id="③HELLO时间："><a href="#③HELLO时间：" class="headerlink" title="③HELLO时间："></a>③HELLO时间：</h5><p>10S 40S</p>
+<h5 id="④接口ID："><a href="#④接口ID：" class="headerlink" title="④接口ID："></a>④接口ID：</h5><p>区域号，邻居的区域号必须一致</p>
+<h5 id="⑤特殊区域："><a href="#⑤特殊区域：" class="headerlink" title="⑤特殊区域："></a>⑤特殊区域：</h5><p>stub不能与普通区域、NSSA、骨干区域不能是特殊区域</p>
+<h5 id="⑥认证："><a href="#⑥认证：" class="headerlink" title="⑥认证："></a>⑥认证：</h5><p>无认证不能与有认证、明文认证不能与密文认证、认证密码必须一致</p>
+<h5 id="⑦MTU："><a href="#⑦MTU：" class="headerlink" title="⑦MTU："></a>⑦MTU：</h5><p>1500→MTU不一致会卡在exstart→（主1500 从1400，  主1400  从1500）</p>
+<h5 id="⑧掩码："><a href="#⑧掩码：" class="headerlink" title="⑧掩码："></a>⑧掩码：</h5><p>广播多路访问→DR→保持一致</p>
+<h5 id="⑨被动接口："><a href="#⑨被动接口：" class="headerlink" title="⑨被动接口："></a>⑨被动接口：</h5><p>只收不发</p>
+<h1 id="【IPv6的过渡技术】"><a href="#【IPv6的过渡技术】" class="headerlink" title="【IPv6的过渡技术】"></a>【IPv6的过渡技术】</h1><h3 id="1、手工配置隧道"><a href="#1、手工配置隧道" class="headerlink" title="1、手工配置隧道"></a>1、手工配置隧道</h3><p>GRE隧道:IPv4  GRE  IPv6</p>
+<pre class=" language-YAML"><code class="language-YAML">interface Tunnel24
+ ipv6 address 2021:2424::2/64
+ ipv6 ospf 110 area 0
+ tunnel source Loopback1
+ tunnel destination 2.2.2.2
+IPv6 in IPv4
+R2(config-if)#tunnel mode ipv6ip →直接将IPv6封装在IPv4中
+</code></pre>
+<h3 id="2、自动隧道"><a href="#2、自动隧道" class="headerlink" title="2、自动隧道"></a>2、自动隧道</h3><pre class=" language-YAML"><code class="language-YAML">6to4隧道：使用固定的前缀：2002::/16
+interface Tunnel24
+ ipv6 address 2021:2424::/64
+ ipv6 address 2021:2424::1/64
+ tunnel source Loopback1
+ tunnel mode ipv6ip 6to4
+ipv6 route 2002::/16 Tunnel24
+</code></pre>
+<h3 id="3、ISATAP"><a href="#3、ISATAP" class="headerlink" title="3、ISATAP"></a>3、ISATAP</h3><h4 id="工作原理："><a href="#工作原理：" class="headerlink" title="工作原理："></a>工作原理：</h4><p>隧道建立后，主机通过链路本地地址向FE80::5efe:4.4.4.4发送RS消息请求IPv6前缀，isatap服务器通过RA回应隧道前缀，主机通过前缀+::5efe+本地IPv4地址生成IPv6地址，将isatap服务器作为网关</p>
+<pre class=" language-YAML"><code class="language-YAML">interface Tunnel1
+ ipv6 address 2021:505::1/64
+ tunnel source Loopback1
+ tunnel mode ipv6ip isatap
+</code></pre>
+<h4 id="Windows-7-x2F-10配置"><a href="#Windows-7-x2F-10配置" class="headerlink" title="Windows 7/10配置"></a>Windows 7/10配置</h4><pre class=" language-YAML"><code class="language-YAML">netsh interface isatap set state default
+netsh interface isatap set state enable
+netsh interface isatap set router 4.4.4.4
+</code></pre>
+<h2 id="注意：ISTAP隧道无法跨越NAT"><a href="#注意：ISTAP隧道无法跨越NAT" class="headerlink" title="注意：ISTAP隧道无法跨越NAT"></a>注意：ISTAP隧道无法跨越NAT</h2><h3 id="4、6PE"><a href="#4、6PE" class="headerlink" title="4、6PE"></a>4、6PE</h3><h3 id="实现通过标签转发IPv6路由"><a href="#实现通过标签转发IPv6路由" class="headerlink" title="实现通过标签转发IPv6路由"></a>实现通过标签转发IPv6路由</h3><h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h4><p>::FFFF:2.2.2.2 下一跳不可达→通过标签解决</p>
+<pre class=" language-YAML"><code class="language-YAML">router bgp 100
+ bgp log-neighbor-changes
+ neighbor 4.4.4.4 remote-as 100
+ neighbor 4.4.4.4 update-source Loopback1
+ !
+ address-family ipv4
+  neighbor 4.4.4.4 activate
+ exit-address-family
+ !
+ address-family ipv6
+  redistribute ospf 110 match internal external 1 external 2
+  neighbor 4.4.4.4 activate
+  neighbor 4.4.4.4 send-label→使用标签解决下一跳不可达问题
+ exit-address-family
+</code></pre>
+<h1 id="【IPv6扩展】"><a href="#【IPv6扩展】" class="headerlink" title="【IPv6扩展】"></a>【IPv6扩展】</h1><p>FHRP：第一跳冗余协</p>
+<pre class=" language-YAML"><code class="language-YAML">interface Ethernet0/1
+ standby version 2
+ standby 1 ipv6 2020:ABCD:1234::254/64
+ standby 1 priority 110
+ standby 1 preempt
+ ipv6 address 2020:ABCD:1234::100/64
+</code></pre>
+<h4 id="注意：路由器等级不会影响FHRP的主备"><a href="#注意：路由器等级不会影响FHRP的主备" class="headerlink" title="注意：路由器等级不会影响FHRP的主备"></a>注意：路由器等级不会影响FHRP的主备</h4><h1 id="HSRP和GLBP有什么差别→有什么功能"><a href="#HSRP和GLBP有什么差别→有什么功能" class="headerlink" title="HSRP和GLBP有什么差别→有什么功能"></a>HSRP和GLBP有什么差别→有什么功能</h1><p>ACL：IPv6只能命名模式和扩展模式</p>
+<pre class=" language-YAML"><code class="language-YAML">ipv6 access-list CCIE
+ permit ipv6 host 1::1 host 2::2
+ deny tcp host 11::11 host 22::22 eq bgp
+ deny udp any 2021::/64
+ permit ipv6 any any
+interface Ethernet0/2
+ ipv6 traffic-filter CCIE in
+</code></pre>
+<pre class=" language-YAML"><code class="language-YAML">R1#show ipv6 access-list 
+</code></pre>
 
                 
             </div>
@@ -502,7 +556,7 @@ R3(config-router)#distribute-list 1 out rip
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://frjdhc.github.io/2023/01/08/igp/">https://frjdhc.github.io/2023/01/08/igp/</a>
+                    <a href="https://frjdhc.github.io/2023/02/25/ipv6/">https://frjdhc.github.io/2023/02/25/ipv6/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -544,16 +598,8 @@ R3(config-router)#distribute-list 1 out rip
                                     <span class="chip bg-color">网络工程</span>
                                 </a>
                             
-                                <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
-                                    <span class="chip bg-color">路由协议</span>
-                                </a>
-                            
-                                <a href="/tags/%E6%80%9D%E7%A7%91/">
-                                    <span class="chip bg-color">思科</span>
-                                </a>
-                            
-                                <a href="/tags/Cisco/">
-                                    <span class="chip bg-color">Cisco</span>
+                                <a href="/tags/IPv6/">
+                                    <span class="chip bg-color">IPv6</span>
                                 </a>
                             
                         </div>
@@ -899,17 +945,18 @@ R3(config-router)#distribute-list 1 out rip
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2023/01/08/bgp-ccie/">
+                <a href="/2023/02/25/ipv6/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="BGP-CCIE">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="IPv6">
                         
-                        <span class="card-title">BGP-CCIE</span>
+                        <span class="card-title">IPv6</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -919,9 +966,9 @@ R3(config-router)#distribute-list 1 out rip
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-01-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -934,6 +981,7 @@ R3(config-router)#distribute-list 1 out rip
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -941,20 +989,8 @@ R3(config-router)#distribute-list 1 out rip
                         <span class="chip bg-color">网络工程</span>
                     </a>
                     
-                    <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
-                        <span class="chip bg-color">路由协议</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%80%9D%E7%A7%91/">
-                        <span class="chip bg-color">思科</span>
-                    </a>
-                    
-                    <a href="/tags/Cisco/">
-                        <span class="chip bg-color">Cisco</span>
-                    </a>
-                    
-                    <a href="/tags/CCIE/">
-                        <span class="chip bg-color">CCIE</span>
+                    <a href="/tags/IPv6/">
+                        <span class="chip bg-color">IPv6</span>
                     </a>
                     
                 </div>
@@ -968,13 +1004,13 @@ R3(config-router)#distribute-list 1 out rip
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/01/08/bgp/">
+                <a href="/2023/02/25/dmvpn/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="BGP">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="DMVPN">
                         
-                        <span class="card-title">BGP</span>
+                        <span class="card-title">DMVPN</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -985,7 +1021,7 @@ R3(config-router)#distribute-list 1 out rip
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-25
                             </span>
                         <span class="publish-author">
                             
@@ -1006,16 +1042,16 @@ R3(config-router)#distribute-list 1 out rip
                         <span class="chip bg-color">网络工程</span>
                     </a>
                     
-                    <a href="/tags/%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">
-                        <span class="chip bg-color">路由协议</span>
-                    </a>
-                    
                     <a href="/tags/%E6%80%9D%E7%A7%91/">
                         <span class="chip bg-color">思科</span>
                     </a>
                     
                     <a href="/tags/Cisco/">
                         <span class="chip bg-color">Cisco</span>
+                    </a>
+                    
+                    <a href="/tags/vpn/">
+                        <span class="chip bg-color">vpn</span>
                     </a>
                     
                 </div>

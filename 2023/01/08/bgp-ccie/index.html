@@ -571,6 +571,7 @@ R3(config-router)#neighbor 103.103.103.2 dmzlink-bw
 <p>口诀：PLLAOMEN→漂亮老男人</p>
 <h2 id="七、BGP的路由过滤"><a href="#七、BGP的路由过滤" class="headerlink" title="七、BGP的路由过滤"></a>七、BGP的路由过滤</h2><h4 id="（1）使用ACL→匹配工具→分发列表→distributi-list"><a href="#（1）使用ACL→匹配工具→分发列表→distributi-list" class="headerlink" title="（1）使用ACL→匹配工具→分发列表→distributi-list"></a>（1）使用ACL→匹配工具→分发列表→distributi-list</h4><pre class=" language-YAML"><code class="language-YAML">R2(config)#access-list 1 permit 172.16.1.0 0.0.0.255
 R2(config-router)#neighbor 1.1.1.1 distribute-list 1 in
+匹配奇数：access-list 10 permit 10.1.1.0 0.0.254.255
 </code></pre>
 <h4 id="（2）前缀列表→ip-prefix-list→可以特定匹配某一个子网掩码长度的网段"><a href="#（2）前缀列表→ip-prefix-list→可以特定匹配某一个子网掩码长度的网段" class="headerlink" title="（2）前缀列表→ip prefix-list→可以特定匹配某一个子网掩码长度的网段"></a>（2）前缀列表→ip prefix-list→可以特定匹配某一个子网掩码长度的网段</h4><h6 id="①格式："><a href="#①格式：" class="headerlink" title="①格式："></a>①格式：</h6><pre class=" language-YAML"><code class="language-YAML">ip prefix-list 名称 permit/deny 网络号/掩码 
 eq1:ip prefix-list zwh permit 192.168.1.0/24
@@ -1473,7 +1474,7 @@ R7(config-router)#neighbor 8.8.8.8 fall-over bfd
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">146.3k</span>
+                        class="white-color">152.9k</span>
             
             
             
